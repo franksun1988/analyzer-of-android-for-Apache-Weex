@@ -2,9 +2,10 @@ package com.taobao.weex.analyzer.core.inspector.view;
 
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
 
 import org.apache.weex.dom.CSSShorthand;
 import org.apache.weex.ui.component.WXComponent;

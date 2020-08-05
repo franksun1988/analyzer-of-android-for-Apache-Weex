@@ -1,7 +1,8 @@
 package com.taobao.weex.analyzer.core.cpu;
 
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
+
+import androidx.annotation.NonNull;
 
 import com.taobao.weex.analyzer.core.TaskEntity;
 

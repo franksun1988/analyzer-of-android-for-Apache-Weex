@@ -3,10 +3,11 @@ package com.taobao.weex.analyzer.core.weex;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.NonNull;
 import android.view.Choreographer;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 
 import com.taobao.weex.analyzer.Config;
 import com.taobao.weex.analyzer.R;

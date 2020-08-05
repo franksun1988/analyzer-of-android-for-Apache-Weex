@@ -1,6 +1,7 @@
 package com.taobao.weex.analyzer.core.logcat;
 
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 
 import java.util.LinkedList;
 import java.util.List;

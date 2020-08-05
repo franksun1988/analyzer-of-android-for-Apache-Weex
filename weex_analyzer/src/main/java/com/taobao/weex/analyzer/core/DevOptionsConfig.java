@@ -2,8 +2,9 @@ package com.taobao.weex.analyzer.core;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.annotation.NonNull;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import com.taobao.weex.analyzer.view.overlay.IResizableView;
 

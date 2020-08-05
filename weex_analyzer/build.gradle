@@ -58,10 +58,13 @@ android {
 //apply from: 'maven.gradle'
 
 dependencies {
-    compileOnly 'org.apache.weex:sdk:0.28.0'
-    compileOnly 'com.android.support:recyclerview-v7:26.1.0'
+//    compileOnly 'org.apache.weex:sdk:0.28.0'
+    compileOnly fileTree(include: ['*.aar', '*.jar'], dir: 'libs')
+//    compileOnly 'com.android.support:recyclerview-v7:26.1.0'
+    compileOnly 'androidx.recyclerview:recyclerview:1.1.0'
     compileOnly 'com.alibaba:fastjson:1.1.46.android'
-    compileOnly 'com.android.support:support-v4:26.1.0'
+//    compileOnly 'com.android.support:support-v4:26.1.0'
+    compileOnly 'androidx.appcompat:appcompat:1.0.2'
 
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:1.9.5'

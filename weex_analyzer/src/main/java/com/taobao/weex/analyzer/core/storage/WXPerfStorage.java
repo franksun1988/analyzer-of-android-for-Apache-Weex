@@ -1,8 +1,9 @@
 package com.taobao.weex.analyzer.core.storage;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.taobao.weex.analyzer.core.weex.Performance;
 import com.taobao.weex.analyzer.core.weex.PerformanceMonitor;

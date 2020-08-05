@@ -4,8 +4,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.support.v4.view.ViewCompat;
 import android.view.animation.AccelerateInterpolator;
+
+import androidx.core.view.ViewCompat;
 
 import java.util.Iterator;
 

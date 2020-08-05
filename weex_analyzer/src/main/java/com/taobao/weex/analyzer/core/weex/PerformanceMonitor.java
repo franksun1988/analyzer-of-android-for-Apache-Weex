@@ -1,7 +1,8 @@
 package com.taobao.weex.analyzer.core.weex;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import org.apache.weex.WXSDKInstance;
 import org.apache.weex.common.WXPerformance;

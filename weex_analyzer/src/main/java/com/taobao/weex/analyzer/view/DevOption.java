@@ -1,6 +1,7 @@
 package com.taobao.weex.analyzer.view;
 
-import android.support.annotation.DrawableRes;
+
+import androidx.annotation.DrawableRes;
 
 /**
  * Description:

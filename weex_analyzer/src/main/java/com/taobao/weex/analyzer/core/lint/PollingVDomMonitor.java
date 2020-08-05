@@ -1,8 +1,9 @@
 package com.taobao.weex.analyzer.core.lint;
 
 import android.graphics.Color;
-import android.support.annotation.NonNull;
 import android.view.View;
+
+import androidx.annotation.NonNull;
 
 import com.taobao.weex.analyzer.core.AbstractLoopTask;
 import com.taobao.weex.analyzer.core.Constants;

@@ -2,8 +2,9 @@ package com.taobao.weex.analyzer.core.fps;
 
 import android.annotation.TargetApi;
 import android.os.Build;
-import android.support.annotation.NonNull;
 import android.view.Choreographer;
+
+import androidx.annotation.NonNull;
 
 /**
  * Description:

@@ -9,7 +9,8 @@
 
 package com.taobao.weex.analyzer.utils;
 
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 
 import org.apache.weex.utils.WXLogUtils;
 

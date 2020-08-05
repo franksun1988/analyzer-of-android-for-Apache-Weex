@@ -1,7 +1,8 @@
 package com.taobao.weex.analyzer.core.reporter.ws;
 
 
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 
 import com.taobao.weex.analyzer.utils.ReflectionUtil;
 

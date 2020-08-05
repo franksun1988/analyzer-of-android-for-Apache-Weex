@@ -1,6 +1,7 @@
 package com.taobao.weex.analyzer.core.debug;
 
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 
 import org.apache.weex.WXEnvironment;
 import org.apache.weex.WXSDKEngine;

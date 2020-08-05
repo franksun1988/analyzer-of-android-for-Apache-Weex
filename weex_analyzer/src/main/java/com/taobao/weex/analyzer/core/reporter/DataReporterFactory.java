@@ -1,7 +1,8 @@
 package com.taobao.weex.analyzer.core.reporter;
 
-import android.support.annotation.NonNull;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import com.taobao.weex.analyzer.core.Constants;
 import com.taobao.weex.analyzer.core.reporter.ws.IWebSocketBridge;

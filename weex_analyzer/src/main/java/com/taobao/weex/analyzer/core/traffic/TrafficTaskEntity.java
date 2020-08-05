@@ -1,7 +1,8 @@
 package com.taobao.weex.analyzer.core.traffic;
 
 import android.os.Process;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 
 import com.taobao.weex.analyzer.core.TaskEntity;
 

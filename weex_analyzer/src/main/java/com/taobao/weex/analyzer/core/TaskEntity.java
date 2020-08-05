@@ -1,6 +1,7 @@
 package com.taobao.weex.analyzer.core;
 
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 
 /**
  * Description:

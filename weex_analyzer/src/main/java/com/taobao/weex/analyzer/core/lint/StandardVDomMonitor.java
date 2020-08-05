@@ -3,9 +3,10 @@ package com.taobao.weex.analyzer.core.lint;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewTreeObserver;
+
+import androidx.annotation.NonNull;
 
 import com.taobao.weex.analyzer.core.HandlerThreadWrapper;
 import com.taobao.weex.analyzer.pojo.HealthReport;

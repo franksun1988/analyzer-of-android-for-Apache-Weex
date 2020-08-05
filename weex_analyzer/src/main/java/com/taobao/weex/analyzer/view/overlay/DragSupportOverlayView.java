@@ -1,11 +1,12 @@
 package com.taobao.weex.analyzer.view.overlay;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.WindowManager;
+
+import androidx.annotation.NonNull;
 
 /**
  * Description:

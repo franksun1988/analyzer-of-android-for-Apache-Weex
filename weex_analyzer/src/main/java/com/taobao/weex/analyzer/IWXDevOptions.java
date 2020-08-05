@@ -1,9 +1,10 @@
 package com.taobao.weex.analyzer;
 
-import android.support.annotation.Nullable;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+
+import androidx.annotation.Nullable;
 
 import org.apache.weex.WXSDKInstance;
 

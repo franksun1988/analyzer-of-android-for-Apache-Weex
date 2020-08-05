@@ -1,7 +1,8 @@
 package com.taobao.weex.analyzer.pojo;
 
-import android.support.annotation.NonNull;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.taobao.weex.analyzer.core.Constants;

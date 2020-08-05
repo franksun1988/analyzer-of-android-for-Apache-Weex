@@ -1,10 +1,11 @@
 package com.taobao.weex.analyzer.view.overlay;
 
 import android.content.Context;
-import android.support.annotation.LayoutRes;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.FrameLayout;
+
+import androidx.annotation.LayoutRes;
 
 /**
  * Description:

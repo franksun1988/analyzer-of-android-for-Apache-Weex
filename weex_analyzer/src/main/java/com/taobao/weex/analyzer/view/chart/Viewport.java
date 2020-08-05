@@ -3,13 +3,14 @@ package com.taobao.weex.analyzer.view.chart;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.widget.EdgeEffectCompat;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.widget.OverScroller;
+
+import androidx.core.view.ViewCompat;
+import androidx.core.widget.EdgeEffectCompat;
 
 import java.util.ArrayList;
 import java.util.Iterator;

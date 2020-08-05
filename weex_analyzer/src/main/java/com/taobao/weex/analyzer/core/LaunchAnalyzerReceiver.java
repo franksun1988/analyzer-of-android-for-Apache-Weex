@@ -3,9 +3,10 @@ package com.taobao.weex.analyzer.core;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import com.taobao.weex.analyzer.WeexDevOptions;
 import com.taobao.weex.analyzer.core.debug.DebugTool;

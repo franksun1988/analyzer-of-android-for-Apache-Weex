@@ -1,6 +1,7 @@
 package com.taobao.weex.analyzer.core.memory;
 
-import android.support.annotation.WorkerThread;
+
+import androidx.annotation.WorkerThread;
 
 /**
  * Description:

@@ -18,7 +18,7 @@ import com.taobao.weex.analyzer.IPermissionHandler;
  * Time: 上午11:21<br/>
  */
 
-public class ShakeDetector implements SensorEventListener,IPermissionHandler{
+public class ShakeDetector implements SensorEventListener, IPermissionHandler {
 
     private static final int MAX_SAMPLES = 25;
     private static final int MIN_TIME_BETWEEN_SAMPLES_MS = 20;
@@ -40,7 +40,7 @@ public class ShakeDetector implements SensorEventListener,IPermissionHandler{
     private Config mConfig;
 
 
-    public ShakeDetector(@Nullable ShakeListener listener,@Nullable Config config) {
+    public ShakeDetector(@Nullable ShakeListener listener, @Nullable Config config) {
         mShakeListener = listener;
         this.mConfig = config;
     }

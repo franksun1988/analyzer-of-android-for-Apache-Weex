@@ -18,7 +18,7 @@ import java.util.Map;
 
 /**
  * Description:
- *
+ * <p>
  * Created by rowandjj(chuyi)<br/>
  */
 
@@ -30,7 +30,7 @@ public class WXInspectorItemView extends AbstractBizItemView<ViewInspectorManage
     public static final String TYPE_NATIVE_LAYOUT = "native_layout";
 
     @Retention(RetentionPolicy.SOURCE)
-    @StringDef({TYPE_VIRTUAL_DOM,TYPE_NATIVE_LAYOUT})
+    @StringDef({TYPE_VIRTUAL_DOM, TYPE_NATIVE_LAYOUT})
     public @interface Type {
     }
 
@@ -66,13 +66,13 @@ public class WXInspectorItemView extends AbstractBizItemView<ViewInspectorManage
 
     @Override
     public void inflateData(ViewInspectorManager.InspectorInfo data) {
-        if(TYPE_VIRTUAL_DOM.equals(mType)) {
+        if (TYPE_VIRTUAL_DOM.equals(mType)) {
             mBoxView.setNative(false);
-            applyInspectorInfoToBoxView(data.virtualViewInfo,mBoxView);
+            applyInspectorInfoToBoxView(data.virtualViewInfo, mBoxView);
             StringBuilder builder = new StringBuilder();
 
-            for(Map.Entry<String,String> entry : data.virtualViewInfo.entrySet()) {
-                if(!TextUtils.isEmpty(entry.getValue()) && !"0".equals(entry.getValue())) {
+            for (Map.Entry<String, String> entry : data.virtualViewInfo.entrySet()) {
+                if (!TextUtils.isEmpty(entry.getValue()) && !"0".equals(entry.getValue())) {
                     builder.append(entry.getKey())
                             .append(" : ")
                             .append(entry.getValue())
@@ -80,12 +80,12 @@ public class WXInspectorItemView extends AbstractBizItemView<ViewInspectorManage
                 }
             }
             mContent.setText(builder.toString());
-        } else if(TYPE_NATIVE_LAYOUT.equals(mType)) {
+        } else if (TYPE_NATIVE_LAYOUT.equals(mType)) {
             mBoxView.setNative(true);
-            applyInspectorInfoToBoxView(data.nativeViewInfo,mBoxView);
+            applyInspectorInfoToBoxView(data.nativeViewInfo, mBoxView);
             StringBuilder builder = new StringBuilder();
-            for(Map.Entry<String,String> entry : data.nativeViewInfo.entrySet()) {
-                if(!TextUtils.isEmpty(entry.getValue()) && !"0".equals(entry.getValue())) {
+            for (Map.Entry<String, String> entry : data.nativeViewInfo.entrySet()) {
+                if (!TextUtils.isEmpty(entry.getValue()) && !"0".equals(entry.getValue())) {
                     builder.append(entry.getKey())
                             .append(" : ")
                             .append(entry.getValue())
@@ -99,7 +99,7 @@ public class WXInspectorItemView extends AbstractBizItemView<ViewInspectorManage
 
     @VisibleForTesting
     static String getPureValue(@Nullable String rawValue) {
-        if(rawValue == null || "".equals(rawValue.trim())) {
+        if (rawValue == null || "".equals(rawValue.trim())) {
             return "0";
         }
         // 四舍五入 去掉小数点
@@ -107,17 +107,17 @@ public class WXInspectorItemView extends AbstractBizItemView<ViewInspectorManage
         String digits = rawValue.replaceAll("[^0-9.-]", "");
         int dotIndex = digits.indexOf('.');
         int len = digits.length();
-        if(dotIndex >= 0) {
-            if (len-1 > dotIndex) {
+        if (dotIndex >= 0) {
+            if (len - 1 > dotIndex) {
                 try {
                     double d = Double.valueOf(digits);
                     d = Math.round(d);
-                    return String.valueOf((int)d);
-                }catch (Exception e) {
-                    return digits.substring(0,dotIndex);
+                    return String.valueOf((int) d);
+                } catch (Exception e) {
+                    return digits.substring(0, dotIndex);
                 }
             } else {
-                return digits.substring(0,dotIndex);
+                return digits.substring(0, dotIndex);
             }
         } else {
             return digits;
@@ -125,8 +125,8 @@ public class WXInspectorItemView extends AbstractBizItemView<ViewInspectorManage
     }
 
 
-    private void applyInspectorInfoToBoxView(@NonNull Map<String,String> inspectorInfo,@NonNull CSSBoxModelView boxView) {
-        if(!TextUtils.isEmpty(inspectorInfo.get(ViewPropertiesSupplier.BoxModelConstants.MARGIN))) {
+    private void applyInspectorInfoToBoxView(@NonNull Map<String, String> inspectorInfo, @NonNull CSSBoxModelView boxView) {
+        if (!TextUtils.isEmpty(inspectorInfo.get(ViewPropertiesSupplier.BoxModelConstants.MARGIN))) {
             String margin = inspectorInfo.get(ViewPropertiesSupplier.BoxModelConstants.MARGIN);
             margin = getPureValue(margin);
             boxView.setMarginLeftText(margin);
@@ -140,7 +140,7 @@ public class WXInspectorItemView extends AbstractBizItemView<ViewInspectorManage
             boxView.setMarginBottomText(getPureValue(inspectorInfo.get(ViewPropertiesSupplier.BoxModelConstants.MARGIN_BOTTOM)));
         }
 
-        if(!TextUtils.isEmpty(inspectorInfo.get(ViewPropertiesSupplier.BoxModelConstants.BORDER_WIDTH))){
+        if (!TextUtils.isEmpty(inspectorInfo.get(ViewPropertiesSupplier.BoxModelConstants.BORDER_WIDTH))) {
             String border = inspectorInfo.get(ViewPropertiesSupplier.BoxModelConstants.BORDER_WIDTH);
             border = getPureValue(border);
             boxView.setBorderLeftText(border);
@@ -154,7 +154,7 @@ public class WXInspectorItemView extends AbstractBizItemView<ViewInspectorManage
             boxView.setBorderBottomText(getPureValue(inspectorInfo.get(ViewPropertiesSupplier.BoxModelConstants.BORDER_BOTTOM_WIDTH)));
         }
 
-        if(!TextUtils.isEmpty(inspectorInfo.get(ViewPropertiesSupplier.BoxModelConstants.PADDING))){
+        if (!TextUtils.isEmpty(inspectorInfo.get(ViewPropertiesSupplier.BoxModelConstants.PADDING))) {
             String padding = inspectorInfo.get(ViewPropertiesSupplier.BoxModelConstants.PADDING);
             padding = getPureValue(padding);
             boxView.setPaddingLeftText(padding);

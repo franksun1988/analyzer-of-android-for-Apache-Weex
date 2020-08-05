@@ -60,7 +60,7 @@ public class SettingsActivity extends Activity {
             public void onClick(View v) {
                 try {
                     RemoteDebugManager.getInstance().requestDebugServer(v.getContext(), false);
-                }catch (Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -75,8 +75,8 @@ public class SettingsActivity extends Activity {
     }
 
 
-    public static void launch(@NonNull Context context){
-        Intent intent = new Intent(context,SettingsActivity.class);
+    public static void launch(@NonNull Context context) {
+        Intent intent = new Intent(context, SettingsActivity.class);
         context.startActivity(intent);
     }
 }

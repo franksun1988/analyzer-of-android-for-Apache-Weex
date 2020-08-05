@@ -9,11 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.taobao.weex.WXSDKInstance;
 import com.taobao.weex.analyzer.utils.ViewUtils;
-import com.taobao.weex.ui.component.WXComponent;
-import com.taobao.weex.ui.component.WXEmbed;
-import com.taobao.weex.ui.component.WXVContainer;
+
+import org.apache.weex.WXSDKInstance;
+import org.apache.weex.ui.component.WXComponent;
+import org.apache.weex.ui.component.WXEmbed;
+import org.apache.weex.ui.component.WXVContainer;
 
 import java.util.ArrayDeque;
 import java.util.Collections;
@@ -23,7 +24,7 @@ import java.util.concurrent.ExecutorService;
 
 /**
  * Description:
- *
+ * <p>
  * Created by rowandjj(chuyi)<br/>
  */
 
@@ -47,8 +48,8 @@ public final class ViewInspectorManager {
     }
 
     @NonNull
-    public static ViewInspectorManager newInstance(@NonNull ExecutorService executor,@NonNull ViewPropertiesSupplier supplier,@NonNull OnInspectorListener listener) {
-        return new ViewInspectorManager(executor,supplier,listener);
+    public static ViewInspectorManager newInstance(@NonNull ExecutorService executor, @NonNull ViewPropertiesSupplier supplier, @NonNull OnInspectorListener listener) {
+        return new ViewInspectorManager(executor, supplier, listener);
     }
 
 
@@ -57,27 +58,27 @@ public final class ViewInspectorManager {
         //2. 遍历virtual dom树，寻找target virtual view
         //3. 收集信息
         //4. callback
-        if(mExecutor == null || mInstance == null) {
+        if (mExecutor == null || mInstance == null) {
             return;
         }
 
         mExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                if(mInstance == null) {
+                if (mInstance == null) {
                     return;
                 }
                 WXComponent rootComponent = mInstance.getRootComponent();
-                if(rootComponent == null) {
+                if (rootComponent == null) {
                     return;
                 }
                 View rootView = rootComponent.getHostView();
-                if(rootView == null) {
+                if (rootView == null) {
                     return;
                 }
-                View targetView = findPossibleTouchedView(rootView,event.getRawX(),event.getRawY());
-                if(targetView != null) {
-                    WXComponent targetComponent = findBoundComponentBy(targetView,rootComponent);
+                View targetView = findPossibleTouchedView(rootView, event.getRawX(), event.getRawY());
+                if (targetView != null) {
+                    WXComponent targetComponent = findBoundComponentBy(targetView, rootComponent);
 
                     final InspectorInfo inspectorInfo = new InspectorInfo();
                     inspectorInfo.targetView = targetView;
@@ -85,23 +86,23 @@ public final class ViewInspectorManager {
                     inspectorInfo.nativeViewInfo = Collections.emptyMap();
                     inspectorInfo.virtualViewInfo = Collections.emptyMap();
 
-                    if(targetComponent != null) {
+                    if (targetComponent != null) {
                         inspectorInfo.simpleName = ViewUtils.getComponentName(targetComponent);
                     } else {
                         inspectorInfo.simpleName = targetView.getClass().getSimpleName();
                     }
 
-                    if(mSupplier != null) {
-                        Map<String,String> nativeViewInfo = mSupplier.supplyPropertiesFromNativeView(targetView);
-                        Map<String,String> virtualViewInfo = null;
-                        if(targetComponent != null) {
+                    if (mSupplier != null) {
+                        Map<String, String> nativeViewInfo = mSupplier.supplyPropertiesFromNativeView(targetView);
+                        Map<String, String> virtualViewInfo = null;
+                        if (targetComponent != null) {
                             virtualViewInfo = mSupplier.supplyPropertiesFromVirtualView(targetComponent);
                         }
                         inspectorInfo.nativeViewInfo = nativeViewInfo;
                         inspectorInfo.virtualViewInfo = virtualViewInfo;
                     }
 
-                    if(mListener != null) {
+                    if (mListener != null) {
                         mHandler.post(new Runnable() {
                             @Override
                             public void run() {
@@ -110,7 +111,7 @@ public final class ViewInspectorManager {
                         });
                     }
                 } else {
-                    if(mListener != null) {
+                    if (mListener != null) {
                         mHandler.post(new Runnable() {
                             @Override
                             public void run() {
@@ -124,20 +125,20 @@ public final class ViewInspectorManager {
     }
 
     @Nullable
-    private View findPossibleTouchedView(@NonNull View rootView,float x,float y) {
+    private View findPossibleTouchedView(@NonNull View rootView, float x, float y) {
         Deque<View> deque = new ArrayDeque<>();
         deque.add(rootView);
         View target = null;
         int[] location = new int[2];
-        while(!deque.isEmpty()) {
+        while (!deque.isEmpty()) {
             View view = deque.removeFirst();
             view.getLocationInWindow(location);
-            if(x > location[0] && x < (location[0]+view.getWidth()) && y > location[1] && y < (location[1]+view.getHeight())) {
+            if (x > location[0] && x < (location[0] + view.getWidth()) && y > location[1] && y < (location[1] + view.getHeight())) {
                 target = view;
             }
-            if(view instanceof ViewGroup) {
+            if (view instanceof ViewGroup) {
                 ViewGroup group = (ViewGroup) view;
-                for (int i = 0,len = group.getChildCount(); i < len; i++) {
+                for (int i = 0, len = group.getChildCount(); i < len; i++) {
                     View child = group.getChildAt(i);
                     deque.add(child);
                 }
@@ -147,7 +148,7 @@ public final class ViewInspectorManager {
     }
 
     @Nullable
-    private WXComponent findBoundComponentBy(@NonNull View targetView,@NonNull WXComponent rootComponent) {
+    private WXComponent findBoundComponentBy(@NonNull View targetView, @NonNull WXComponent rootComponent) {
         Deque<WXComponent> deque = new ArrayDeque<>();
         deque.add(rootComponent);
         WXComponent targetComponent = null;
@@ -156,19 +157,19 @@ public final class ViewInspectorManager {
             WXComponent component = deque.removeFirst();
 
             View view = component.getHostView();
-            if(view != null && view.equals(targetView)) {
+            if (view != null && view.equals(targetView)) {
                 targetComponent = component;
             }
 
             //we should take embed into account
-            if(component instanceof WXEmbed) {
+            if (component instanceof WXEmbed) {
                 WXComponent nestedRootComponent = ViewUtils.getNestedRootComponent((WXEmbed) component);
-                if(nestedRootComponent != null) {
+                if (nestedRootComponent != null) {
                     deque.add(nestedRootComponent);
                 }
-            } else if(component instanceof WXVContainer) {
+            } else if (component instanceof WXVContainer) {
                 WXVContainer container = (WXVContainer) component;
-                for(int i = 0,len = container.getChildCount(); i < len; i++) {
+                for (int i = 0, len = container.getChildCount(); i < len; i++) {
                     WXComponent c = container.getChild(i);
                     deque.add(c);
                 }
@@ -179,27 +180,28 @@ public final class ViewInspectorManager {
     }
 
     public void destroy() {
-        if(mExecutor != null) {
+        if (mExecutor != null) {
             mExecutor.shutdown();
             mExecutor = null;
         }
         mSupplier = null;
         mListener = null;
         mInstance = null;
-        if(mHandler != null) {
+        if (mHandler != null) {
             mHandler.removeCallbacksAndMessages(null);
         }
     }
 
     interface OnInspectorListener {
         void onInspectorSuccess(@NonNull InspectorInfo info);
+
         void onInspectorFailed(@NonNull String msg);
     }
 
 
     public static class InspectorInfo {
-        public Map<String,String> virtualViewInfo;
-        public Map<String,String> nativeViewInfo;
+        public Map<String, String> virtualViewInfo;
+        public Map<String, String> nativeViewInfo;
         @JSONField(serialize = false)
         public WXComponent targetComponent;
         @JSONField(serialize = false)

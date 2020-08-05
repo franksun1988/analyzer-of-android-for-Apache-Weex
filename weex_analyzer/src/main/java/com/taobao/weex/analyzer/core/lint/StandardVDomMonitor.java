@@ -7,14 +7,15 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
-import com.taobao.weex.WXSDKInstance;
 import com.taobao.weex.analyzer.core.HandlerThreadWrapper;
 import com.taobao.weex.analyzer.pojo.HealthReport;
-import com.taobao.weex.utils.WXLogUtils;
+
+import org.apache.weex.WXSDKInstance;
+import org.apache.weex.utils.WXLogUtils;
 
 /**
  * Description:
- *
+ * <p>
  * Created by rowandjj(chuyi)<br/>
  */
 
@@ -29,7 +30,7 @@ public class StandardVDomMonitor implements IVDomMonitor, Handler.Callback {
     private static final String TAG = "VDomController";
 
     public StandardVDomMonitor() {
-        mHandlerThreadWrapper = new HandlerThreadWrapper("vdom-tracker",this);
+        mHandlerThreadWrapper = new HandlerThreadWrapper("vdom-tracker", this);
         mLayoutChangeListener = new LayoutChangeListener();
     }
 
@@ -38,8 +39,8 @@ public class StandardVDomMonitor implements IVDomMonitor, Handler.Callback {
         this.mInstance = instance;
 //        View view = instance.getGodCom().getHostView();
         View view = instance.getContainerView();
-        if(view == null) {
-            WXLogUtils.e(TAG,"host view is null");
+        if (view == null) {
+            WXLogUtils.e(TAG, "host view is null");
             return;
         }
 
@@ -48,17 +49,17 @@ public class StandardVDomMonitor implements IVDomMonitor, Handler.Callback {
 
     @Override
     public void destroy() {
-        if(mHandlerThreadWrapper != null) {
+        if (mHandlerThreadWrapper != null) {
             mHandlerThreadWrapper.quit();
             mHandlerThreadWrapper = null;
         }
 
-        if(mInstance != null && mLayoutChangeListener != null) {
+        if (mInstance != null && mLayoutChangeListener != null) {
             View hostView = mInstance.getContainerView();
-            if(hostView != null) {
-                if(Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+            if (hostView != null) {
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
                     hostView.getViewTreeObserver().removeGlobalOnLayoutListener(mLayoutChangeListener);
-                }else {
+                } else {
                     hostView.getViewTreeObserver().removeOnGlobalLayoutListener(mLayoutChangeListener);
                 }
             }
@@ -67,14 +68,14 @@ public class StandardVDomMonitor implements IVDomMonitor, Handler.Callback {
 
     @Override
     public boolean handleMessage(Message msg) {
-        if(msg.what == TRACK) {
+        if (msg.what == TRACK) {
             try {
                 DomTracker tracker = new DomTracker((WXSDKInstance) msg.obj);//todo 此处需优化
                 HealthReport report = tracker.traverse();
-                if(report != null) {
+                if (report != null) {
                     report.writeToConsole();
                 }
-            }catch (Exception e) {
+            } catch (Exception e) {
                 WXLogUtils.e(e.getMessage());
             }
             return true;
@@ -86,13 +87,13 @@ public class StandardVDomMonitor implements IVDomMonitor, Handler.Callback {
 
         @Override
         public void onGlobalLayout() {
-            if(mInstance == null) {
+            if (mInstance == null) {
                 WXLogUtils.e("detect layout change but instance is null");
                 return;
             }
 
-            WXLogUtils.d(TAG,"we detect that layout has changed for instance " + mInstance.getInstanceId());
-            if(mHandlerThreadWrapper.isAlive()) {
+            WXLogUtils.d(TAG, "we detect that layout has changed for instance " + mInstance.getInstanceId());
+            if (mHandlerThreadWrapper.isAlive()) {
                 Message msg = Message.obtain();
                 msg.what = TRACK;
                 msg.obj = mInstance;

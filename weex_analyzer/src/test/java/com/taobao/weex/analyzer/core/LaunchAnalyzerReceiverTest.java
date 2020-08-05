@@ -21,11 +21,11 @@ import static org.junit.Assert.assertFalse;
 
 /**
  * Description:
- *
+ * <p>
  * Created by rowandjj(chuyi)<br/>
  */
 @RunWith(RobolectricTestRunner.class)
-@Config(manifest = "src/main/AndroidManifest.xml",sdk = 21)
+@Config(manifest = "src/main/AndroidManifest.xml", sdk = 21)
 public class LaunchAnalyzerReceiverTest {
     private static final String ACTION = "com.taobao.weex.analyzer.LaunchService";
 
@@ -44,8 +44,8 @@ public class LaunchAnalyzerReceiverTest {
         List<ShadowApplication.Wrapper> registeredList = ShadowApplication.getInstance().getRegisteredReceivers();
         assertFalse(registeredList.isEmpty());
         boolean found = false;
-        for(ShadowApplication.Wrapper wrapper : registeredList) {
-            if(wrapper.broadcastReceiver.getClass().getSimpleName().equals(LaunchAnalyzerReceiver.class.getSimpleName())) {
+        for (ShadowApplication.Wrapper wrapper : registeredList) {
+            if (wrapper.broadcastReceiver.getClass().getSimpleName().equals(LaunchAnalyzerReceiver.class.getSimpleName())) {
                 found = true;
                 break;
             }
@@ -65,15 +65,15 @@ public class LaunchAnalyzerReceiverTest {
 
         //only one
         List<BroadcastReceiver> receivers = application.getReceiversForIntent(intent);
-        assertEquals(1,receivers.size());
+        assertEquals(1, receivers.size());
 
         //test onReceive
-        intent.putExtra("c","off");
+        intent.putExtra("c", "off");
         BroadcastReceiver targetReceiver = receivers.get(0);
-        targetReceiver.onReceive(application.getApplicationContext(),intent);
+        targetReceiver.onReceive(application.getApplicationContext(), intent);
 
         Intent serviceIntent = application.getNextStoppedService();
-        assertEquals(serviceIntent.getComponent().getClassName(),AnalyzerService.class.getCanonicalName());
+        assertEquals(serviceIntent.getComponent().getClassName(), AnalyzerService.class.getCanonicalName());
     }
 
 }

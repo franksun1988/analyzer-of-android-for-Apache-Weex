@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * Description:
- *
+ * <p>
  * Created by rowandjj(chuyi)<br/>
  */
 
@@ -30,22 +30,22 @@ public class MemorySamplerTest {
     @Test
     public void getMemoryUsage() throws Exception {
         double d = MemorySampler.getMemoryUsage();
-        System.out.println("usage:"+d);
-        assertTrue(d>=0);
+        System.out.println("usage:" + d);
+        assertTrue(d >= 0);
     }
 
     @Test
     public void maxMemory() throws Exception {
         double d = MemorySampler.maxMemory();
-        System.out.println("max:"+d);
-        assertTrue(d>=0);
+        System.out.println("max:" + d);
+        assertTrue(d >= 0);
     }
 
     @Test
     public void totalMemory() throws Exception {
         double d = MemorySampler.totalMemory();
-        System.out.println("total:"+d);
-        assertTrue(d>=0);
+        System.out.println("total:" + d);
+        assertTrue(d >= 0);
     }
 
 }

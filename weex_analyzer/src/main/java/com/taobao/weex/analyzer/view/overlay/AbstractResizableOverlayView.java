@@ -12,7 +12,7 @@ import com.taobao.weex.analyzer.utils.ViewUtils;
 
 /**
  * Description:
- *
+ * <p>
  * Created by rowandjj(chuyi)<br/>
  */
 
@@ -22,7 +22,7 @@ public abstract class AbstractResizableOverlayView extends PermissionOverlayView
     protected int mViewSize = LogView.Size.MEDIUM;
 
     public AbstractResizableOverlayView(Context application, Config config) {
-        super(application,true,config);
+        super(application, true, config);
     }
 
     public void setOnSizeChangedListener(@NonNull OnSizeChangedListener listener) {

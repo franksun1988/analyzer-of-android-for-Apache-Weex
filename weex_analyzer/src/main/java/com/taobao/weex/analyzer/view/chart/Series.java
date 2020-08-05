@@ -30,10 +30,10 @@ public interface Series<E extends DataPointInterface> {
      * important that the data comes in the sorted order
      * (from lowest to highest x-value).
      *
-     * @param from the minimal x-value
+     * @param from  the minimal x-value
      * @param until the maximal x-value
-     * @return  all datapoints between the from and until x-value
-     *          including the from and until data points.
+     * @return all datapoints between the from and until x-value
+     * including the from and until data points.
      */
     public Iterator<E> getValues(double from, double until);
 
@@ -44,8 +44,8 @@ public interface Series<E extends DataPointInterface> {
      * the default scale and one time for the
      * second scale.
      *
-     * @param graphView corresponding graphview
-     * @param canvas canvas to draw on
+     * @param graphView     corresponding graphview
+     * @param canvas        canvas to draw on
      * @param isSecondScale true if the drawing is for the second scale
      */
     public void draw(ChartView graphView, Canvas canvas);
@@ -56,8 +56,8 @@ public interface Series<E extends DataPointInterface> {
     public String getTitle();
 
     /**
-     * @return  the color of the series. Used in the legend and should
-     *          be used for the plotted points or lines.
+     * @return the color of the series. Used in the legend and should
+     * be used for the plotted points or lines.
      */
     public int getColor();
 

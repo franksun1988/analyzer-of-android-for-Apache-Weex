@@ -41,14 +41,15 @@ public class DevOptionsConfig {
     public static final String TAG = "weex-analyzer";
 
     private static DevOptionsConfig sConfig;
+
     private DevOptionsConfig(@NonNull Context context) {
         mSharedPreferences = context.getSharedPreferences(DEV_CONFIG_NAME, Context.MODE_PRIVATE);
     }
 
     public static DevOptionsConfig getInstance(@NonNull Context context) {
-        if(sConfig == null) {
+        if (sConfig == null) {
             synchronized (DevOptionsConfig.class) {
-                if(sConfig == null) {
+                if (sConfig == null) {
                     sConfig = new DevOptionsConfig(context);
                 }
             }

@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * Description:
- *
+ * <p>
  * Created by rowandjj(chuyi)<br/>
  */
 
@@ -35,10 +35,10 @@ public class Config {
     public static final String TYPE_EXTERNAL_CONFIG = "external_config";
 
     @Retention(RetentionPolicy.SOURCE)
-    @StringDef({TYPE_CPU,TYPE_FPS,TYPE_MEMORY,TYPE_TRAFFIC,
-            TYPE_WEEX_PERFORMANCE_STATISTICS,TYPE_VIEW_INSPECTOR,
-            TYPE_RENDER_ANALYSIS,TYPE_MTOP_INSPECTOR,TYPE_STORAGE,
-            TYPE_3D,TYPE_LOG,TYPE_ALL_PERFORMANCE,TYPE_DEBUG,TYPE_EXTERNAL_CONFIG})
+    @StringDef({TYPE_CPU, TYPE_FPS, TYPE_MEMORY, TYPE_TRAFFIC,
+            TYPE_WEEX_PERFORMANCE_STATISTICS, TYPE_VIEW_INSPECTOR,
+            TYPE_RENDER_ANALYSIS, TYPE_MTOP_INSPECTOR, TYPE_STORAGE,
+            TYPE_3D, TYPE_LOG, TYPE_ALL_PERFORMANCE, TYPE_DEBUG, TYPE_EXTERNAL_CONFIG})
     @interface Option {
     }
 
@@ -68,7 +68,7 @@ public class Config {
 
     @NonNull
     public List<String> getIgnoreOptions() {
-        if(ignoreOptions == null || ignoreOptions.isEmpty()) {
+        if (ignoreOptions == null || ignoreOptions.isEmpty()) {
             return Collections.emptyList();
         }
         return Collections.unmodifiableList(ignoreOptions);
@@ -82,6 +82,7 @@ public class Config {
         private boolean enableShake;
         private List<String> ignoreOptions;
         private LogConfig logConfig;
+
         public Builder() {
             this.ignoreOptions = new ArrayList<>();
         }

@@ -70,7 +70,7 @@ public class DynamicChartViewController {
 
     @SuppressWarnings("unchecked")
     public void appendPointAndInvalidate2(double x, double y) {
-        if(mChartView.getSeries().size() >= 2){
+        if (mChartView.getSeries().size() >= 2) {
             LineGraphSeries<DataPoint> series = (LineGraphSeries<DataPoint>) mChartView.getSeries().get(1);
             series.appendData(new DataPoint(x, y), true, mMaxPoints);
         }
@@ -174,13 +174,13 @@ public class DynamicChartViewController {
 
             series.setColor(mLineColor);
 
-            if(!TextUtils.isEmpty(mSeriesTitle)) {
+            if (!TextUtils.isEmpty(mSeriesTitle)) {
                 series.setTitle(mSeriesTitle);
             }
 
             //we have another line
             LineGraphSeries<DataPoint> series2 = null;
-            if(!TextUtils.isEmpty(mSeries2Title)) {
+            if (!TextUtils.isEmpty(mSeries2Title)) {
                 series2 = new LineGraphSeries<>();
                 realView.addSeries(series2);
 
@@ -195,9 +195,9 @@ public class DynamicChartViewController {
                 series.setBackgroundColor(mFillColor);
             }
 
-            if(series2 != null) {
+            if (series2 != null) {
                 series2.setDrawBackground(isFill);
-                if(isFill) {
+                if (isFill) {
                     series2.setBackgroundColor(mFill2Color);
                 }
             }
@@ -321,7 +321,7 @@ public class DynamicChartViewController {
 
         /**
          * 折线2颜色
-         * */
+         */
         public Builder lineColor2(@ColorInt int line2Color) {
             this.mLine2Color = line2Color;
             return this;

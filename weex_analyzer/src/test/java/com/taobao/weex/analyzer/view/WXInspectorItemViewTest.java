@@ -10,7 +10,7 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * Description:
- *
+ * <p>
  * Created by rowandjj(chuyi)<br/>
  */
 public class WXInspectorItemViewTest {
@@ -27,15 +27,15 @@ public class WXInspectorItemViewTest {
     @Test
     public void getPureValue() throws Exception {
         assertEquals("13", WXInspectorItemView.getPureValue("12.78"));
-        assertEquals("12",WXInspectorItemView.getPureValue("12."));
-        assertEquals("-13",WXInspectorItemView.getPureValue("-12.78"));
-        assertEquals("13",WXInspectorItemView.getPureValue("12.a78"));
-        assertEquals("-13",WXInspectorItemView.getPureValue("-12.78px"));
-        assertEquals("12",WXInspectorItemView.getPureValue("12wx"));
-        assertEquals("3",WXInspectorItemView.getPureValue("3.424223324244"));
-        assertEquals("-3",WXInspectorItemView.getPureValue("-3.424223324244"));
-        assertEquals("0",WXInspectorItemView.getPureValue(".424223324244"));
-        assertEquals("1",WXInspectorItemView.getPureValue("0.8"));
+        assertEquals("12", WXInspectorItemView.getPureValue("12."));
+        assertEquals("-13", WXInspectorItemView.getPureValue("-12.78"));
+        assertEquals("13", WXInspectorItemView.getPureValue("12.a78"));
+        assertEquals("-13", WXInspectorItemView.getPureValue("-12.78px"));
+        assertEquals("12", WXInspectorItemView.getPureValue("12wx"));
+        assertEquals("3", WXInspectorItemView.getPureValue("3.424223324244"));
+        assertEquals("-3", WXInspectorItemView.getPureValue("-3.424223324244"));
+        assertEquals("0", WXInspectorItemView.getPureValue(".424223324244"));
+        assertEquals("1", WXInspectorItemView.getPureValue("0.8"));
 
     }
 

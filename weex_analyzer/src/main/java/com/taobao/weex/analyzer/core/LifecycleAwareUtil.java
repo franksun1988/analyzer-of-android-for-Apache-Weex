@@ -39,7 +39,7 @@ public class LifecycleAwareUtil implements Application.ActivityLifecycleCallback
                 ((Application) context).registerActivityLifecycleCallbacks(sInstance);
             } else if (context.getApplicationContext() instanceof Application) {
                 ((Application) context.getApplicationContext()).registerActivityLifecycleCallbacks(sInstance);
-            }else {
+            } else {
                 throw new IllegalStateException("LifecycleAwareUtil is not initialised.[can't obtain application object]");
             }
         }
@@ -61,7 +61,7 @@ public class LifecycleAwareUtil implements Application.ActivityLifecycleCallback
         sInstance.removeAllListeners();
         if (context instanceof Application) {
             ((Application) context).unregisterActivityLifecycleCallbacks(sInstance);
-        } else if(context.getApplicationContext() instanceof Application) {
+        } else if (context.getApplicationContext() instanceof Application) {
             ((Application) context.getApplicationContext()).unregisterActivityLifecycleCallbacks(sInstance);
         }
         sInstance = null;
@@ -89,7 +89,7 @@ public class LifecycleAwareUtil implements Application.ActivityLifecycleCallback
 
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-        Log.d(TAG,"onActivityCreated,"+activity.getClass().getSimpleName());
+        Log.d(TAG, "onActivityCreated," + activity.getClass().getSimpleName());
     }
 
     @Override
@@ -99,7 +99,7 @@ public class LifecycleAwareUtil implements Application.ActivityLifecycleCallback
 
     @Override
     public void onActivityResumed(Activity activity) {
-        Log.d(TAG,"onActivityResumed,"+activity.getClass().getSimpleName());
+        Log.d(TAG, "onActivityResumed," + activity.getClass().getSimpleName());
 
         paused = false;
         boolean wasBackground = !foreground;
@@ -121,7 +121,7 @@ public class LifecycleAwareUtil implements Application.ActivityLifecycleCallback
 
     @Override
     public void onActivityPaused(Activity activity) {
-        Log.d(TAG,"onActivityPaused,"+activity.getClass().getSimpleName());
+        Log.d(TAG, "onActivityPaused," + activity.getClass().getSimpleName());
 
         paused = true;
 
@@ -157,7 +157,7 @@ public class LifecycleAwareUtil implements Application.ActivityLifecycleCallback
 
     @Override
     public void onActivityDestroyed(Activity activity) {
-        Log.d(TAG,"onActivityDestroyed,"+activity.getClass().getSimpleName());
+        Log.d(TAG, "onActivityDestroyed," + activity.getClass().getSimpleName());
 
 
     }

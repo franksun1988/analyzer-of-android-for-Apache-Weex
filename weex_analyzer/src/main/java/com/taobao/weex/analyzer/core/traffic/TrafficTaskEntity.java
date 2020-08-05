@@ -7,7 +7,7 @@ import com.taobao.weex.analyzer.core.TaskEntity;
 
 /**
  * Description:
- *
+ * <p>
  * Created by rowandjj(chuyi)<br/>
  */
 
@@ -45,11 +45,11 @@ public class TrafficTaskEntity implements TaskEntity<TrafficTaskEntity.TrafficIn
             txSpeed = Math.max(0, (txKBytes - mTotalTxKBytes) / ratio);
             rxSpeed = Math.max(0, (rxKBytes - mTotalRxKBytes) / ratio);
         }
-        if(mCachedTrafficInfo == null) {
+        if (mCachedTrafficInfo == null) {
             mCachedTrafficInfo = new TrafficInfo();
         }
-        mCachedTrafficInfo.rxSpeed = (Math.round(rxSpeed*100)/100.0);
-        mCachedTrafficInfo.txSpeed = (Math.round(txSpeed*100)/100.0);
+        mCachedTrafficInfo.rxSpeed = (Math.round(rxSpeed * 100) / 100.0);
+        mCachedTrafficInfo.txSpeed = (Math.round(txSpeed * 100) / 100.0);
 
         //update
         mTotalRxKBytes = rxKBytes;

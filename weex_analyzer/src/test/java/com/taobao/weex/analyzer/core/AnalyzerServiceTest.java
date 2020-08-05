@@ -15,22 +15,23 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * Description:
- *
+ * <p>
  * Created by rowandjj(chuyi)<br/>
  */
 @RunWith(RobolectricTestRunner.class)
-@Config(manifest = "src/main/AndroidManifest.xml",sdk = 21)
+@Config(manifest = "src/main/AndroidManifest.xml", sdk = 21)
 public class AnalyzerServiceTest {
     static {
         ShadowLog.stream = System.out;
     }
+
     @Test
     public void onStartCommand() throws Exception {
         Intent intent = new Intent(ShadowApplication.getInstance().getApplicationContext(), AnalyzerService.class);
         ShadowApplication.getInstance().startService(intent);
 
         Intent i = ShadowApplication.getInstance().peekNextStartedService();
-        assertEquals(i.getComponent().getClassName(),AnalyzerService.class.getCanonicalName());
+        assertEquals(i.getComponent().getClassName(), AnalyzerService.class.getCanonicalName());
 
     }
 

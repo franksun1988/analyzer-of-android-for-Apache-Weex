@@ -11,7 +11,7 @@ import java.util.Map;
 
 /**
  * Description:
- *
+ * <p>
  * Created by rowandjj(chuyi)<br/>
  */
 
@@ -36,7 +36,7 @@ public class HealthReport {
 
     /**
      * native view层级
-     * */
+     */
     public int maxLayerOfRealDom;
     /**
      * cell下view个数
@@ -60,17 +60,17 @@ public class HealthReport {
 
     /**
      * 预估总高度
-     * */
+     */
     public int estimateContentHeight;
 
     /**
      * 预估屏数
-     * */
+     */
     public String estimatePages;
 
     public List<EmbedDesc> embedDescList;
 
-    public Map<String/*ref*/,ListDesc> listDescMap;
+    public Map<String/*ref*/, ListDesc> listDescMap;
 
     private String bundleUrl;
 
@@ -90,10 +90,10 @@ public class HealthReport {
         Log.d(Constants.TAG, "[health report] hasBigCell:" + hasBigCell);
         Log.d(Constants.TAG, "[health report] maxCellViewNum:" + maxCellViewNum);
 
-        if(listDescMap != null && !listDescMap.isEmpty()) {
+        if (listDescMap != null && !listDescMap.isEmpty()) {
             Log.d(Constants.TAG, "[health report] listNum:" + listDescMap.size());
             for (ListDesc desc : listDescMap.values()) {
-                Log.d(Constants.TAG, "[health report] listDesc: (ref:" + desc.ref + ",cellNum:"+desc.cellNum
+                Log.d(Constants.TAG, "[health report] listDesc: (ref:" + desc.ref + ",cellNum:" + desc.cellNum
                         + ",totalHeight:" + desc.totalHeight + "px)");
             }
         }
@@ -109,7 +109,7 @@ public class HealthReport {
             }
         }
 
-        Log.d(Constants.TAG,"[health report] estimateContentHeight:"+estimateContentHeight+"px"+",estimatePages:"+estimatePages);
+        Log.d(Constants.TAG, "[health report] estimateContentHeight:" + estimateContentHeight + "px" + ",estimatePages:" + estimatePages);
 
 
         Log.d(Constants.TAG, "\n");

@@ -11,7 +11,7 @@ package com.taobao.weex.analyzer.utils;
 
 import android.support.annotation.Nullable;
 
-import com.taobao.weex.utils.WXLogUtils;
+import org.apache.weex.utils.WXLogUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

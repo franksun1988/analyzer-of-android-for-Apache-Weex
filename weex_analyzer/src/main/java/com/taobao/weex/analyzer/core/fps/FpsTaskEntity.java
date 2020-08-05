@@ -9,7 +9,7 @@ import com.taobao.weex.analyzer.core.TaskEntity;
 
 /**
  * Description:
- *
+ * <p>
  * Created by rowandjj(chuyi)<br/>
  */
 
@@ -28,7 +28,7 @@ public class FpsTaskEntity implements TaskEntity<Double> {
     @NonNull
     @Override
     public Double onTaskRun() {
-        if(mFpsChecker == null) {
+        if (mFpsChecker == null) {
             onTaskInit();
         }
         Double fps = mFpsChecker.getFPS();

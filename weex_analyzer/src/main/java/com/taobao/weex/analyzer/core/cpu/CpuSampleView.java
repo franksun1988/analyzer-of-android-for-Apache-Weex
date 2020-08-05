@@ -17,8 +17,8 @@ import com.taobao.weex.analyzer.core.AbstractLoopTask;
 import com.taobao.weex.analyzer.utils.SDKUtils;
 import com.taobao.weex.analyzer.utils.ViewUtils;
 import com.taobao.weex.analyzer.view.chart.DynamicChartViewController;
-import com.taobao.weex.analyzer.view.overlay.PermissionOverlayView;
 import com.taobao.weex.analyzer.view.chart.TimestampLabelFormatter;
+import com.taobao.weex.analyzer.view.overlay.PermissionOverlayView;
 
 /**
  * Description:
@@ -39,8 +39,8 @@ public class CpuSampleView extends PermissionOverlayView {
         this.mOnCloseListener = listener;
     }
 
-    public CpuSampleView(Context application,Config config) {
-        super(application,true,config);
+    public CpuSampleView(Context application, Config config) {
+        super(application, true, config);
 
         mWidth = WindowManager.LayoutParams.MATCH_PARENT;
         mHeight = (int) ViewUtils.dp2px(application, 150);
@@ -96,7 +96,7 @@ public class CpuSampleView extends PermissionOverlayView {
 
     @Override
     protected void onShown() {
-        if(mSampleCpuTask != null){
+        if (mSampleCpuTask != null) {
             mSampleCpuTask.stop();
             mSampleCpuTask = null;
         }
@@ -126,7 +126,7 @@ public class CpuSampleView extends PermissionOverlayView {
         private CpuTaskEntity mEntity;
 
         SampleCpuTask(DynamicChartViewController controller, boolean isDebug) {
-            super(false,1000);
+            super(false, 1000);
             this.mController = controller;
             this.isDebug = isDebug;
 
@@ -155,7 +155,7 @@ public class CpuSampleView extends PermissionOverlayView {
                 @Override
                 public void run() {
                     if (checkIfNeedUpdateYAxis(pidCpuUsage)) {
-                        mController.updateAxisY(mController.getMinY(), Math.max(100,(mController.getMaxY() - mController.getMinY()) + 10), 0);
+                        mController.updateAxisY(mController.getMinY(), Math.max(100, (mController.getMaxY() - mController.getMinY()) + 10), 0);
                     }
                     mController.appendPointAndInvalidate(mAxisXValue, pidCpuUsage);
                 }

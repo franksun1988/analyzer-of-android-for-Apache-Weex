@@ -12,8 +12,8 @@ import java.util.Map;
 /**
  * Description:
  * 用于发送消息
- *
- *  DO NOT MOVE ME
+ * <p>
+ * DO NOT MOVE ME
  * Created by rowandjj(chuyi)<br/>
  */
 
@@ -31,33 +31,33 @@ public class NetworkEventSender {
         this.mSender = manager;
     }
 
-    public void sendMessage(String type,String title,String desc,String body,Map<String,String> extendProps) {
-        if(mSender == null) {
+    public void sendMessage(String type, String title, String desc, String body, Map<String, String> extendProps) {
+        if (mSender == null) {
             return;
         }
 
         Intent intent = new Intent(ACTION_NETWORK_REPORTER);
-        if(!TextUtils.isEmpty(type)) {
-            intent.putExtra(INTENT_EXTRA_TYPE,type);
+        if (!TextUtils.isEmpty(type)) {
+            intent.putExtra(INTENT_EXTRA_TYPE, type);
         }
 
-        if(!TextUtils.isEmpty(title)) {
-            intent.putExtra(INTENT_EXTRA_TITLE,title);
+        if (!TextUtils.isEmpty(title)) {
+            intent.putExtra(INTENT_EXTRA_TITLE, title);
         }
 
-        if(!TextUtils.isEmpty(desc)) {
-            intent.putExtra(INTENT_EXTRA_DESC,desc);
+        if (!TextUtils.isEmpty(desc)) {
+            intent.putExtra(INTENT_EXTRA_DESC, desc);
         }
 
-        if(!TextUtils.isEmpty(body)) {
-            intent.putExtra(INTENT_EXTRA_BODY,body);
+        if (!TextUtils.isEmpty(body)) {
+            intent.putExtra(INTENT_EXTRA_BODY, body);
         }
 
-        if(extendProps != null && !extendProps.isEmpty()) {
+        if (extendProps != null && !extendProps.isEmpty()) {
             Bundle bundle = new Bundle();
 
-            for(Map.Entry<String,String> entry : extendProps.entrySet()) {
-                bundle.putString(entry.getKey(),entry.getValue());
+            for (Map.Entry<String, String> entry : extendProps.entrySet()) {
+                bundle.putString(entry.getKey(), entry.getValue());
             }
             intent.putExtras(bundle);
         }

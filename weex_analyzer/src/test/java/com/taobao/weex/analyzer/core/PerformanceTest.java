@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * Description:
- *
+ * <p>
  * Created by rowandjj(chuyi)<br/>
  */
 public class PerformanceTest {
@@ -36,8 +36,8 @@ public class PerformanceTest {
     @Test
     public void transfer() throws Exception {
         List<String> fakeList = Performance.transfer(mFakePerformance);
-        assertEquals(22,fakeList.size());
-        assertThat(fakeList,hasItem("requestType : fakeType"));
+        assertEquals(22, fakeList.size());
+        assertThat(fakeList, hasItem("requestType : fakeType"));
     }
 
 }

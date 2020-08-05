@@ -18,11 +18,11 @@ import static org.mockito.Mockito.times;
 
 /**
  * Description:
- *
+ * <p>
  * Created by rowandjj(chuyi)<br/>
  */
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({Process.class,TrafficSampler.class})
+@PrepareForTest({Process.class, TrafficSampler.class})
 public class TrafficTaskEntityTest {
     @Before
     public void setUp() throws Exception {

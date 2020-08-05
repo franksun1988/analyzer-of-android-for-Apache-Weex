@@ -27,7 +27,7 @@ public abstract class DragSupportOverlayView extends AbstractOverlayView impleme
         super(application);
     }
 
-    public DragSupportOverlayView(Context application,boolean enableDrag){
+    public DragSupportOverlayView(Context application, boolean enableDrag) {
         this(application);
         this.isDragEnabled = enableDrag;
     }
@@ -46,7 +46,7 @@ public abstract class DragSupportOverlayView extends AbstractOverlayView impleme
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        if(!isDragEnabled){
+        if (!isDragEnabled) {
             return false;
         }
         int action = event.getAction();
@@ -63,7 +63,7 @@ public abstract class DragSupportOverlayView extends AbstractOverlayView impleme
                 mCurrentX = (int) (event.getRawX() + mDx);
                 mCurrentY = (int) (event.getRawY() + mDy);
                 if (isValidMove(mContext, event.getX() - downX) || isValidMove(mContext, event.getY() - downY)) {
-                    updateViewPosition(mCurrentX,mCurrentY);
+                    updateViewPosition(mCurrentX, mCurrentY);
                     hasMoved = true;
                 }
                 break;
@@ -77,7 +77,7 @@ public abstract class DragSupportOverlayView extends AbstractOverlayView impleme
     }
 
     protected void updateViewPosition(int x, int y) {
-        if(mWholeView == null || mWindowManager == null){
+        if (mWholeView == null || mWindowManager == null) {
             return;
         }
         WindowManager.LayoutParams newParams = (WindowManager.LayoutParams) mWholeView.getLayoutParams();
@@ -89,7 +89,7 @@ public abstract class DragSupportOverlayView extends AbstractOverlayView impleme
         mCurrentY = y;
     }
 
-    public void setDragEnabled(boolean enabled){
+    public void setDragEnabled(boolean enabled) {
         this.isDragEnabled = enabled;
     }
 

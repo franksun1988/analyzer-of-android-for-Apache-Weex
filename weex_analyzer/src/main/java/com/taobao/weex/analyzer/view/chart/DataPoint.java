@@ -7,14 +7,14 @@ import java.io.Serializable;
  * This stores the x and y values.
  */
 public class DataPoint implements DataPointInterface, Serializable {
-    private static final long serialVersionUID=1428263322645L;
+    private static final long serialVersionUID = 1428263322645L;
 
     private double x;
     private double y;
 
     public DataPoint(double x, double y) {
-        this.x=x;
-        this.y=y;
+        this.x = x;
+        this.y = y;
     }
 
     @Override
@@ -29,6 +29,6 @@ public class DataPoint implements DataPointInterface, Serializable {
 
     @Override
     public String toString() {
-        return "["+x+"/"+y+"]";
+        return "[" + x + "/" + y + "]";
     }
 }

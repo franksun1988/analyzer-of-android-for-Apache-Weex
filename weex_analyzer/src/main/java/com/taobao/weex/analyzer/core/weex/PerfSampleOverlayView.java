@@ -9,11 +9,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.taobao.weex.analyzer.Config;
+import com.taobao.weex.analyzer.R;
 import com.taobao.weex.analyzer.core.AbstractLoopTask;
 import com.taobao.weex.analyzer.core.fps.FPSSampler;
 import com.taobao.weex.analyzer.core.memory.MemorySampler;
 import com.taobao.weex.analyzer.utils.ViewUtils;
-import com.taobao.weex.analyzer.R;
 import com.taobao.weex.analyzer.view.overlay.PermissionOverlayView;
 
 import java.util.Locale;
@@ -34,7 +34,7 @@ public class PerfSampleOverlayView extends PermissionOverlayView {
     private InvalidateUITask mTask;
 
     public PerfSampleOverlayView(Context application, Config config) {
-        super(application,true,config);
+        super(application, true, config);
     }
 
     @NonNull
@@ -50,7 +50,7 @@ public class PerfSampleOverlayView extends PermissionOverlayView {
 
     @Override
     protected void onShown() {
-        if(mTask != null){
+        if (mTask != null) {
             mTask.stop();
             mTask = null;
         }
@@ -105,11 +105,11 @@ public class PerfSampleOverlayView extends PermissionOverlayView {
             //check memory
             final double usedMemInMB = MemorySampler.getMemoryUsage();
             final double fps;
-            if(Build.VERSION.SDK_INT >= 16){
+            if (Build.VERSION.SDK_INT >= 16) {
                 fps = mFpsChecker.getFPS();
                 mTotalFrameDropped += Math.max(mFpsChecker.getExpectedNumFrames() - mFpsChecker.getNumFrames(), 0);
                 mFpsChecker.reset();
-            }else{
+            } else {
                 fps = 0;
             }
 
@@ -120,7 +120,7 @@ public class PerfSampleOverlayView extends PermissionOverlayView {
                     if (Build.VERSION.SDK_INT >= 16) {
                         mFpsValueText.setText(String.format(Locale.CHINA, "fps : %.2f", fps));
                         mFrameSkippedText.setText("" + mTotalFrameDropped + " dropped so far");
-                    }else{
+                    } else {
                         mFpsValueText.setText("fps : ??");
                         mFrameSkippedText.setText("?? dropped so far");
                     }

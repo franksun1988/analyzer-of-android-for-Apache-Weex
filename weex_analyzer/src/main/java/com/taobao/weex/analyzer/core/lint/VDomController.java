@@ -2,11 +2,11 @@ package com.taobao.weex.analyzer.core.lint;
 
 import android.support.annotation.NonNull;
 
-import com.taobao.weex.WXSDKInstance;
+import org.apache.weex.WXSDKInstance;
 
 /**
  * Description:
- *
+ * <p>
  * Created by rowandjj(chuyi)<br/>
  */
 
@@ -17,7 +17,7 @@ public class VDomController implements IVDomMonitor {
     private PollingVDomMonitor mPollingVDomMonitor;
     private StandardVDomMonitor mStandardVDomMonitor;
 
-    public VDomController(@NonNull PollingVDomMonitor pollingVDomMonitor,@NonNull StandardVDomMonitor standardVDomMonitor) {
+    public VDomController(@NonNull PollingVDomMonitor pollingVDomMonitor, @NonNull StandardVDomMonitor standardVDomMonitor) {
         mPollingVDomMonitor = pollingVDomMonitor;
         mStandardVDomMonitor = standardVDomMonitor;
     }
@@ -26,7 +26,7 @@ public class VDomController implements IVDomMonitor {
     public void monitor(@NonNull WXSDKInstance instance) {
         if (isPollingMode) {
             mPollingVDomMonitor.monitor(instance);
-        } else if(isStandardMode) {
+        } else if (isStandardMode) {
             mStandardVDomMonitor.monitor(instance);
         }
     }

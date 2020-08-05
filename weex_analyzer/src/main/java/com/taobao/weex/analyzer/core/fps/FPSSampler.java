@@ -48,13 +48,13 @@ public class FPSSampler implements Choreographer.FrameCallback {
 
     @Override
     public void doFrame(long frameTimeNanos) {
-        if(bShouldStop){
+        if (bShouldStop) {
             return;
         }
         long currentTimeMillis = frameTimeNanos;
-        if(mFirstFrameTime == -1){
+        if (mFirstFrameTime == -1) {
             mFirstFrameTime = currentTimeMillis;
-        }else{
+        } else {
             mNumFrameCallbacks++;
         }
 
@@ -66,22 +66,22 @@ public class FPSSampler implements Choreographer.FrameCallback {
 
     public int getExpectedNumFrames() {
         double totalTimeMillis = (int) ((double) mLastFrameTime - mFirstFrameTime) / 1000000;
-        return (int) (totalTimeMillis/DEVICE_REFRESH_RATE_IN_MS);
+        return (int) (totalTimeMillis / DEVICE_REFRESH_RATE_IN_MS);
     }
 
-    public int getNumFrames(){
+    public int getNumFrames() {
         return mNumFrameCallbacks;
     }
 
-    public double getFPS(){
-        if(mLastFrameTime == mFirstFrameTime){
+    public double getFPS() {
+        if (mLastFrameTime == mFirstFrameTime) {
             return 0;
         }
         return ((double) (getNumFrames()) * 1e9) / (mLastFrameTime - mFirstFrameTime);
     }
 
 
-    public static boolean isSupported(){
+    public static boolean isSupported() {
         return Build.VERSION.SDK_INT >= 16;
     }
 

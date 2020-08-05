@@ -13,7 +13,7 @@ import java.util.NoSuchElementException;
  * Basis implementation for series.
  * Used for series that are plotted on
  * a default x/y 2d viewport.
- *
+ * <p>
  * Extend this class to implement your own custom
  * graph type.
  */
@@ -26,10 +26,10 @@ public abstract class BaseSeries<E extends DataPointInterface> implements Series
     /**
      * stores the used coordinates to find the
      * corresponding data point on a tap
-     *
+     * <p>
      * Key => x/y pixel
      * Value => Plotted Datapoint
-     *
+     * <p>
      * will be filled while drawing via {@link #registerDataPoint(float, float, DataPointInterface)}
      */
     private Map<PointF, E> mDataPoints = new HashMap<PointF, E>();
@@ -77,8 +77,8 @@ public abstract class BaseSeries<E extends DataPointInterface> implements Series
     /**
      * creates series with data
      *
-     * @param data  data points
-     *              important: array has to be sorted from lowest x-value to the highest
+     * @param data data points
+     *             important: array has to be sorted from lowest x-value to the highest
      */
     public BaseSeries(E[] data) {
         mGraphViews = new ArrayList<ChartView>();
@@ -100,7 +100,7 @@ public abstract class BaseSeries<E extends DataPointInterface> implements Series
      */
     public double getHighestValueX() {
         if (mData.isEmpty()) return 0d;
-        return mData.get(mData.size()-1).getX();
+        return mData.get(mData.size() - 1).getX();
     }
 
     /**
@@ -145,7 +145,7 @@ public abstract class BaseSeries<E extends DataPointInterface> implements Series
      * If it is only a part of the data, the range is returned plus one datapoint
      * before and after to getPerformanceList a nice scrolling.
      *
-     * @param from minimal x-value
+     * @param from  minimal x-value
      * @param until maximal x-value
      * @return data for the range +/- 1 datapoint
      */
@@ -298,7 +298,7 @@ public abstract class BaseSeries<E extends DataPointInterface> implements Series
             float x2 = x;
             float y2 = y;
 
-            float distance = (float) Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
+            float distance = (float) Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
             if (shortest == null || distance < shortestDistance) {
                 shortestDistance = distance;
                 shortest = entry.getValue();
@@ -315,8 +315,8 @@ public abstract class BaseSeries<E extends DataPointInterface> implements Series
     /**
      * register the datapoint to find it at a tap
      *
-     * @param x pixel
-     * @param y pixel
+     * @param x  pixel
+     * @param y  pixel
      * @param dp the data point to save
      */
     protected void registerDataPoint(float x, float y, E dp) {
@@ -367,18 +367,17 @@ public abstract class BaseSeries<E extends DataPointInterface> implements Series
     }
 
     /**
-     *
-     * @param dataPoint values the values must be in the correct order!
-     *                  x-value has to be ASC. First the lowest x value and at least the highest x value.
-     * @param scrollToEnd true => graphview will scroll to the end (maxX)
+     * @param dataPoint     values the values must be in the correct order!
+     *                      x-value has to be ASC. First the lowest x value and at least the highest x value.
+     * @param scrollToEnd   true => graphview will scroll to the end (maxX)
      * @param maxDataPoints if max data count is reached, the oldest data
      *                      value will be lost to avoid memory leaks
-     * @param silent    set true to avoid rerender the graph
+     * @param silent        set true to avoid rerender the graph
      */
     public void appendData(E dataPoint, boolean scrollToEnd, int maxDataPoints, boolean silent) {
         checkValueOrder(dataPoint);
 
-        if (!mData.isEmpty() && dataPoint.getX() < mData.get(mData.size()-1).getX()) {
+        if (!mData.isEmpty() && dataPoint.getX() < mData.get(mData.size() - 1).getX()) {
             throw new IllegalArgumentException("new x-value must be greater then the last value. x-values has to be ordered in ASC.");
         }
         synchronized (mData) {
@@ -424,10 +423,9 @@ public abstract class BaseSeries<E extends DataPointInterface> implements Series
     }
 
     /**
-     *
-     * @param dataPoint values the values must be in the correct order!
-     *                  x-value has to be ASC. First the lowest x value and at least the highest x value.
-     * @param scrollToEnd true => graphview will scroll to the end (maxX)
+     * @param dataPoint     values the values must be in the correct order!
+     *                      x-value has to be ASC. First the lowest x value and at least the highest x value.
+     * @param scrollToEnd   true => graphview will scroll to the end (maxX)
      * @param maxDataPoints if max data count is reached, the oldest data
      *                      value will be lost to avoid memory leaks
      */
@@ -446,14 +444,14 @@ public abstract class BaseSeries<E extends DataPointInterface> implements Series
     /**
      * checks that the data is in the correct order
      *
-     * @param onlyLast  if not null, it will only check that this
-     *                  datapoint is after the last point.
+     * @param onlyLast if not null, it will only check that this
+     *                 datapoint is after the last point.
      */
     protected void checkValueOrder(DataPointInterface onlyLast) {
-        if (mData.size()>1) {
+        if (mData.size() > 1) {
             if (onlyLast != null) {
                 // only check last
-                if (onlyLast.getX() < mData.get(mData.size()-1).getX()) {
+                if (onlyLast.getX() < mData.get(mData.size() - 1).getX()) {
                     throw new IllegalArgumentException("new x-value must be greater then the last value. x-values has to be ordered in ASC.");
                 }
             } else {

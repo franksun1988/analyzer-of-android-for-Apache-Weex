@@ -14,7 +14,7 @@ import static org.mockito.Mockito.when;
 
 /**
  * Description:
- *
+ * <p>
  * Created by rowandjj(chuyi)<br/>
  */
 public class ShakeDetectorTest {
@@ -32,13 +32,13 @@ public class ShakeDetectorTest {
 
         ShakeDetector.ShakeListener mockListener = mock(ShakeDetector.ShakeListener.class);
         Sensor sensor = mock(Sensor.class);
-        ShakeDetector detector = new ShakeDetector(mockListener,null);
+        ShakeDetector detector = new ShakeDetector(mockListener, null);
         when(mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)).thenReturn(sensor);
 
         detector.start(mSensorManager);
 
         verify(mSensorManager).getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        verify(mSensorManager).registerListener(detector,sensor,SensorManager.SENSOR_DELAY_UI);
+        verify(mSensorManager).registerListener(detector, sensor, SensorManager.SENSOR_DELAY_UI);
     }
 
     @Test

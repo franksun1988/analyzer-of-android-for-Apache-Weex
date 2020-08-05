@@ -9,10 +9,9 @@ import java.text.NumberFormat;
  * and sets the maximal fraction digits
  * depending on the range between min and max
  * value of the current viewport.
- *
+ * <p>
  * It is recommended to use this label formatter
  * as base class to implement a custom formatter.
- *
  */
 public class DefaultLabelFormatter implements LabelFormatter {
     /**
@@ -58,7 +57,7 @@ public class DefaultLabelFormatter implements LabelFormatter {
      * looking label, depending on the
      * current range of the viewport.
      *
-     * @param value raw value
+     * @param value    raw value
      * @param isValueX true if it's a x value, otherwise false
      * @return the formatted value as string
      */

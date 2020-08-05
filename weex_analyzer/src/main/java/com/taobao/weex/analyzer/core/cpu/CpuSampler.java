@@ -14,7 +14,9 @@ import java.io.InputStreamReader;
 
 class CpuSampler {
 
-    private CpuSampler(){}
+    private CpuSampler() {
+    }
+
     static String sampleCpuRate() {
         return doSample("/proc/stat");
     }

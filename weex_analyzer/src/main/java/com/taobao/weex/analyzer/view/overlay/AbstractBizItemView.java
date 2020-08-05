@@ -39,7 +39,8 @@ public abstract class AbstractBizItemView<T> extends FrameLayout {
     protected abstract void prepareView();
 
 
-    protected abstract @LayoutRes int getLayoutResId();
+    protected abstract @LayoutRes
+    int getLayoutResId();
 
 
     public void inflateData(T data) {

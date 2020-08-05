@@ -20,7 +20,8 @@ import com.taobao.weex.analyzer.utils.ViewUtils;
 import com.taobao.weex.analyzer.view.chart.DynamicChartViewController;
 import com.taobao.weex.analyzer.view.chart.TimestampLabelFormatter;
 import com.taobao.weex.analyzer.view.overlay.PermissionOverlayView;
-import com.taobao.weex.utils.WXLogUtils;
+
+import org.apache.weex.utils.WXLogUtils;
 
 /**
  * Description:

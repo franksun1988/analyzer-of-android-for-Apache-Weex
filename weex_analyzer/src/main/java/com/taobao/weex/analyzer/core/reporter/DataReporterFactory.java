@@ -9,12 +9,13 @@ import com.taobao.weex.analyzer.core.reporter.ws.WebSocketClient;
 
 /**
  * Description:
- *
+ * <p>
  * Created by rowandjj(chuyi)<br/>
  */
 
 class DataReporterFactory {
-    private DataReporterFactory(){}
+    private DataReporterFactory() {
+    }
 
     private static final String MDS = "mds";
 
@@ -23,10 +24,10 @@ class DataReporterFactory {
         return new LogReporter(enabled);
     }
 
-    static IDataReporter createWSReporter(@NonNull String from, @NonNull String deviceId,@NonNull String server,WebSocketClient.Callback callback, IWebSocketBridge bridge) {
-        WebSocketReporter reporter= new WebSocketReporter(MDS.equals(from), bridge);
-        reporter.connect(server,callback);
-        Log.d(Constants.TAG, "try connect server:"+server);
+    static IDataReporter createWSReporter(@NonNull String from, @NonNull String deviceId, @NonNull String server, WebSocketClient.Callback callback, IWebSocketBridge bridge) {
+        WebSocketReporter reporter = new WebSocketReporter(MDS.equals(from), bridge);
+        reporter.connect(server, callback);
+        Log.d(Constants.TAG, "try connect server:" + server);
         return reporter;
     }
 }

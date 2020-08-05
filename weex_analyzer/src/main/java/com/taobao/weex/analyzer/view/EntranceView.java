@@ -26,9 +26,9 @@ import android.widget.Toast;
 import com.taobao.weex.analyzer.R;
 import com.taobao.weex.analyzer.utils.SDKUtils;
 import com.taobao.weex.analyzer.utils.ViewUtils;
-import com.taobao.weex.analyzer.utils.XiaomiOverlayViewPermissionHelper;
 import com.taobao.weex.analyzer.view.alert.AbstractAlertView;
-import com.taobao.weex.utils.WXLogUtils;
+
+import org.apache.weex.utils.WXLogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,8 +105,8 @@ public class EntranceView extends AbstractAlertView {
             mDevOptions = new ArrayList<>();
         }
 
-        for(DevOption option : options) {
-            if(option.isPermissionGranted) {
+        for (DevOption option : options) {
+            if (option.isPermissionGranted) {
                 mDevOptions.add(option);
             }
         }
@@ -190,16 +190,17 @@ public class EntranceView extends AbstractAlertView {
                     if (curOption != null && curOption.listener != null) {
                         try {
                             if (curOption.isOverlayView) {
-                                if(!XiaomiOverlayViewPermissionHelper.isPermissionGranted(v.getContext())) {
-                                    Toast.makeText(v.getContext(),"检测到使用了小米手机，可能需要你手动开启悬浮窗权限",Toast.LENGTH_LONG).show();
-                                    XiaomiOverlayViewPermissionHelper.requestPermission(v.getContext());
-                                    return;
-                                } else if(Build.VERSION.SDK_INT >= 25 && !SDKUtils.canDrawOverlays(getContext())) {
+//                                if (!XiaomiOverlayViewPermissionHelper.isPermissionGranted(v.getContext())) {
+//                                    Toast.makeText(v.getContext(), "检测到使用了小米手机，可能需要你手动开启悬浮窗权限", Toast.LENGTH_LONG).show();
+//                                    XiaomiOverlayViewPermissionHelper.requestPermission(v.getContext());
+//                                    return;
+//                                } else
+                                if (Build.VERSION.SDK_INT >= 25 && !SDKUtils.canDrawOverlays(getContext())) {
                                     WXLogUtils.d(TAG, "we have no permission to draw overlay views.");
                                     Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
                                             Uri.parse("package:" + getContext().getPackageName()));
                                     getContext().startActivity(intent);
-                                    Toast.makeText(getContext(),"please granted overlay permission before use this option",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(), "please granted overlay permission before use this option", Toast.LENGTH_SHORT).show();
                                     return;
                                 }
                             }

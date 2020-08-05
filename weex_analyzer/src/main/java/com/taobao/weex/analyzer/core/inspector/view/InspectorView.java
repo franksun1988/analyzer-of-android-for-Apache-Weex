@@ -9,12 +9,13 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.taobao.weex.WXSDKInstance;
 import com.taobao.weex.analyzer.Config;
 import com.taobao.weex.analyzer.R;
 import com.taobao.weex.analyzer.utils.ViewUtils;
-import com.taobao.weex.analyzer.view.overlay.PermissionOverlayView;
 import com.taobao.weex.analyzer.view.highlight.ViewHighlighter;
+import com.taobao.weex.analyzer.view.overlay.PermissionOverlayView;
+
+import org.apache.weex.WXSDKInstance;
 
 import java.util.concurrent.Executors;
 
@@ -22,7 +23,7 @@ import static com.taobao.weex.analyzer.R.id.close;
 
 /**
  * Description:
- *
+ * <p>
  * Created by rowandjj(chuyi)<br/>
  */
 
@@ -38,7 +39,7 @@ public class InspectorView extends PermissionOverlayView {
     private WXInspectorItemView mVirtualInspectorItemView;
     private WXInspectorItemView mNativeInspectorItemView;
 
-    private TextView virtualDomBtn,nativeLayoutBtn;
+    private TextView virtualDomBtn, nativeLayoutBtn;
 
     private View closeBtn;
     private TextView mTips;
@@ -47,7 +48,7 @@ public class InspectorView extends PermissionOverlayView {
     private static final int BTN_DISABLED_COLOR = 0x00ffffff;
 
     public InspectorView(Context application, Config config) {
-        super(application,true,config);
+        super(application, true, config);
         mWidth = WindowManager.LayoutParams.MATCH_PARENT;
     }
 
@@ -164,24 +165,23 @@ public class InspectorView extends PermissionOverlayView {
 
         //render overlay view
 
-        if(info.targetComponent != null) {
+        if (info.targetComponent != null) {
             String tips = ViewUtils.getComponentName(info.targetComponent);
-            mTips.setText("tips:你选中了weex元素["+tips+"]");
+            mTips.setText("tips:你选中了weex元素[" + tips + "]");
         } else {
-            if(mContext != null && info.targetView != null) {
-                mTips.setText("tips:你选中了native元素["+info.targetView.getClass().getSimpleName()+"]");
+            if (mContext != null && info.targetView != null) {
+                mTips.setText("tips:你选中了native元素[" + info.targetView.getClass().getSimpleName() + "]");
             }
         }
 
-        if(info.virtualViewInfo != null) {
+        if (info.virtualViewInfo != null) {
             mVirtualInspectorItemView.inflateData(info);
         }
 
-        if(info.nativeViewInfo != null) {
+        if (info.nativeViewInfo != null) {
             mNativeInspectorItemView.inflateData(info);
         }
     }
-
 
 
     @Override
@@ -191,7 +191,7 @@ public class InspectorView extends PermissionOverlayView {
             mInspectorManager.destroy();
             mInspectorManager = null;
         }
-        if(mViewHighlighter != null) {
+        if (mViewHighlighter != null) {
             mViewHighlighter.clearHighlight();
         }
         mViewHighlighter = null;

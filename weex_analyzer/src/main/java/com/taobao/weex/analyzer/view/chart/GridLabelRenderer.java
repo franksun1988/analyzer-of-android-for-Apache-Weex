@@ -107,9 +107,9 @@ public class GridLabelRenderer {
          * font color of the horizontal axis title
          */
         public int horizontalAxisTitleColor;
-        
+
         /**
-         * angle of the horizontal axis label in 
+         * angle of the horizontal axis label in
          * degrees between 0 and 180
          */
         public float horizontalLabelsAngle;
@@ -167,8 +167,13 @@ public class GridLabelRenderer {
          */
         NONE;
 
-        public boolean drawVertical() { return this == BOTH || this == VERTICAL && this != NONE; }
-        public boolean drawHorizontal() { return this == BOTH || this == HORIZONTAL && this != NONE; }
+        public boolean drawVertical() {
+            return this == BOTH || this == VERTICAL && this != NONE;
+        }
+
+        public boolean drawHorizontal() {
+            return this == BOTH || this == HORIZONTAL && this != NONE;
+        }
     }
 
     /**
@@ -280,7 +285,7 @@ public class GridLabelRenderer {
      * activate or deactivate human rounding of the
      * horizontal axis. GraphView tries to fit the labels
      * to display numbers that can be divided by 1, 2, or 5.
-     *
+     * <p>
      * By default this is enabled. It makes sense to deactivate it
      * when using Dates on the x axis.
      */
@@ -341,7 +346,7 @@ public class GridLabelRenderer {
         mStyles.gridColor = color2;
         mStyles.textSize = size;
         mStyles.padding = size2;
-        mStyles.labelsSpace = (int) mStyles.textSize/5;
+        mStyles.labelsSpace = (int) mStyles.textSize / 5;
 
         mStyles.verticalLabelsAlign = Paint.Align.RIGHT;
         mStyles.verticalLabelsSecondScaleAlign = Paint.Align.LEFT;
@@ -354,7 +359,7 @@ public class GridLabelRenderer {
 
         mStyles.horizontalLabelsVisible = true;
         mStyles.verticalLabelsVisible = true;
-        
+
         mStyles.horizontalLabelsAngle = 0f;
 
         mStyles.gridStyle = GridStyle.BOTH;
@@ -382,10 +387,10 @@ public class GridLabelRenderer {
     /**
      * GraphView tries to fit the labels
      * to display numbers that can be divided by 1, 2, or 5.
-     *
+     * <p>
      * By default this is enabled. It makes sense to deactivate it
      * when using Dates on the x axis.
-
+     *
      * @return if human rounding is enabled
      */
     public boolean isHumanRounding() {
@@ -396,7 +401,7 @@ public class GridLabelRenderer {
      * activate or deactivate human rounding of the
      * horizontal axis. GraphView tries to fit the labels
      * to display numbers that can be divided by 1, 2, or 5.
-     *
+     * <p>
      * By default this is enabled. It makes sense to deactivate it
      * when using Dates on the x axis.
      *
@@ -421,8 +426,8 @@ public class GridLabelRenderer {
     }
 
     /**
-     * @return  the alignment of the text of the
-     *          vertical labels
+     * @return the alignment of the text of the
+     * vertical labels
      */
     public Paint.Align getVerticalLabelsAlign() {
         return mStyles.verticalLabelsAlign;
@@ -434,7 +439,7 @@ public class GridLabelRenderer {
     public int getHorizontalLabelsColor() {
         return mStyles.horizontalLabelsColor;
     }
-    
+
     /**
      * @return the angle of the horizontal labels
      */
@@ -454,10 +459,10 @@ public class GridLabelRenderer {
      *                       to use "true" because this will
      *                       improve performance and prevent
      *                       a flickering.
-     * @param keepViewport true if you don't want that
-     *                     the viewport will be recalculated.
-     *                     It is recommended to use "true" for
-     *                     performance.
+     * @param keepViewport   true if you don't want that
+     *                       the viewport will be recalculated.
+     *                       It is recommended to use "true" for
+     *                       performance.
      */
     public void invalidate(boolean keepLabelsSize, boolean keepViewport) {
         if (!keepViewport) {
@@ -564,8 +569,8 @@ public class GridLabelRenderer {
         // goal is to start with the minX or 1 step before
         newMinY = mGraphView.getViewport().getReferenceY();
         // must be down-rounded
-        double count = Math.floor((minY-newMinY)/exactSteps);
-        newMinY = count*exactSteps + newMinY;
+        double count = Math.floor((minY - newMinY) / exactSteps);
+        newMinY = count * exactSteps + newMinY;
 
         // now we have our labels bounds
         if (changeBounds) {
@@ -575,7 +580,7 @@ public class GridLabelRenderer {
         }
 
         // it can happen that we need to add some more labels to fill the complete screen
-        numVerticalLabels = (int) ((mGraphView.getViewport().mCurrentViewport.height()*-1 / exactSteps)) + 2;
+        numVerticalLabels = (int) ((mGraphView.getViewport().mCurrentViewport.height() * -1 / exactSteps)) + 2;
 
         if (mStepsVertical != null) {
             mStepsVertical.clear();
@@ -585,7 +590,7 @@ public class GridLabelRenderer {
 
         int height = mGraphView.getGraphContentHeight();
         // convert data-y to pixel-y in current viewport
-        double pixelPerData = height / mGraphView.getViewport().mCurrentViewport.height()*-1;
+        double pixelPerData = height / mGraphView.getViewport().mCurrentViewport.height() * -1;
 
         for (int i = 0; i < numVerticalLabels; i++) {
             // dont draw if it is top of visible screen
@@ -697,8 +702,8 @@ public class GridLabelRenderer {
         // goal is to start with the minX or 1 step before
         newMinX = mGraphView.getViewport().getReferenceX();
         // must be down-rounded
-        double count = Math.floor((minX-newMinX)/exactSteps);
-        newMinX = count*exactSteps + newMinX;
+        double count = Math.floor((minX - newMinX) / exactSteps);
+        newMinX = count * exactSteps + newMinX;
 
         // now we have our labels bounds
         if (changeBounds) {
@@ -744,12 +749,13 @@ public class GridLabelRenderer {
      * are manual.
      */
     protected void adjustSteps() {
-        mIsAdjusted = adjustVertical(! Viewport.AxisBoundsStatus.FIX.equals(mGraphView.getViewport().mYAxisBoundsStatus));
-        mIsAdjusted &= adjustHorizontal(! Viewport.AxisBoundsStatus.FIX.equals(mGraphView.getViewport().mXAxisBoundsStatus));
+        mIsAdjusted = adjustVertical(!Viewport.AxisBoundsStatus.FIX.equals(mGraphView.getViewport().mYAxisBoundsStatus));
+        mIsAdjusted &= adjustHorizontal(!Viewport.AxisBoundsStatus.FIX.equals(mGraphView.getViewport().mXAxisBoundsStatus));
     }
 
     /**
      * calculates the vertical label size
+     *
      * @param canvas canvas
      */
     protected void calcLabelVerticalSize(Canvas canvas) {
@@ -785,6 +791,7 @@ public class GridLabelRenderer {
 
     /**
      * calculates the horizontal label size
+     *
      * @param canvas canvas
      */
     protected void calcLabelHorizontalSize(Canvas canvas) {
@@ -812,10 +819,10 @@ public class GridLabelRenderer {
         }
 
         if (mStyles.horizontalLabelsAngle > 0f && mStyles.horizontalLabelsAngle <= 180f) {
-            int adjHorizontalHeightH = (int) Math.round(Math.abs(mLabelHorizontalHeight* Math.cos(Math.toRadians(mStyles.horizontalLabelsAngle))));
-            int adjHorizontalHeightW = (int) Math.round(Math.abs(mLabelHorizontalWidth* Math.sin(Math.toRadians(mStyles.horizontalLabelsAngle))));
-            int adjHorizontalWidthH = (int) Math.round(Math.abs(mLabelHorizontalHeight* Math.sin(Math.toRadians(mStyles.horizontalLabelsAngle))));
-            int adjHorizontalWidthW = (int) Math.round(Math.abs(mLabelHorizontalWidth* Math.cos(Math.toRadians(mStyles.horizontalLabelsAngle))));
+            int adjHorizontalHeightH = (int) Math.round(Math.abs(mLabelHorizontalHeight * Math.cos(Math.toRadians(mStyles.horizontalLabelsAngle))));
+            int adjHorizontalHeightW = (int) Math.round(Math.abs(mLabelHorizontalWidth * Math.sin(Math.toRadians(mStyles.horizontalLabelsAngle))));
+            int adjHorizontalWidthH = (int) Math.round(Math.abs(mLabelHorizontalHeight * Math.sin(Math.toRadians(mStyles.horizontalLabelsAngle))));
+            int adjHorizontalWidthW = (int) Math.round(Math.abs(mLabelHorizontalWidth * Math.cos(Math.toRadians(mStyles.horizontalLabelsAngle))));
 
             mLabelHorizontalHeight = adjHorizontalHeightH + adjHorizontalHeightW;
             mLabelHorizontalWidth = adjHorizontalWidthH + adjHorizontalWidthW;
@@ -828,6 +835,7 @@ public class GridLabelRenderer {
     /**
      * do the drawing of the grid
      * and labels
+     *
      * @param canvas canvas
      */
     public void draw(Canvas canvas) {
@@ -866,6 +874,7 @@ public class GridLabelRenderer {
     /**
      * draws the horizontal axis title if
      * it is set
+     *
      * @param canvas canvas
      */
     protected void drawHorizontalAxisTitle(Canvas canvas) {
@@ -881,6 +890,7 @@ public class GridLabelRenderer {
     /**
      * draws the vertical axis title if
      * it is set
+     *
      * @param canvas canvas
      */
     protected void drawVerticalAxisTitle(Canvas canvas) {
@@ -897,8 +907,8 @@ public class GridLabelRenderer {
     }
 
     /**
-     * @return  the horizontal axis title height
-     *          or 0 if there is no title
+     * @return the horizontal axis title height
+     * or 0 if there is no title
      */
     public int getHorizontalAxisTitleHeight() {
         if (mHorizontalAxisTitle != null && mHorizontalAxisTitle.length() > 0) {
@@ -909,8 +919,8 @@ public class GridLabelRenderer {
     }
 
     /**
-     * @return  the vertical axis title width
-     *          or 0 if there is no title
+     * @return the vertical axis title width
+     * or 0 if there is no title
      */
     public int getVerticalAxisTitleWidth() {
         if (mVerticalAxisTitle != null && mVerticalAxisTitle.length() > 0) {
@@ -942,7 +952,7 @@ public class GridLabelRenderer {
             if (mStyles.gridStyle.drawVertical()) {
                 // dont draw if it is right of visible screen
                 if (e.getKey() <= mGraphView.getGraphContentWidth()) {
-                    canvas.drawLine(mGraphView.getGraphContentLeft()+e.getKey(), mGraphView.getGraphContentTop(), mGraphView.getGraphContentLeft()+e.getKey(), mGraphView.getGraphContentTop() + mGraphView.getGraphContentHeight(), mPaintLine);
+                    canvas.drawLine(mGraphView.getGraphContentLeft() + e.getKey(), mGraphView.getGraphContentTop(), mGraphView.getGraphContentLeft() + e.getKey(), mGraphView.getGraphContentTop() + mGraphView.getGraphContentHeight(), mPaintLine);
                 }
             }
 
@@ -968,18 +978,18 @@ public class GridLabelRenderer {
                     label = "";
                 }
                 String[] lines = label.split("\n");
-                
+
                 // If labels are angled, calculate adjustment to line them up with the grid
                 int labelWidthAdj = 0;
                 if (mStyles.horizontalLabelsAngle > 0f && mStyles.horizontalLabelsAngle <= 180f) {
                     Rect textBounds = new Rect();
                     mPaintLabel.getTextBounds(lines[0], 0, lines[0].length(), textBounds);
-                    labelWidthAdj = (int) Math.abs(textBounds.width()* Math.cos(Math.toRadians(mStyles.horizontalLabelsAngle)));
+                    labelWidthAdj = (int) Math.abs(textBounds.width() * Math.cos(Math.toRadians(mStyles.horizontalLabelsAngle)));
                 }
                 for (int li = 0; li < lines.length; li++) {
                     // for the last line y = height
                     float y = (canvas.getHeight() - mStyles.padding - getHorizontalAxisTitleHeight()) - (lines.length - li - 1) * getTextSize() * 1.1f + mStyles.labelsSpace;
-                    float x = mGraphView.getGraphContentLeft()+e.getKey();
+                    float x = mGraphView.getGraphContentLeft() + e.getKey();
                     if (mStyles.horizontalLabelsAngle > 0 && mStyles.horizontalLabelsAngle < 90f) {
                         canvas.save();
                         canvas.rotate(mStyles.horizontalLabelsAngle, x + labelWidthAdj, y);
@@ -1016,7 +1026,7 @@ public class GridLabelRenderer {
         int currentLine = 1;
 
         for (Map.Entry<Integer, Double> e : mStepsVertical.entrySet()) {
-            float posY = mGraphView.getGraphContentTop()+mGraphView.getGraphContentHeight()-e.getKey();
+            float posY = mGraphView.getGraphContentTop() + mGraphView.getGraphContentHeight() - e.getKey();
 
             // draw line
             if (mStyles.highlightZeroLines) {
@@ -1033,7 +1043,7 @@ public class GridLabelRenderer {
             //if draw the label above or below the line, we mustn't draw the first for last label, for beautiful design.
             boolean isDrawLabel = true;
             if ((mStyles.verticalLabelsVAlign == VerticalLabelsVAlign.ABOVE && currentLine == 1)
-                    || (mStyles.verticalLabelsVAlign == VerticalLabelsVAlign.BELOW && currentLine == numberOfLine)){
+                    || (mStyles.verticalLabelsVAlign == VerticalLabelsVAlign.BELOW && currentLine == numberOfLine)) {
                 isDrawLabel = false;
             }
 
@@ -1056,7 +1066,7 @@ public class GridLabelRenderer {
                     label = "";
                 }
                 String[] lines = label.split("\n");
-                switch (mStyles.verticalLabelsVAlign){
+                switch (mStyles.verticalLabelsVAlign) {
                     case MID:
                         y += (lines.length * getTextSize() * 1.1f) / 2; // center text vertically
                         break;
@@ -1075,7 +1085,7 @@ public class GridLabelRenderer {
                 }
             }
 
-            currentLine ++;
+            currentLine++;
         }
     }
 
@@ -1083,7 +1093,7 @@ public class GridLabelRenderer {
      * this will do rounding to generate
      * nice human-readable bounds.
      *
-     * @param in the raw value that is to be rounded
+     * @param in            the raw value that is to be rounded
      * @param roundAlwaysUp true if it shall always round up (ceil)
      * @return the rounded number
      */
@@ -1128,8 +1138,8 @@ public class GridLabelRenderer {
     }
 
     /**
-     * @return  the vertical label width
-     *          0 if there are no vertical labels
+     * @return the vertical label width
+     * 0 if there are no vertical labels
      */
     public int getLabelVerticalWidth() {
         if (mStyles.verticalLabelsVAlign == VerticalLabelsVAlign.ABOVE
@@ -1144,8 +1154,8 @@ public class GridLabelRenderer {
      * the vertical labels. This will prevent GraphView to
      * calculate the width automatically.
      *
-     * @param width     the width of the space for the vertical labels.
-     *                  Use null to let GraphView automatically calculate the width.
+     * @param width the width of the space for the vertical labels.
+     *              Use null to let GraphView automatically calculate the width.
      */
     public void setLabelVerticalWidth(Integer width) {
         mLabelVerticalWidth = width;
@@ -1153,8 +1163,8 @@ public class GridLabelRenderer {
     }
 
     /**
-     * @return  the horizontal label height
-     *          0 if there are no horizontal labels
+     * @return the horizontal label height
+     * 0 if there are no horizontal labels
      */
     public int getLabelHorizontalHeight() {
         return mLabelHorizontalHeight == null || !isHorizontalLabelsVisible() ? 0 : mLabelHorizontalHeight;
@@ -1165,8 +1175,8 @@ public class GridLabelRenderer {
      * the horizontal labels. This will prevent GraphView to
      * calculate the height automatically.
      *
-     * @param height     the height of the space for the horizontal labels.
-     *                  Use null to let GraphView automatically calculate the height.
+     * @param height the height of the space for the horizontal labels.
+     *               Use null to let GraphView automatically calculate the height.
      */
     public void setLabelHorizontalHeight(Integer height) {
         mLabelHorizontalHeight = height;
@@ -1195,9 +1205,9 @@ public class GridLabelRenderer {
     }
 
     /**
-     * @param textSize  the general text size of the axis titles.
-     *                  can be overwritten with {@link #setVerticalAxisTitleTextSize(float)}
-     *                  and {@link #setHorizontalAxisTitleTextSize(float)}
+     * @param textSize the general text size of the axis titles.
+     *                 can be overwritten with {@link #setVerticalAxisTitleTextSize(float)}
+     *                 and {@link #setHorizontalAxisTitleTextSize(float)}
      */
     public void setTextSize(float textSize) {
         mStyles.textSize = textSize;
@@ -1224,7 +1234,7 @@ public class GridLabelRenderer {
     public void setHorizontalLabelsColor(int horizontalLabelsColor) {
         mStyles.horizontalLabelsColor = horizontalLabelsColor;
     }
-    
+
     /**
      * @param horizontalLabelsAngle the angle of the horizontal labels in degrees
      */
@@ -1241,8 +1251,8 @@ public class GridLabelRenderer {
     }
 
     /**
-     * @param highlightZeroLines    flag whether the zero-lines (vertical+
-     *                              horizontal) shall be highlighted
+     * @param highlightZeroLines flag whether the zero-lines (vertical+
+     *                           horizontal) shall be highlighted
      */
     public void setHighlightZeroLines(boolean highlightZeroLines) {
         mStyles.highlightZeroLines = highlightZeroLines;
@@ -1256,16 +1266,16 @@ public class GridLabelRenderer {
     }
 
     /**
-     * @return  the label formatter, that converts
-     *          the raw numbers to strings
+     * @return the label formatter, that converts
+     * the raw numbers to strings
      */
     public LabelFormatter getLabelFormatter() {
         return mLabelFormatter;
     }
 
     /**
-     * @param mLabelFormatter   the label formatter, that converts
-     *                          the raw numbers to strings
+     * @param mLabelFormatter the label formatter, that converts
+     *                        the raw numbers to strings
      */
     public void setLabelFormatter(LabelFormatter mLabelFormatter) {
         this.mLabelFormatter = mLabelFormatter;
@@ -1386,64 +1396,64 @@ public class GridLabelRenderer {
 
 
     /**
-     * @return  flag whether the horizontal labels are
-     *          visible
+     * @return flag whether the horizontal labels are
+     * visible
      */
     public boolean isHorizontalLabelsVisible() {
         return mStyles.horizontalLabelsVisible;
     }
 
     /**
-     * @param horizontalTitleVisible    flag whether the horizontal labels are
-     *                                  visible
+     * @param horizontalTitleVisible flag whether the horizontal labels are
+     *                               visible
      */
     public void setHorizontalLabelsVisible(boolean horizontalTitleVisible) {
         mStyles.horizontalLabelsVisible = horizontalTitleVisible;
     }
 
     /**
-     * @return  flag whether the vertical labels are
-     *          visible
+     * @return flag whether the vertical labels are
+     * visible
      */
     public boolean isVerticalLabelsVisible() {
         return mStyles.verticalLabelsVisible;
     }
 
     /**
-     * @param verticalTitleVisible  flag whether the vertical labels are
-     *                              visible
+     * @param verticalTitleVisible flag whether the vertical labels are
+     *                             visible
      */
     public void setVerticalLabelsVisible(boolean verticalTitleVisible) {
         mStyles.verticalLabelsVisible = verticalTitleVisible;
     }
 
     /**
-     * @return  count of the vertical labels, that
-     *          will be shown at one time.
+     * @return count of the vertical labels, that
+     * will be shown at one time.
      */
     public int getNumVerticalLabels() {
         return mNumVerticalLabels;
     }
 
     /**
-     * @param mNumVerticalLabels    count of the vertical labels, that
-     *                              will be shown at one time.
+     * @param mNumVerticalLabels count of the vertical labels, that
+     *                           will be shown at one time.
      */
     public void setNumVerticalLabels(int mNumVerticalLabels) {
         this.mNumVerticalLabels = mNumVerticalLabels;
     }
 
     /**
-     * @return  count of the horizontal labels, that
-     *          will be shown at one time.
+     * @return count of the horizontal labels, that
+     * will be shown at one time.
      */
     public int getNumHorizontalLabels() {
         return mNumHorizontalLabels;
     }
 
     /**
-     * @param mNumHorizontalLabels  count of the horizontal labels, that
-     *                              will be shown at one time.
+     * @param mNumHorizontalLabels count of the horizontal labels, that
+     *                             will be shown at one time.
      */
     public void setNumHorizontalLabels(int mNumHorizontalLabels) {
         this.mNumHorizontalLabels = mNumHorizontalLabels;
@@ -1484,17 +1494,19 @@ public class GridLabelRenderer {
 
     /**
      * set horizontal label align
+     *
      * @param align
      */
-    public void setVerticalLabelsVAlign(VerticalLabelsVAlign align){
+    public void setVerticalLabelsVAlign(VerticalLabelsVAlign align) {
         mStyles.verticalLabelsVAlign = align;
     }
 
     /**
      * Get horizontal label align
+     *
      * @return align
      */
-    public VerticalLabelsVAlign getVerticalLabelsVAlign(){
+    public VerticalLabelsVAlign getVerticalLabelsVAlign() {
         return mStyles.verticalLabelsVAlign;
     }
 }

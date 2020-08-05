@@ -92,9 +92,9 @@ public class RemoteDebugManager {
             @Override
             public void onClick(View v) {
                 String temp = editText.getText().toString();
-                if(TextUtils.isEmpty(temp)) {
+                if (TextUtils.isEmpty(temp)) {
                     Toast.makeText(context, "ip can not be null", Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     mServerIP = temp.trim();
                     dialog.dismiss();
 
@@ -120,13 +120,13 @@ public class RemoteDebugManager {
             DebugTool.startRemoteDebug(remoteDebugProxyUrl);
             isEnabled = true;
             Toast.makeText(context, context.getString(R.string.wxt_opened), Toast.LENGTH_SHORT).show();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     private void stopRemoteJSDebug(Context context) {
-        if(DebugTool.stopRemoteDebug()) {
+        if (DebugTool.stopRemoteDebug()) {
             Toast.makeText(context, "close success", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(context, "close failed", Toast.LENGTH_SHORT).show();

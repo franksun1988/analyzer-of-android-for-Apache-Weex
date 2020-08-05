@@ -19,8 +19,9 @@ public interface IOverlayView {
         void close(IOverlayView host);
     }
 
-    interface ITask{
+    interface ITask {
         void start();
+
         void stop();
     }
 }

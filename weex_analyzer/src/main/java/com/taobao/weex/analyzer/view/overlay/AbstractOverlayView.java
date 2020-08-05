@@ -31,17 +31,15 @@ public abstract class AbstractOverlayView implements IOverlayView {
     protected int mHeight;
 
 
-
     public AbstractOverlayView(Context application) {
         mContext = application;
         mWindowManager = (WindowManager) application.getSystemService(Context.WINDOW_SERVICE);
-        mGravity = Gravity.TOP|Gravity.LEFT;
+        mGravity = Gravity.TOP | Gravity.LEFT;
         mX = mY = 0;
 
         mWidth = WindowManager.LayoutParams.WRAP_CONTENT;
         mHeight = WindowManager.LayoutParams.WRAP_CONTENT;
     }
-
 
 
     @Override
@@ -69,11 +67,11 @@ public abstract class AbstractOverlayView implements IOverlayView {
 
             //since android7.1.1 only allow add one toast window at a time for a uid,
             // so we use TYPE_PHONE instead.
-            if(Build.VERSION.SDK_INT == 25) {
+            if (Build.VERSION.SDK_INT == 25) {
                 type = WindowManager.LayoutParams.TYPE_PHONE;
             }
 
-            if(Build.VERSION.SDK_INT > 25) {
+            if (Build.VERSION.SDK_INT > 25) {
                 type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
             }
 
@@ -86,22 +84,23 @@ public abstract class AbstractOverlayView implements IOverlayView {
             isViewAttached = true;
 
             onShown();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    protected abstract @NonNull View onCreateView();
+    protected abstract @NonNull
+    View onCreateView();
 
     protected abstract void onShown();
 
     protected abstract void onDismiss();
 
-    protected void onViewCreated(@NonNull View hostView){
+    protected void onViewCreated(@NonNull View hostView) {
         //nothing
     }
 
-    protected void onDestroy(){
+    protected void onDestroy() {
         //nothing
     }
 
@@ -115,7 +114,7 @@ public abstract class AbstractOverlayView implements IOverlayView {
                 onDismiss();
             }
             onDestroy();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

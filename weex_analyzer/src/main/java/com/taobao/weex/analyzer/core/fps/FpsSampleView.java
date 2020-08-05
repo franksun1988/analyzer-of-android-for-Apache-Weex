@@ -18,8 +18,8 @@ import com.taobao.weex.analyzer.core.AbstractLoopTask;
 import com.taobao.weex.analyzer.utils.SDKUtils;
 import com.taobao.weex.analyzer.utils.ViewUtils;
 import com.taobao.weex.analyzer.view.chart.DynamicChartViewController;
-import com.taobao.weex.analyzer.view.overlay.PermissionOverlayView;
 import com.taobao.weex.analyzer.view.chart.TimestampLabelFormatter;
+import com.taobao.weex.analyzer.view.overlay.PermissionOverlayView;
 
 /**
  * Description:
@@ -36,8 +36,8 @@ public class FpsSampleView extends PermissionOverlayView {
 
     private OnCloseListener mOnCloseListener;
 
-    public FpsSampleView(Context application,Config config) {
-        super(application,true,config);
+    public FpsSampleView(Context application, Config config) {
+        super(application, true, config);
 
         mWidth = WindowManager.LayoutParams.MATCH_PARENT;
         mHeight = (int) ViewUtils.dp2px(application, 150);
@@ -102,7 +102,7 @@ public class FpsSampleView extends PermissionOverlayView {
 
     @Override
     protected void onShown() {
-        if(mTask != null){
+        if (mTask != null) {
             mTask.stop();
             mTask = null;
         }
@@ -127,7 +127,7 @@ public class FpsSampleView extends PermissionOverlayView {
         private FpsTaskEntity mEntity;
 
         SampleFPSTask(@NonNull DynamicChartViewController controller, boolean isDebug) {
-            super(false,1000);
+            super(false, 1000);
             this.mController = controller;
             this.isDebug = isDebug;
             mEntity = new FpsTaskEntity();
@@ -148,8 +148,8 @@ public class FpsSampleView extends PermissionOverlayView {
                 //check fps
                 mAxisXValue++;
                 final double fps = mEntity.onTaskRun();
-                if(isDebug) {
-                    Log.d("weex-analyzer", "current fps : "+ fps);
+                if (isDebug) {
+                    Log.d("weex-analyzer", "current fps : " + fps);
                 }
                 runOnUIThread(new Runnable() {
                     @Override

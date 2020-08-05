@@ -30,7 +30,7 @@ public class WXPerformanceAnalysisView extends PermissionAlertView {
     private Performance mCurPerformance;
 
     public WXPerformanceAnalysisView(Context context, @NonNull Performance curPerformance, @NonNull List<Performance> historyPerfs, Config config) {
-        super(context,config);
+        super(context, config);
         this.mCurPerformance = curPerformance;
         this.mHistoryPerfList = historyPerfs;
     }

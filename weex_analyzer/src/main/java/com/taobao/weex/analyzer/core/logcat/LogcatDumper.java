@@ -81,11 +81,11 @@ public class LogcatDumper implements Handler.Callback {
         return mRules.remove(rule);
     }
 
-    public boolean removeRule(@Nullable String ruleName){
-        if(TextUtils.isEmpty(ruleName)){
+    public boolean removeRule(@Nullable String ruleName) {
+        if (TextUtils.isEmpty(ruleName)) {
             return false;
         }
-        Rule r = new Rule(ruleName,"");
+        Rule r = new Rule(ruleName, "");
         return mRules.remove(r);
     }
 
@@ -260,7 +260,7 @@ public class LogcatDumper implements Handler.Callback {
     }
 
     private int getLevel(@NonNull String log) {
-        if(log.length() < 20){
+        if (log.length() < 20) {
             return 'V';
         }
         char level = log.charAt(19);
@@ -350,7 +350,7 @@ public class LogcatDumper implements Handler.Callback {
                     }
                 }
             } catch (IOException e) {
-                Log.e(DevOptionsConfig.TAG,e.getMessage());
+                Log.e(DevOptionsConfig.TAG, e.getMessage());
             }
         }
 

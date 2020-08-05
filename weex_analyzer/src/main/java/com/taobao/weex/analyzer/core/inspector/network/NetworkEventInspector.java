@@ -21,15 +21,15 @@ import java.util.Map;
 
 /**
  * Description:
- *
+ * <p>
  * 负责接受网络消息 并整理后发送给NetworkInspectorView
- *
- *
+ * <p>
+ * <p>
  * 1. 注册localbroadcastManager
  * 2. 接受消息
  * 3. 整理
  * 4. 转发
- *
+ * <p>
  * Created by rowandjj(chuyi)<br/>
  */
 
@@ -111,7 +111,7 @@ public class NetworkEventInspector {
             MessageBean msg = new MessageBean(type, title, desc, extendProps, body);
 
             try {
-                if(!TextUtils.isEmpty(msg.body)) {
+                if (!TextUtils.isEmpty(msg.body)) {
                     msg.content = JSON.parseObject(msg.body.trim());
                 }
             } catch (Exception e) {

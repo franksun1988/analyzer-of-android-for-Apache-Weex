@@ -12,20 +12,21 @@ import android.support.annotation.DrawableRes;
 
 public class DevOption {
     public String optionName;
-    @DrawableRes public int iconRes;
+    @DrawableRes
+    public int iconRes;
     public OnOptionClickListener listener;
     public boolean isOverlayView;
     public boolean isPermissionGranted = true;
 
-    public DevOption(){
+    public DevOption() {
     }
 
-    public DevOption(String optionName,int iconRes, OnOptionClickListener listener){
-        this(optionName,iconRes,listener,false);
+    public DevOption(String optionName, int iconRes, OnOptionClickListener listener) {
+        this(optionName, iconRes, listener, false);
     }
 
     public DevOption(String optionName, int iconRes, OnOptionClickListener listener, boolean isOverlayView) {
-        this(optionName,iconRes,listener,isOverlayView,true);
+        this(optionName, iconRes, listener, isOverlayView, true);
     }
 
     public DevOption(String optionName, int iconRes, OnOptionClickListener listener, boolean isOverlayView, boolean isPermissionGranted) {

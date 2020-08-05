@@ -17,7 +17,7 @@ import static com.taobao.weex.analyzer.Config.TYPE_WEEX_PERFORMANCE_STATISTICS;
 
 /**
  * Description:
- *
+ * <p>
  * Created by rowandjj(chuyi)<br/>
  */
 
@@ -30,9 +30,9 @@ public interface IDataReporter<T> {
     boolean isEnabled();
 
     @Retention(RetentionPolicy.SOURCE)
-    @StringDef({TYPE_CPU,TYPE_FPS,TYPE_MEMORY,TYPE_TRAFFIC,
-            TYPE_WEEX_PERFORMANCE_STATISTICS,TYPE_VIEW_INSPECTOR,
-            TYPE_RENDER_ANALYSIS,TYPE_MTOP_INSPECTOR})
+    @StringDef({TYPE_CPU, TYPE_FPS, TYPE_MEMORY, TYPE_TRAFFIC,
+            TYPE_WEEX_PERFORMANCE_STATISTICS, TYPE_VIEW_INSPECTOR,
+            TYPE_RENDER_ANALYSIS, TYPE_MTOP_INSPECTOR})
     @interface OptionType {
     }
 

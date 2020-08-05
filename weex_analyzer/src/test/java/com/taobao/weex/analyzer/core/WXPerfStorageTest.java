@@ -2,11 +2,11 @@ package com.taobao.weex.analyzer.core;
 
 import android.text.TextUtils;
 
-import com.taobao.weex.WXSDKInstance;
 import com.taobao.weex.analyzer.core.storage.WXPerfStorage;
 import com.taobao.weex.analyzer.core.weex.Performance;
 import com.taobao.weex.analyzer.core.weex.PerformanceMonitor;
 
+import org.apache.weex.WXSDKInstance;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,11 +29,11 @@ import static org.mockito.Matchers.any;
 
 /**
  * Description:
- *
+ * <p>
  * Created by rowandjj(chuyi)<br/>
  */
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({PerformanceMonitor.class,TextUtils.class})
+@PrepareForTest({PerformanceMonitor.class, TextUtils.class})
 public class WXPerfStorageTest {
 
     private WXPerfStorage mWxPerfStorage;
@@ -74,7 +74,7 @@ public class WXPerfStorageTest {
         PowerMockito.verifyStatic();
         PerformanceMonitor.monitor(mFakeInstance);
 
-        assertEquals("fake_url",pageName);
+        assertEquals("fake_url", pageName);
     }
 
     @Test
@@ -92,10 +92,10 @@ public class WXPerfStorageTest {
         fakeList.add(p2);
         fakeList.add(p3);
 
-        PowerMockito.doReturn(fakeList).when(storage,"getPerformanceList","fake1");
+        PowerMockito.doReturn(fakeList).when(storage, "getPerformanceList", "fake1");
 
         Performance p = storage.getLatestPerformance("fake1");
-        assertEquals(p,p3);
+        assertEquals(p, p3);
     }
 
     @Test

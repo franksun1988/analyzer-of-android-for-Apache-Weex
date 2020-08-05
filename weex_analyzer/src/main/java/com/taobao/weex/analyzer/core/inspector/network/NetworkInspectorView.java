@@ -30,7 +30,7 @@ import java.util.Locale;
 
 /**
  * Description:
- *
+ * <p>
  * Created by rowandjj(chuyi)<br/>
  */
 
@@ -325,7 +325,7 @@ public class NetworkInspectorView extends AbstractResizableOverlayView {
 
             if (!TextUtils.isEmpty(msg.body)) {
                 try {
-                    if(msg.content != null) {
+                    if (msg.content != null) {
                         bodyView.setText(JSON.toJSONString(msg.content, true));
                     } else {
                         bodyView.setText(msg.body);

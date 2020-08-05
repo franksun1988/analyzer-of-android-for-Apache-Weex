@@ -19,29 +19,30 @@ public class HandlerThreadWrapper {
     private HandlerThread mHandlerThread;
 
     public HandlerThreadWrapper(@NonNull String threadName) {
-        this(threadName,null);
+        this(threadName, null);
     }
 
     public HandlerThreadWrapper(@NonNull String threadName, @Nullable Handler.Callback callback) {
         mHandlerThread = new HandlerThread(threadName);
         mHandlerThread.start();
-        mHandler = new Handler(mHandlerThread.getLooper(),callback);
+        mHandler = new Handler(mHandlerThread.getLooper(), callback);
     }
 
-    public @NonNull Handler getHandler() {
+    public @NonNull
+    Handler getHandler() {
         return this.mHandler;
     }
 
-    public boolean isAlive(){
-        if(mHandlerThread == null){
+    public boolean isAlive() {
+        if (mHandlerThread == null) {
             return false;
         }
         return mHandlerThread.isAlive();
     }
 
     public void quit() {
-        if(mHandlerThread != null){
-            if(mHandler != null){
+        if (mHandlerThread != null) {
+            if (mHandler != null) {
                 mHandler.removeCallbacksAndMessages(null);
             }
             mHandlerThread.quit();

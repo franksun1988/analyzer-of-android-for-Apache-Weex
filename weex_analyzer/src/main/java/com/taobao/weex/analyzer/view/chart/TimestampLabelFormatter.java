@@ -22,8 +22,8 @@ public class TimestampLabelFormatter extends DefaultLabelFormatter {
     }
 
     private String formatTime(double value) {
-        if(value < 60){
-            return ((int)value)+"s";
+        if (value < 60) {
+            return ((int) value) + "s";
         }
 
         int seconds = (int) (value % 60);
@@ -32,13 +32,13 @@ public class TimestampLabelFormatter extends DefaultLabelFormatter {
 
         StringBuilder builder = new StringBuilder();
 
-        if(hours > 0){
+        if (hours > 0) {
             builder.append(hours).append("h");
         }
-        if(minutes > 0){
+        if (minutes > 0) {
             builder.append(minutes).append("m");
         }
-        if(seconds > 0){
+        if (seconds > 0) {
             builder.append(seconds).append("s");
         }
         return builder.toString();

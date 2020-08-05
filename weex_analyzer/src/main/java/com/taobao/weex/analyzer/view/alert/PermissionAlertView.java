@@ -7,12 +7,13 @@ import com.taobao.weex.analyzer.IPermissionHandler;
 
 /**
  * Description:
- *
+ * <p>
  * Created by rowandjj(chuyi)<br/>
  */
 
 public abstract class PermissionAlertView extends AbstractAlertView implements IPermissionHandler {
     private Config mConfig;
+
     public PermissionAlertView(Context context, Config config) {
         super(context);
         this.mConfig = config;
@@ -20,7 +21,7 @@ public abstract class PermissionAlertView extends AbstractAlertView implements I
 
     @Override
     public void show() {
-        if(mConfig != null && !isPermissionGranted(mConfig)) {
+        if (mConfig != null && !isPermissionGranted(mConfig)) {
             return;
         }
         super.show();

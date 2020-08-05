@@ -23,8 +23,8 @@ import com.taobao.weex.analyzer.Config;
 import com.taobao.weex.analyzer.R;
 import com.taobao.weex.analyzer.utils.SDKUtils;
 import com.taobao.weex.analyzer.utils.ViewUtils;
-import com.taobao.weex.analyzer.view.overlay.AbstractResizableOverlayView;
 import com.taobao.weex.analyzer.view.alert.CompatibleAlertDialogBuilder;
+import com.taobao.weex.analyzer.view.overlay.AbstractResizableOverlayView;
 import com.taobao.weex.analyzer.view.overlay.IOverlayView;
 import com.taobao.weex.analyzer.view.overlay.SimpleOverlayView;
 
@@ -89,7 +89,7 @@ public class LogView extends AbstractResizableOverlayView {
     }
 
     public LogView(Context application, Config config) {
-        super(application,config);
+        super(application, config);
         mWidth = WindowManager.LayoutParams.MATCH_PARENT;
     }
 
@@ -150,55 +150,55 @@ public class LogView extends AbstractResizableOverlayView {
 
         RadioGroup customFilterGroup = (RadioGroup) wholeView.findViewById(R.id.custom_filter_group);
 
-        if(mConfig != null && mConfig.getLogConfig() != null) {
+        if (mConfig != null && mConfig.getLogConfig() != null) {
             LogConfig logConfig = mConfig.getLogConfig();
 
-            if(logConfig.isShowLogLevelPanel()) {
+            if (logConfig.isShowLogLevelPanel()) {
                 logLevelPanel.setVisibility(View.VISIBLE);
             } else {
                 logLevelPanel.setVisibility(View.GONE);
             }
 
-            if(logConfig.isShowLogFilterPanel()) {
+            if (logConfig.isShowLogFilterPanel()) {
                 logFilterPanel.setVisibility(View.VISIBLE);
             } else {
                 logFilterPanel.setVisibility(View.GONE);
             }
 
-            if(logConfig.isShowSearchPanel()) {
+            if (logConfig.isShowSearchPanel()) {
                 searchPanel.setVisibility(View.VISIBLE);
             } else {
                 searchPanel.setVisibility(View.GONE);
             }
 
-            if(logConfig.getViewSize() != -1) {
+            if (logConfig.getViewSize() != -1) {
                 this.mViewSize = logConfig.getViewSize();
             }
 
             //custom rule
             List<String> customRule = new ArrayList<>();
-            if(logConfig.getCustomRule() != null) {
+            if (logConfig.getCustomRule() != null) {
                 customRule.addAll(logConfig.getCustomRule());
             }
-            customRule.add(0,FILTER_ALL);
+            customRule.add(0, FILTER_ALL);
             LayoutInflater inflater = LayoutInflater.from(mContext);
-            if(!customRule.isEmpty() && customRule.size() > 1) {
+            if (!customRule.isEmpty() && customRule.size() > 1) {
                 customFilterPanel.setVisibility(View.VISIBLE);
                 final int[] ids = new int[customRule.size()];
                 final LogcatDumper.Rule[] rules = new LogcatDumper.Rule[customRule.size()];
                 RadioButton[] btns = new RadioButton[customRule.size()];
 
-                for(int i = 0; i < customRule.size(); i++) {
+                for (int i = 0; i < customRule.size(); i++) {
                     String ruleStr = customRule.get(i);
-                    if(TextUtils.isEmpty(ruleStr)) {
+                    if (TextUtils.isEmpty(ruleStr)) {
                         continue;
                     }
-                    if(FILTER_ALL.equals(ruleStr)) {
+                    if (FILTER_ALL.equals(ruleStr)) {
                         rules[i] = sDefaultRules.get(FILTER_ALL);
                     } else {
-                        rules[i] = new LogcatDumper.Rule(ruleStr,ruleStr);
+                        rules[i] = new LogcatDumper.Rule(ruleStr, ruleStr);
                     }
-                    RadioButton btn = (RadioButton) inflater.inflate(R.layout.wxt_styleable_radio_btn,customFilterGroup,false);
+                    RadioButton btn = (RadioButton) inflater.inflate(R.layout.wxt_styleable_radio_btn, customFilterGroup, false);
                     btns[i] = btn;
                     ids[i] = ViewUtils.generateViewId();
                     btn.setId(ids[i]);
@@ -219,11 +219,11 @@ public class LogView extends AbstractResizableOverlayView {
                         }
                         mLogcatDumper.removeAllRule();
 
-                        for(int i = 0; i < ids.length; i++) {
+                        for (int i = 0; i < ids.length; i++) {
                             int id = ids[i];
-                            if(id == checkedId) {
+                            if (id == checkedId) {
                                 String ruleName = rules[i].getName();
-                                if(ruleName != null && !ruleName.equals(mCustomRuleName)) {
+                                if (ruleName != null && !ruleName.equals(mCustomRuleName)) {
                                     mCustomRuleName = ruleName;
                                     mLogcatDumper.addRule(rules[i]);
                                     mLogcatDumper.findCachedLogByNewFilters();
@@ -246,9 +246,9 @@ public class LogView extends AbstractResizableOverlayView {
             @Override
             public void onClick(View v) {
                 isSizeMenuOpened = !isSizeMenuOpened;
-                if(isSizeMenuOpened){
+                if (isSizeMenuOpened) {
                     sizeContent.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     sizeContent.setVisibility(View.GONE);
                 }
             }
@@ -318,12 +318,12 @@ public class LogView extends AbstractResizableOverlayView {
                             public void onClick(DialogInterface dialog, int which) {
                                 mWholeView.setVisibility(View.VISIBLE);
                                 String text = editText.getText().toString();
-                                if(TextUtils.isEmpty(text)){
-                                   return;
+                                if (TextUtils.isEmpty(text)) {
+                                    return;
                                 }
                                 mCurKeyword = text;
                                 performSearch(mCurKeyword);
-                                curKeyword.setText(String.format(Locale.CHINA,v.getContext().getString(R.string.wxt_current_keyword_format),mCurKeyword));
+                                curKeyword.setText(String.format(Locale.CHINA, v.getContext().getString(R.string.wxt_current_keyword_format), mCurKeyword));
 
                                 dialog.dismiss();
                             }
@@ -346,9 +346,9 @@ public class LogView extends AbstractResizableOverlayView {
             @Override
             public void onClick(View v) {
                 mCurKeyword = null;
-                curKeyword.setText(String.format(Locale.CHINA,v.getContext().getString(R.string.wxt_current_keyword_format),""));
-                if(mLogcatDumper != null){
-                    if(mLogcatDumper.removeRule(FILTER_CUSTOM)){
+                curKeyword.setText(String.format(Locale.CHINA, v.getContext().getString(R.string.wxt_current_keyword_format), ""));
+                if (mLogcatDumper != null) {
+                    if (mLogcatDumper.removeRule(FILTER_CUSTOM)) {
                         mLogcatDumper.findCachedLogByNewFilters();
                     }
                 }
@@ -454,8 +454,8 @@ public class LogView extends AbstractResizableOverlayView {
 
                 mLogcatDumper.removeAllRule();
                 mCurKeyword = null;
-                if(curKeyword != null){
-                    curKeyword.setText(String.format(Locale.CHINA,mContext.getString(R.string.wxt_current_keyword_format),""));
+                if (curKeyword != null) {
+                    curKeyword.setText(String.format(Locale.CHINA, mContext.getString(R.string.wxt_current_keyword_format), ""));
                 }
                 String filterName = mFilterName;
                 if (checkedId == R.id.rule_all) {
@@ -576,12 +576,12 @@ public class LogView extends AbstractResizableOverlayView {
     }
 
     private void performSearch(@Nullable String keyword) {
-        if(TextUtils.isEmpty(keyword) || mLogcatDumper == null || mLogAdapter == null){
+        if (TextUtils.isEmpty(keyword) || mLogcatDumper == null || mLogAdapter == null) {
             return;
         }
         mLogAdapter.clear();
         mLogcatDumper.removeRule(FILTER_CUSTOM);
-        mLogcatDumper.addRule(new LogcatDumper.Rule(FILTER_CUSTOM,keyword));
+        mLogcatDumper.addRule(new LogcatDumper.Rule(FILTER_CUSTOM, keyword));
         mLogcatDumper.findCachedLogByNewFilters();
     }
 
@@ -596,7 +596,7 @@ public class LogView extends AbstractResizableOverlayView {
 
         //show collapse view
         if (mCollapsedView == null) {
-            mCollapsedView = new SimpleOverlayView.Builder(mContext,"Log")
+            mCollapsedView = new SimpleOverlayView.Builder(mContext, "Log")
                     .listener(new SimpleOverlayView.OnClickListener() {
                         @Override
                         public void onClick(@NonNull IOverlayView view) {

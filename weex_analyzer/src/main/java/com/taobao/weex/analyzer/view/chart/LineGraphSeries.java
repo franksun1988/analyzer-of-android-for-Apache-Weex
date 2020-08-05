@@ -134,8 +134,8 @@ public class LineGraphSeries<E extends DataPointInterface> extends BaseSeries<E>
     /**
      * creates a series with data
      *
-     * @param data  data points
-     *              important: array has to be sorted from lowest x-value to the highest
+     * @param data data points
+     *             important: array has to be sorted from lowest x-value to the highest
      */
     public LineGraphSeries(E[] data) {
         super(data);
@@ -164,7 +164,7 @@ public class LineGraphSeries<E extends DataPointInterface> extends BaseSeries<E>
      * draws the line and the background
      *
      * @param graphView graphview
-     * @param canvas canvas
+     * @param canvas    canvas
      */
     @Override
     public void draw(ChartView graphView, Canvas canvas) {
@@ -546,7 +546,7 @@ public class LineGraphSeries<E extends DataPointInterface> extends BaseSeries<E>
 
     /**
      * @return the background color for the filling under
-     *          the line.
+     * the line.
      * @see #setDrawBackground(boolean)
      */
     public int getBackgroundColor() {
@@ -554,8 +554,8 @@ public class LineGraphSeries<E extends DataPointInterface> extends BaseSeries<E>
     }
 
     /**
-     * @param backgroundColor  the background color for the filling under
-     *                          the line.
+     * @param backgroundColor the background color for the filling under
+     *                        the line.
      * @see #setDrawBackground(boolean)
      */
     public void setBackgroundColor(int backgroundColor) {
@@ -602,13 +602,12 @@ public class LineGraphSeries<E extends DataPointInterface> extends BaseSeries<E>
     }
 
     /**
-     *
-     * @param dataPoint values the values must be in the correct order!
-     *                  x-value has to be ASC. First the lowest x value and at least the highest x value.
-     * @param scrollToEnd true => graphview will scroll to the end (maxX)
+     * @param dataPoint     values the values must be in the correct order!
+     *                      x-value has to be ASC. First the lowest x value and at least the highest x value.
+     * @param scrollToEnd   true => graphview will scroll to the end (maxX)
      * @param maxDataPoints if max data count is reached, the oldest data
      *                      value will be lost to avoid memory leaks
-     * @param silent    set true to avoid rerender the graph
+     * @param silent        set true to avoid rerender the graph
      */
     public void appendData(E dataPoint, boolean scrollToEnd, int maxDataPoints, boolean silent) {
         if (!isAnimationActive()) {

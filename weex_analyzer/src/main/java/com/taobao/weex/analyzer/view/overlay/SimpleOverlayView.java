@@ -93,64 +93,64 @@ public class SimpleOverlayView extends DragSupportOverlayView {
             return this;
         }
 
-        public Builder textColor(int textColor){
+        public Builder textColor(int textColor) {
             this.textColor = textColor;
             return this;
         }
 
-        public Builder x(int x){
+        public Builder x(int x) {
             this.x = x;
             return this;
         }
 
-        public Builder y(int y){
+        public Builder y(int y) {
             this.y = y;
             return this;
         }
 
-        public Builder width(int width){
+        public Builder width(int width) {
             this.width = width;
             return this;
         }
 
-        public Builder height(int height){
+        public Builder height(int height) {
             this.height = height;
             return this;
         }
 
-        public Builder gravity(int gravity){
+        public Builder gravity(int gravity) {
             this.gravity = gravity;
             return this;
         }
 
-        public Builder listener(OnClickListener listener){
+        public Builder listener(OnClickListener listener) {
             this.listener = listener;
             return this;
         }
 
-        public Builder enableDrag(boolean enableDrag){
+        public Builder enableDrag(boolean enableDrag) {
             this.enableDrag = enableDrag;
             return this;
         }
 
-        public SimpleOverlayView build(){
-            SimpleOverlayView overlayView = new SimpleOverlayView(context,title);
-            if(listener != null){
+        public SimpleOverlayView build() {
+            SimpleOverlayView overlayView = new SimpleOverlayView(context, title);
+            if (listener != null) {
                 overlayView.setOnClickListener(listener);
             }
-            if(gravity != 0){
+            if (gravity != 0) {
                 overlayView.mGravity = gravity;
             }
-            if(x > 0){
+            if (x > 0) {
                 overlayView.mX = x;
             }
-            if(y > 0){
+            if (y > 0) {
                 overlayView.mY = y;
             }
-            if(width > 0){
+            if (width > 0) {
                 overlayView.mWidth = width;
             }
-            if(height > 0){
+            if (height > 0) {
                 overlayView.mHeight = height;
             }
             overlayView.mBackgroundColor = backgroundColor;

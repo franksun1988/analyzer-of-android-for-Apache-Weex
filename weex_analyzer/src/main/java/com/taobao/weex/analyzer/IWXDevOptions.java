@@ -5,7 +5,7 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.taobao.weex.WXSDKInstance;
+import org.apache.weex.WXSDKInstance;
 
 /**
  * Description: <p> Created by rowandjj(chuyi)<br/> Date: 2016/10/27<br/> Time: 下午4:56<br/>

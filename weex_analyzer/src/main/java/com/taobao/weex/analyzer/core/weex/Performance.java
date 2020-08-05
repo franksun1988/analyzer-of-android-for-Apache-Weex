@@ -1,6 +1,6 @@
 package com.taobao.weex.analyzer.core.weex;
 
-import com.taobao.weex.WXEnvironment;
+import org.apache.weex.WXEnvironment;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -80,18 +80,18 @@ public class Performance {
     public long parseJsonTime;
 
     /**
-     *  UpdateDomObj Time spent when rendering first screen
+     * UpdateDomObj Time spent when rendering first screen
      */
     public long updateDomObjTime;
 
     /**
-     *  ApplyUpdate Time spent when rendering first screen
+     * ApplyUpdate Time spent when rendering first screen
      */
     public long applyUpdateTime;
 
 
     /**
-     *  CssLayout Time spent when rendering first screen
+     * CssLayout Time spent when rendering first screen
      */
     public long cssLayoutTime;
 
@@ -132,32 +132,32 @@ public class Performance {
 
     public String connectionType;
 
-    public static List<String> transfer(Performance performance){
+    public static List<String> transfer(Performance performance) {
         List<String> list = new ArrayList<>();
         list.add("pageName : " + performance.pageName);
         list.add("templateUrl : " + performance.templateUrl);
         list.add("jslib version : " + performance.JSLibVersion);
-        list.add("component count : "+ performance.componentCount);
-        list.add("JSLibInitTime : "+ performance.JSLibInitTime);
-        list.add("JSLibSize : "+ performance.JSLibSize);
-        list.add("JSTemplateSize : "+ performance.JSTemplateSize);
-        list.add("localReadTime : "+ performance.localReadTime);
-        list.add("templateLoadTime : "+ performance.templateLoadTime);
+        list.add("component count : " + performance.componentCount);
+        list.add("JSLibInitTime : " + performance.JSLibInitTime);
+        list.add("JSLibSize : " + performance.JSLibSize);
+        list.add("JSTemplateSize : " + performance.JSTemplateSize);
+        list.add("localReadTime : " + performance.localReadTime);
+        list.add("templateLoadTime : " + performance.templateLoadTime);
 
-        list.add("actualNetworkTime : "+ performance.actualNetworkTime);
-        list.add("pureNetworkTime : "+ performance.pureNetworkTime);
-        list.add("networkTime : "+ performance.networkTime);
+        list.add("actualNetworkTime : " + performance.actualNetworkTime);
+        list.add("pureNetworkTime : " + performance.pureNetworkTime);
+        list.add("networkTime : " + performance.networkTime);
 
-        list.add("cssLayoutTime : "+ performance.cssLayoutTime);
-        list.add("applyUpdateTime : "+ performance.applyUpdateTime);
-        list.add("updateDomObjTime : "+ performance.updateDomObjTime);
-        list.add("parseJsonTime : "+ performance.parseJsonTime);
-        list.add("batchTime : "+ performance.batchTime);
+        list.add("cssLayoutTime : " + performance.cssLayoutTime);
+        list.add("applyUpdateTime : " + performance.applyUpdateTime);
+        list.add("updateDomObjTime : " + performance.updateDomObjTime);
+        list.add("parseJsonTime : " + performance.parseJsonTime);
+        list.add("batchTime : " + performance.batchTime);
 
-        list.add("firstScreenJSFExecuteTime : "+ performance.firstScreenJSFExecuteTime);
-        list.add("callNativeTime : "+ performance.callNativeTime);
+        list.add("firstScreenJSFExecuteTime : " + performance.firstScreenJSFExecuteTime);
+        list.add("callNativeTime : " + performance.callNativeTime);
 
-        list.add("communicateTime : "+ performance.communicateTime);
+        list.add("communicateTime : " + performance.communicateTime);
         list.add("requestType : " + performance.requestType);
         list.add("connectionType : " + performance.connectionType);
         return Collections.unmodifiableList(list);

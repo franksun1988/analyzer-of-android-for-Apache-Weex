@@ -16,7 +16,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import com.taobao.weex.WXSDKEngine;
+import org.apache.weex.WXSDKEngine;
 
 import java.util.List;
 
@@ -30,9 +30,10 @@ import java.util.List;
 
 public class SDKUtils {
 
-    private SDKUtils(){}
+    private SDKUtils() {
+    }
 
-    public static boolean isWXInitialized(){
+    public static boolean isWXInitialized() {
         return WXSDKEngine.isInitialized();
     }
 
@@ -49,24 +50,24 @@ public class SDKUtils {
                 || "google_sdk".equals(Build.PRODUCT);
     }
 
-    public static void copyToClipboard(@NonNull Context context, @Nullable String text, boolean allowNotification){
-        if(TextUtils.isEmpty(text)){
+    public static void copyToClipboard(@NonNull Context context, @Nullable String text, boolean allowNotification) {
+        if (TextUtils.isEmpty(text)) {
             return;
         }
         ClipboardManager manager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText("copied text", text);
         manager.setPrimaryClip(clip);
-        if(allowNotification){
-            Toast.makeText(context,"copied to clipboard success",Toast.LENGTH_SHORT).show();
+        if (allowNotification) {
+            Toast.makeText(context, "copied to clipboard success", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public static boolean isDebugMode(@NonNull Context context){
+    public static boolean isDebugMode(@NonNull Context context) {
         boolean isDebug = false;
         try {
             ApplicationInfo info = context.getApplicationInfo();
             isDebug = (info.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -77,11 +78,11 @@ public class SDKUtils {
     public static boolean isHostRunning(@NonNull Context context) {
         ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningTaskInfo> tasks = am.getRunningTasks(1);
-        if(tasks == null || tasks.isEmpty()) {
+        if (tasks == null || tasks.isEmpty()) {
             return false;
         }
         ComponentName cn = tasks.get(0).topActivity;
-        if(cn == null) {
+        if (cn == null) {
             return false;
         }
         return (!TextUtils.isEmpty(context.getPackageName()) && context.getPackageName().equals(cn.getPackageName()));
@@ -99,7 +100,7 @@ public class SDKUtils {
     }
 
     @TargetApi(Build.VERSION_CODES.M)
-    public static boolean canDrawOverlays(@NonNull Context context){
+    public static boolean canDrawOverlays(@NonNull Context context) {
         return Settings.canDrawOverlays(context);
     }
 }

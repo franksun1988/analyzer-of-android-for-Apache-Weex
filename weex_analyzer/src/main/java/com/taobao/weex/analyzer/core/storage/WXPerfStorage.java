@@ -4,9 +4,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
-import com.taobao.weex.WXSDKInstance;
 import com.taobao.weex.analyzer.core.weex.Performance;
 import com.taobao.weex.analyzer.core.weex.PerformanceMonitor;
+
+import org.apache.weex.WXSDKInstance;
 
 import java.lang.reflect.Method;
 import java.util.Collections;

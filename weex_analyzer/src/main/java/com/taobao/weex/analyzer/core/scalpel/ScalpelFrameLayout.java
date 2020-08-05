@@ -58,7 +58,7 @@ import static android.view.MotionEvent.INVALID_POINTER_ID;
  * <li>Two finger vertical pinch: Adjust zoom.</li>
  * <li>Two finger horizontal pinch: Adjust layer spacing.</li>
  * </ul>
- *
+ * <p>
  * modified: add {@link OnDrawViewNameListener}
  */
 public class ScalpelFrameLayout extends FrameLayout {
@@ -104,10 +104,9 @@ public class ScalpelFrameLayout extends FrameLayout {
     public interface OnDrawViewNameListener {
         /**
          * @param rawClazzName view name that will be drawn if {@link ScalpelFrameLayout#isDrawViewNames()} enabled
-         * @param view the current view.
-         *
+         * @param view         the current view.
          * @return the new name that will be drawn. may be null.
-         * */
+         */
         @Nullable
         String onDrawViewName(@NonNull View view, @NonNull String rawClazzName);
     }

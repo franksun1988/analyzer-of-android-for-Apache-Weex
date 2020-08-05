@@ -13,37 +13,38 @@ import com.taobao.weex.analyzer.core.lint.PollingVDomMonitor;
 import com.taobao.weex.analyzer.core.lint.VDomController;
 import com.taobao.weex.analyzer.core.reporter.AnalyzerService;
 import com.taobao.weex.analyzer.utils.SDKUtils;
-import com.taobao.weex.utils.WXLogUtils;
+
+import org.apache.weex.utils.WXLogUtils;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Description:
- *
- *  1. monitor cpu & fps & memory
- *  2. monitor weex page layer/list/big cell and so on
- *
- *
- *  usage:
- *
- *    1. adb command(monitor cpu & fps & memory):
- *       - start: adb shell am broadcast -a com.taobao.weex.analyzer.LaunchService -e c on
- *       - stop: adb shell am broadcast -a com.taobao.weex.analyzer.LaunchService -e c off
- *
- *    2.  adb command(monitor weex page layer/list/big cell and so on):
- *       - start: adb shell am broadcast -a com.taobao.weex.analyzer.LaunchService -e d on
- *       - stop: adb shell am broadcast -a com.taobao.weex.analyzer.LaunchService -e d off
- *
- *       - start: adb shell am broadcast -a com.taobao.weex.analyzer.LaunchService -e f on
- *       - stop: adb shell am broadcast -a com.taobao.weex.analyzer.LaunchService -e f off
- *
- *    3. launch main ui
- *      - start: adb shell am broadcast -a com.taobao.weex.analyzer.LaunchService -e launch true [from mds]
- *
- *  notice:
- *    make sure your host app is running and interactive or the service is not started.
- *
+ * <p>
+ * 1. monitor cpu & fps & memory
+ * 2. monitor weex page layer/list/big cell and so on
+ * <p>
+ * <p>
+ * usage:
+ * <p>
+ * 1. adb command(monitor cpu & fps & memory):
+ * - start: adb shell am broadcast -a com.taobao.weex.analyzer.LaunchService -e c on
+ * - stop: adb shell am broadcast -a com.taobao.weex.analyzer.LaunchService -e c off
+ * <p>
+ * 2.  adb command(monitor weex page layer/list/big cell and so on):
+ * - start: adb shell am broadcast -a com.taobao.weex.analyzer.LaunchService -e d on
+ * - stop: adb shell am broadcast -a com.taobao.weex.analyzer.LaunchService -e d off
+ * <p>
+ * - start: adb shell am broadcast -a com.taobao.weex.analyzer.LaunchService -e f on
+ * - stop: adb shell am broadcast -a com.taobao.weex.analyzer.LaunchService -e f off
+ * <p>
+ * 3. launch main ui
+ * - start: adb shell am broadcast -a com.taobao.weex.analyzer.LaunchService -e launch true [from mds]
+ * <p>
+ * notice:
+ * make sure your host app is running and interactive or the service is not started.
+ * <p>
  * Created by rowandjj(chuyi)<br/>
  */
 
@@ -79,68 +80,68 @@ public class LaunchAnalyzerReceiver extends BroadcastReceiver {
 
         String cmd_wx_server = intent.getStringExtra(CMD_WX_SERVER);
 
-        if(!TextUtils.isEmpty(cmd_performance)) {
-            if(CMD_ON.equals(cmd_performance)) {
-                performStart(context,AnalyzerService.ATS, null);
-            } else if(CMD_OFF.equals(cmd_performance)) {
+        if (!TextUtils.isEmpty(cmd_performance)) {
+            if (CMD_ON.equals(cmd_performance)) {
+                performStart(context, AnalyzerService.ATS, null);
+            } else if (CMD_OFF.equals(cmd_performance)) {
                 performStop(context);
-            } else{
-                Log.d(Constants.TAG,"illegal command. use [adb shell am broadcast -a com.taobao.weex.analyzer.LaunchService -e c on] to fetch performance data");
+            } else {
+                Log.d(Constants.TAG, "illegal command. use [adb shell am broadcast -a com.taobao.weex.analyzer.LaunchService -e c on] to fetch performance data");
             }
-        } else if(!TextUtils.isEmpty(cmd_tracker_standard)) {
-            if(CMD_ON.equals(cmd_tracker_standard)) {
+        } else if (!TextUtils.isEmpty(cmd_tracker_standard)) {
+            if (CMD_ON.equals(cmd_tracker_standard)) {
                 VDomController.isStandardMode = true;
                 VDomController.isPollingMode = false;
                 PollingVDomMonitor.shouldHighlight = false;
-            } else if(CMD_OFF.equals(cmd_tracker_standard)) {
+            } else if (CMD_OFF.equals(cmd_tracker_standard)) {
                 VDomController.isStandardMode = false;
             } else {
-                Log.d(Constants.TAG,"illegal command. use [adb shell am broadcast -a com.taobao.weex.analyzer.LaunchService -e d on] to start vdom tracker");
+                Log.d(Constants.TAG, "illegal command. use [adb shell am broadcast -a com.taobao.weex.analyzer.LaunchService -e d on] to start vdom tracker");
             }
-        } else if(!TextUtils.isEmpty(cmd_tracker_polling)) {
+        } else if (!TextUtils.isEmpty(cmd_tracker_polling)) {
             String highlightEnabled = intent.getStringExtra("h");
-            if(CMD_ON.equals(cmd_tracker_polling)) {
+            if (CMD_ON.equals(cmd_tracker_polling)) {
                 VDomController.isPollingMode = true;
                 VDomController.isStandardMode = false;
                 PollingVDomMonitor.shouldStop = false;
                 PollingVDomMonitor.shouldHighlight = CMD_ON.equals(highlightEnabled);
-            } else if(CMD_OFF.equals(cmd_tracker_polling)) {
+            } else if (CMD_OFF.equals(cmd_tracker_polling)) {
                 VDomController.isPollingMode = false;
                 PollingVDomMonitor.shouldStop = true;
                 PollingVDomMonitor.shouldHighlight = false;
             } else {
-                Log.d(Constants.TAG,"illegal command. use [adb shell am broadcast -a com.taobao.weex.analyzer.LaunchService -e f on] to start vdom tracker(polling mode)");
+                Log.d(Constants.TAG, "illegal command. use [adb shell am broadcast -a com.taobao.weex.analyzer.LaunchService -e f on] to start vdom tracker(polling mode)");
             }
-        } else if(!TextUtils.isEmpty(cmd_launch)) {
-            if(TRUE.equals(cmd_launch)) {
+        } else if (!TextUtils.isEmpty(cmd_launch)) {
+            if (TRUE.equals(cmd_launch)) {
                 String from = intent.getStringExtra(WeexDevOptions.EXTRA_FROM);
                 String deviceId = intent.getStringExtra(WeexDevOptions.EXTRA_DEVICE_ID);
                 String wsUrl = intent.getStringExtra(WeexDevOptions.EXTRA_WS_URL);
 
-                WXLogUtils.d(Constants.TAG,"from:"+from+",deviceId:"+deviceId+",wxurl:"+wsUrl);
+                WXLogUtils.d(Constants.TAG, "from:" + from + ",deviceId:" + deviceId + ",wxurl:" + wsUrl);
 
-                Map<String,String> extras = new HashMap<>();
+                Map<String, String> extras = new HashMap<>();
                 extras.put(WeexDevOptions.EXTRA_DEVICE_ID, deviceId);
-                extras.put(WeexDevOptions.EXTRA_WS_URL,wsUrl);
-                performStart(context,from,extras);
+                extras.put(WeexDevOptions.EXTRA_WS_URL, wsUrl);
+                performStart(context, from, extras);
 
             }
-        } else if(!TextUtils.isEmpty(cmd_wx_server)) {
+        } else if (!TextUtils.isEmpty(cmd_wx_server)) {
             DebugTool.startRemoteDebug(cmd_wx_server);
         }
     }
 
-    private void performStart(@NonNull Context context, String from, Map<String,String> extras) {
-        if(!SDKUtils.isHostRunning(context) || !SDKUtils.isInteractive(context)) {
-            Log.d(Constants.TAG,"service start failed(host app is not in foreground,is your app running?)");
+    private void performStart(@NonNull Context context, String from, Map<String, String> extras) {
+        if (!SDKUtils.isHostRunning(context) || !SDKUtils.isInteractive(context)) {
+            Log.d(Constants.TAG, "service start failed(host app is not in foreground,is your app running?)");
             return;
         }
-        WXLogUtils.d(Constants.TAG,"analyzer service will start...");
-        Intent intent = new Intent(context,AnalyzerService.class);
-        intent.putExtra("from",from);
-        if(extras != null) {
-            for(Map.Entry<String,String> me : extras.entrySet()) {
-                intent.putExtra(me.getKey(),me.getValue());
+        WXLogUtils.d(Constants.TAG, "analyzer service will start...");
+        Intent intent = new Intent(context, AnalyzerService.class);
+        intent.putExtra("from", from);
+        if (extras != null) {
+            for (Map.Entry<String, String> me : extras.entrySet()) {
+                intent.putExtra(me.getKey(), me.getValue());
             }
         }
 
@@ -148,7 +149,7 @@ public class LaunchAnalyzerReceiver extends BroadcastReceiver {
     }
 
     private void performStop(@NonNull Context context) {
-        Intent intent = new Intent(context,AnalyzerService.class);
+        Intent intent = new Intent(context, AnalyzerService.class);
         context.stopService(intent);
     }
 

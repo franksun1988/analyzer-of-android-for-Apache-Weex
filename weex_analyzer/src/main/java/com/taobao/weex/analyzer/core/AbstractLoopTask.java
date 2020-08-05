@@ -33,7 +33,7 @@ public abstract class AbstractLoopTask implements IOverlayView.ITask, Runnable {
         this.isRunInMainThread = runInMainThread;
     }
 
-    public AbstractLoopTask(boolean runInMainThread,int delayMillis){
+    public AbstractLoopTask(boolean runInMainThread, int delayMillis) {
         this.isRunInMainThread = runInMainThread;
         this.mDelayMillis = delayMillis;
     }
@@ -55,7 +55,7 @@ public abstract class AbstractLoopTask implements IOverlayView.ITask, Runnable {
         }
         try {
             onRun();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         if (isRunInMainThread) {
@@ -75,7 +75,7 @@ public abstract class AbstractLoopTask implements IOverlayView.ITask, Runnable {
         isStop = false;
         try {
             onStart();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -115,13 +115,13 @@ public abstract class AbstractLoopTask implements IOverlayView.ITask, Runnable {
     protected abstract void onStop();
 
     protected void runOnUIThread(@NonNull final Runnable runnable) {
-        if(mUIHandler != null){
+        if (mUIHandler != null) {
             mUIHandler.post(new Runnable() {
                 @Override
                 public void run() {
                     try {
                         runnable.run();
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }

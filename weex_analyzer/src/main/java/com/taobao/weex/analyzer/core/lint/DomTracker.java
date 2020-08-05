@@ -7,18 +7,19 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.taobao.weex.WXSDKInstance;
 import com.taobao.weex.analyzer.pojo.HealthReport;
 import com.taobao.weex.analyzer.utils.SDKUtils;
 import com.taobao.weex.analyzer.utils.ViewUtils;
-import com.taobao.weex.ui.component.WXComponent;
-import com.taobao.weex.ui.component.WXEmbed;
-import com.taobao.weex.ui.component.WXScroller;
-import com.taobao.weex.ui.component.WXVContainer;
-import com.taobao.weex.ui.component.list.WXCell;
-import com.taobao.weex.ui.component.list.WXListComponent;
-import com.taobao.weex.utils.WXLogUtils;
-import com.taobao.weex.utils.WXViewUtils;
+
+import org.apache.weex.WXSDKInstance;
+import org.apache.weex.ui.component.WXComponent;
+import org.apache.weex.ui.component.WXEmbed;
+import org.apache.weex.ui.component.WXScroller;
+import org.apache.weex.ui.component.WXVContainer;
+import org.apache.weex.ui.component.list.WXCell;
+import org.apache.weex.ui.component.list.WXListComponent;
+import org.apache.weex.utils.WXLogUtils;
+import org.apache.weex.utils.WXViewUtils;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ import java.util.Locale;
 
 /**
  * Description:
- *
+ * <p>
  * Created by rowandjj(chuyi)<br/>
  */
 
@@ -44,7 +45,6 @@ class DomTracker {
 
     private static final int START_LAYER_OF_VDOM = 2;//instance为第一层，rootComponent为第二层
     private static final int START_LAYER_OF_REAL_DOM = 2;//renderContainer为第一层
-
 
 
     interface OnTrackNodeListener {
@@ -88,7 +88,7 @@ class DomTracker {
         HealthReport report = new HealthReport(mWxInstance.getBundleUrl());
 
         View hostView = godComponent.getHostView();
-        if(hostView != null) {
+        if (hostView != null) {
             report.maxLayerOfRealDom = getRealDomMaxLayer(hostView);
             pageHeight = hostView.getMeasuredHeight();
         }
@@ -103,15 +103,15 @@ class DomTracker {
             WXComponent component = domNode.component;
             int layer = domNode.layer;
 
-            report.maxLayer = Math.max(report.maxLayer,layer);
+            report.maxLayer = Math.max(report.maxLayer, layer);
             report.estimateContentHeight = Math.max(report.estimateContentHeight,
                     ComponentHeightComputer.computeComponentContentHeight(component));
 
             //如果节点被染色，需要计算其该染色子树的最大深度
-            if(!TextUtils.isEmpty(domNode.tint)) {
-                for(HealthReport.EmbedDesc desc : report.embedDescList) {
-                    if(desc.src != null && desc.src.equals(domNode.tint)) {
-                        desc.actualMaxLayer = Math.max(desc.actualMaxLayer,(layer-desc.beginLayer));
+            if (!TextUtils.isEmpty(domNode.tint)) {
+                for (HealthReport.EmbedDesc desc : report.embedDescList) {
+                    if (desc.src != null && desc.src.equals(domNode.tint)) {
+                        desc.actualMaxLayer = Math.max(desc.actualMaxLayer, (layer - desc.beginLayer));
                     }
                 }
             }
@@ -123,29 +123,29 @@ class DomTracker {
             if (component instanceof WXListComponent) {
                 report.hasList = true;
 
-                if(report.listDescMap == null) {
+                if (report.listDescMap == null) {
                     report.listDescMap = new LinkedHashMap<>();
                 }
 
                 HealthReport.ListDesc listDesc = report.listDescMap.get(component.getRef());
-                if(listDesc == null) {
+                if (listDesc == null) {
                     listDesc = new HealthReport.ListDesc();
                 }
                 listDesc.ref = component.getRef();
                 listDesc.totalHeight = ComponentHeightComputer.computeComponentContentHeight(component);
-                report.listDescMap.put(listDesc.ref,listDesc);
+                report.listDescMap.put(listDesc.ref, listDesc);
 
             } else if (component instanceof WXScroller) {
-                if(ViewUtils.isVerticalScroller((WXScroller) component)) {
+                if (ViewUtils.isVerticalScroller((WXScroller) component)) {
                     report.hasScroller = true;
                 }
 
             } else if (component instanceof WXCell) {
 
                 WXVContainer parentContainer = component.getParent();
-                if(parentContainer != null && parentContainer instanceof WXListComponent && report.listDescMap != null) {
+                if (parentContainer != null && parentContainer instanceof WXListComponent && report.listDescMap != null) {
                     HealthReport.ListDesc listDesc = report.listDescMap.get(parentContainer.getRef());
-                    if(listDesc != null) {
+                    if (listDesc != null) {
                         listDesc.cellNum++;
                     }
                 }
@@ -153,13 +153,13 @@ class DomTracker {
                 int num = getComponentNumOfNode(component);
                 report.maxCellViewNum = Math.max(report.maxCellViewNum, num);
 
-                if(((WXCell) component).getHostView() != null) {
+                if (((WXCell) component).getHostView() != null) {
                     int height = ((WXCell) component).getHostView().getMeasuredHeight();
                     report.hasBigCell |= isBigCell(height);
                     report.componentNumOfBigCell = num;
                 }
 
-            } else if(component instanceof WXEmbed) {
+            } else if (component instanceof WXEmbed) {
                 report.hasEmbed = true;
             }
 
@@ -167,22 +167,22 @@ class DomTracker {
             domNode.clear();
             mVDomObjectPool.recycle(domNode);
 
-            if(component instanceof WXEmbed) {
+            if (component instanceof WXEmbed) {
 
-                if(report.embedDescList == null) {
+                if (report.embedDescList == null) {
                     report.embedDescList = new ArrayList<>();
                 }
                 HealthReport.EmbedDesc desc = new HealthReport.EmbedDesc();
-                desc.src = ((WXEmbed)component).getSrc();
+                desc.src = ((WXEmbed) component).getSrc();
                 desc.beginLayer = layer;
 
                 report.embedDescList.add(desc);
 
                 //add nested component to layeredQueue
                 WXComponent nestedRootComponent = ViewUtils.getNestedRootComponent((WXEmbed) component);
-                if(nestedRootComponent != null) {
+                if (nestedRootComponent != null) {
                     LayeredNode<WXComponent> childNode = mVDomObjectPool.obtain();
-                    childNode.set(nestedRootComponent, ViewUtils.getComponentName(nestedRootComponent), layer+1);
+                    childNode.set(nestedRootComponent, ViewUtils.getComponentName(nestedRootComponent), layer + 1);
                     mLayeredQueue.add(childNode);
 
                     //tint
@@ -196,7 +196,7 @@ class DomTracker {
                     childNode.set(child, ViewUtils.getComponentName(child), layer + 1);
 
                     //if parent is tinted,then tint it's children
-                    if(!TextUtils.isEmpty(domNode.tint)) {
+                    if (!TextUtils.isEmpty(domNode.tint)) {
                         childNode.tint = domNode.tint;
                     }
 
@@ -206,18 +206,18 @@ class DomTracker {
             }
         }
         Context context = mWxInstance.getContext();
-        if(context != null) {
+        if (context != null) {
             pageHeight = (pageHeight == 0) ? ViewUtils.getScreenHeight(context) : pageHeight;
         }
 
-        if(pageHeight != 0) {
-            report.estimatePages = String.format(Locale.CHINA,"%.2f",report.estimateContentHeight/(double) pageHeight);
+        if (pageHeight != 0) {
+            report.estimatePages = String.format(Locale.CHINA, "%.2f", report.estimateContentHeight / (double) pageHeight);
         } else {
             report.estimatePages = "0";
         }
 
         long end = System.currentTimeMillis();
-        WXLogUtils.d(TAG,"[traverse] elapse time :"+(end-start)+"ms");
+        WXLogUtils.d(TAG, "[traverse] elapse time :" + (end - start) + "ms");
         return report;
 
     }
@@ -244,12 +244,12 @@ class DomTracker {
         int maxLayer = 0;
         Deque<LayeredNode<View>> deque = new ArrayDeque<>();
         LayeredNode<View> rootNode = mRealDomObjectPool.obtain();
-        rootNode.set(rootView,null,START_LAYER_OF_REAL_DOM);
+        rootNode.set(rootView, null, START_LAYER_OF_REAL_DOM);
         deque.add(rootNode);
 
         while (!deque.isEmpty()) {
             LayeredNode<View> currentNode = deque.removeFirst();
-            maxLayer = Math.max(maxLayer,currentNode.layer);
+            maxLayer = Math.max(maxLayer, currentNode.layer);
 
             View component = currentNode.component;
             int layer = currentNode.layer;
@@ -257,12 +257,12 @@ class DomTracker {
             currentNode.clear();
             mRealDomObjectPool.recycle(currentNode);
 
-            if(component instanceof ViewGroup && ((ViewGroup) component).getChildCount() > 0) {
+            if (component instanceof ViewGroup && ((ViewGroup) component).getChildCount() > 0) {
                 ViewGroup viewGroup = (ViewGroup) component;
-                for (int i = 0,count = viewGroup.getChildCount(); i < count; i++) {
+                for (int i = 0, count = viewGroup.getChildCount(); i < count; i++) {
                     View child = viewGroup.getChildAt(i);
                     LayeredNode<View> childNode = mRealDomObjectPool.obtain();
-                    childNode.set(child,null,layer+1);
+                    childNode.set(child, null, layer + 1);
                     deque.add(childNode);
                 }
             }

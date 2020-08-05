@@ -33,13 +33,13 @@ public abstract class AbstractAlertView extends Dialog implements IAlertView {
         window.requestFeature(Window.FEATURE_NO_TITLE);
 
         int layoutId = getLayoutResId();
-        if(layoutId != 0){
+        if (layoutId != 0) {
             setContentView(layoutId);
-        }else{
+        } else {
             View contentView = onCreateView();
-            if(contentView != null){
+            if (contentView != null) {
                 setContentView(contentView);
-            }else{
+            } else {
                 throw new IllegalArgumentException("initialize failed.check if you have call onCreateView or getLayoutResId");
             }
         }
@@ -84,9 +84,10 @@ public abstract class AbstractAlertView extends Dialog implements IAlertView {
 
     protected abstract void onInitView(@NonNull Window window);
 
-    protected abstract @LayoutRes int getLayoutResId();
+    protected abstract @LayoutRes
+    int getLayoutResId();
 
-    protected void onShown(){
+    protected void onShown() {
         //none
     }
 
@@ -94,7 +95,8 @@ public abstract class AbstractAlertView extends Dialog implements IAlertView {
         //none
     }
 
-    protected @Nullable View onCreateView(){
+    protected @Nullable
+    View onCreateView() {
         //none
         return null;
     }

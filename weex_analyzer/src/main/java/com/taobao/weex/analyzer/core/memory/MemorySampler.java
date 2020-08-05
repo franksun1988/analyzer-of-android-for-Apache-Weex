@@ -31,7 +31,7 @@ public class MemorySampler {
 
     /**
      * 获取当前应用总内存
-     * */
+     */
     public static double totalMemory() {
         return Runtime.getRuntime().totalMemory() / (double) 1048576;
     }

@@ -25,7 +25,7 @@ import com.taobao.weex.analyzer.view.overlay.SimpleOverlayView;
  * Time: 上午11:40<br/>
  */
 
-public class ScalpelViewController implements IPermissionHandler{
+public class ScalpelViewController implements IPermissionHandler {
 
     private boolean isScalpelEnabled = false;
     private boolean isDrawId = false;
@@ -84,7 +84,7 @@ public class ScalpelViewController implements IPermissionHandler{
             return null;
         }
 
-        if(mConfig != null && !isPermissionGranted(mConfig)){
+        if (mConfig != null && !isPermissionGranted(mConfig)) {
             return view;
         }
 
@@ -106,7 +106,7 @@ public class ScalpelViewController implements IPermissionHandler{
     }
 
     public void setScalpelEnabled(boolean enabled) {
-        if(mConfig != null && !isPermissionGranted(mConfig)) {
+        if (mConfig != null && !isPermissionGranted(mConfig)) {
             return;
         }
         this.isScalpelEnabled = enabled;
@@ -149,7 +149,7 @@ public class ScalpelViewController implements IPermissionHandler{
     }
 
     public void toggleScalpelEnabled() {
-        if(mConfig != null && !isPermissionGranted(mConfig)) {
+        if (mConfig != null && !isPermissionGranted(mConfig)) {
             return;
         }
         this.isScalpelEnabled = !isScalpelEnabled;
@@ -160,19 +160,19 @@ public class ScalpelViewController implements IPermissionHandler{
     }
 
     public void pause() {
-        if(mConfig != null && !isPermissionGranted(mConfig)) {
+        if (mConfig != null && !isPermissionGranted(mConfig)) {
             return;
         }
-        if(mSwitchView != null && isScalpelEnabled){
+        if (mSwitchView != null && isScalpelEnabled) {
             mSwitchView.dismiss();
         }
     }
 
-    public void resume(){
-        if(mConfig != null && !isPermissionGranted(mConfig)) {
+    public void resume() {
+        if (mConfig != null && !isPermissionGranted(mConfig)) {
             return;
         }
-        if(mSwitchView != null && isScalpelEnabled){
+        if (mSwitchView != null && isScalpelEnabled) {
             mSwitchView.show();
         }
     }

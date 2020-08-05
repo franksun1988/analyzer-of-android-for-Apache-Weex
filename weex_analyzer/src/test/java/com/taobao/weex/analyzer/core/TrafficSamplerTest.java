@@ -19,7 +19,7 @@ import static org.mockito.Mockito.times;
 
 /**
  * Description:
- *
+ * <p>
  * Created by rowandjj(chuyi)<br/>
  */
 @RunWith(PowerMockRunner.class)
@@ -42,7 +42,7 @@ public class TrafficSamplerTest {
     @Test
     public void getUidRxBytes() throws Exception {
         double val = TrafficSampler.getUidRxBytes(1);
-        assertEquals(val,100,0);
+        assertEquals(val, 100, 0);
 
         PowerMockito.verifyStatic(times(2));
         TrafficStats.getUidRxBytes(1);
@@ -51,7 +51,7 @@ public class TrafficSamplerTest {
     @Test
     public void getUidTxBytes() throws Exception {
         double val = TrafficSampler.getUidTxBytes(2);
-        assertEquals(val,101,0);
+        assertEquals(val, 101, 0);
 
         PowerMockito.verifyStatic(times(2));
         TrafficStats.getUidTxBytes(2);

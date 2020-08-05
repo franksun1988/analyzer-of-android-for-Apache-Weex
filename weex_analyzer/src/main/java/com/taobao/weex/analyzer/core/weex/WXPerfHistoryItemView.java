@@ -8,7 +8,6 @@ import android.widget.Toast;
 
 import com.taobao.weex.analyzer.R;
 import com.taobao.weex.analyzer.utils.ViewUtils;
-import com.taobao.weex.analyzer.view.overlay.AbstractBizItemView;
 import com.taobao.weex.analyzer.view.chart.ChartView;
 import com.taobao.weex.analyzer.view.chart.DataPoint;
 import com.taobao.weex.analyzer.view.chart.DataPointInterface;
@@ -18,6 +17,7 @@ import com.taobao.weex.analyzer.view.chart.LineGraphSeries;
 import com.taobao.weex.analyzer.view.chart.OnDataPointTapListener;
 import com.taobao.weex.analyzer.view.chart.Series;
 import com.taobao.weex.analyzer.view.chart.Viewport;
+import com.taobao.weex.analyzer.view.overlay.AbstractBizItemView;
 
 import java.util.List;
 import java.util.Locale;
@@ -89,14 +89,14 @@ public class WXPerfHistoryItemView extends AbstractBizItemView<List<Performance>
         DataPoint[] ttPoints = new DataPoint[sampleSize]; //total time points
         DataPoint[] nwtPoints = new DataPoint[sampleSize];//network time points
 
-        long fsrTotal = 0,ttTotal = 0,nwTotal = 0;
+        long fsrTotal = 0, ttTotal = 0, nwTotal = 0;
 
         for (int i = 0; i < sampleSize; i++) {
             Performance p = data.get(i);
-            ctPoints[i] = new DataPoint(i,p.communicateTime);
-            ttPoints[i] = new DataPoint(i,p.screenRenderTime);
-            nwtPoints[i] = new DataPoint(i,p.networkTime);
-            maxY = Math.max(Math.max(p.totalTime,p.networkTime),Math.max(p.communicateTime,maxY));
+            ctPoints[i] = new DataPoint(i, p.communicateTime);
+            ttPoints[i] = new DataPoint(i, p.screenRenderTime);
+            nwtPoints[i] = new DataPoint(i, p.networkTime);
+            maxY = Math.max(Math.max(p.totalTime, p.networkTime), Math.max(p.communicateTime, maxY));
 
             fsrTotal += p.communicateTime;
             ttTotal += p.screenRenderTime;
@@ -109,8 +109,8 @@ public class WXPerfHistoryItemView extends AbstractBizItemView<List<Performance>
         labelRenderer.setHumanRounding(false);
 
         //axis config
-        labelRenderer.setNumHorizontalLabels(sampleSize+1);
-        labelRenderer.setNumVerticalLabels(verticalPart+1);
+        labelRenderer.setNumHorizontalLabels(sampleSize + 1);
+        labelRenderer.setNumVerticalLabels(verticalPart + 1);
 
         viewport.setXAxisBoundsManual(true);
         viewport.setMinX(0);
@@ -118,7 +118,7 @@ public class WXPerfHistoryItemView extends AbstractBizItemView<List<Performance>
 
         viewport.setYAxisBoundsManual(true);
         viewport.setMinY(0);
-        viewport.setMaxY(ViewUtils.findSuitableVal(maxY,verticalPart));
+        viewport.setMaxY(ViewUtils.findSuitableVal(maxY, verticalPart));
 
         LineGraphSeries<DataPoint> ctSeries = new LineGraphSeries<>(ctPoints);
         LineGraphSeries<DataPoint> ttSeries = new LineGraphSeries<>(ttPoints);
@@ -158,16 +158,16 @@ public class WXPerfHistoryItemView extends AbstractBizItemView<List<Performance>
         legendRenderer.setBackgroundColor(Color.TRANSPARENT);
         legendRenderer.setAlign(LegendRenderer.LegendAlign.TOP);
 
-        mAverageVal.setText(String.format(Locale.CHINA,getContext().getResources().getString(R.string.wxt_average),
-                (fsrTotal/(float)sampleSize),
-                (ttTotal/(float)sampleSize),
-                (nwTotal/(float)sampleSize)
+        mAverageVal.setText(String.format(Locale.CHINA, getContext().getResources().getString(R.string.wxt_average),
+                (fsrTotal / (float) sampleSize),
+                (ttTotal / (float) sampleSize),
+                (nwTotal / (float) sampleSize)
         ));
 
     }
 
     @Override
     public void onTap(Series series, DataPointInterface dataPoint) {
-        Toast.makeText(getContext(),series.getTitle()+"("+dataPoint.getX()+","+dataPoint.getY()+")",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), series.getTitle() + "(" + dataPoint.getX() + "," + dataPoint.getY() + ")", Toast.LENGTH_SHORT).show();
     }
 }

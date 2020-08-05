@@ -16,15 +16,15 @@ import com.taobao.weex.analyzer.R;
 import com.taobao.weex.analyzer.core.AbstractLoopTask;
 import com.taobao.weex.analyzer.utils.SDKUtils;
 import com.taobao.weex.analyzer.utils.ViewUtils;
-import com.taobao.weex.analyzer.view.chart.DynamicChartViewController;
-import com.taobao.weex.analyzer.view.overlay.PermissionOverlayView;
 import com.taobao.weex.analyzer.view.chart.ChartView;
+import com.taobao.weex.analyzer.view.chart.DynamicChartViewController;
 import com.taobao.weex.analyzer.view.chart.LegendRenderer;
 import com.taobao.weex.analyzer.view.chart.TimestampLabelFormatter;
+import com.taobao.weex.analyzer.view.overlay.PermissionOverlayView;
 
 /**
  * Description:
- *
+ * <p>
  * Created by rowandjj(chuyi)<br/>
  */
 
@@ -40,8 +40,8 @@ public class TrafficSampleView extends PermissionOverlayView {
         this.mOnCloseListener = listener;
     }
 
-    public TrafficSampleView(Context application,Config config) {
-        super(application,true,config);
+    public TrafficSampleView(Context application, Config config) {
+        super(application, true, config);
 
         mWidth = WindowManager.LayoutParams.MATCH_PARENT;
         mHeight = (int) ViewUtils.dp2px(application, 150);
@@ -81,12 +81,12 @@ public class TrafficSampleView extends PermissionOverlayView {
                 .build();
 
         //show legend
-        LegendRenderer legendRenderer = ((ChartView)mChartViewController.getChartView()).getLegendRenderer();
+        LegendRenderer legendRenderer = ((ChartView) mChartViewController.getChartView()).getLegendRenderer();
         legendRenderer.setTextColor(Color.WHITE);
         legendRenderer.setVisible(true);
         legendRenderer.setBackgroundColor(Color.TRANSPARENT);
         legendRenderer.setAlign(LegendRenderer.LegendAlign.TOP);
-        legendRenderer.setMargin((int) ViewUtils.dp2px(mContext,10));
+        legendRenderer.setMargin((int) ViewUtils.dp2px(mContext, 10));
 
         FrameLayout frameLayout = new FrameLayout(mContext);
         View chartView = mChartViewController.getChartView();
@@ -171,13 +171,13 @@ public class TrafficSampleView extends PermissionOverlayView {
             runOnUIThread(new Runnable() {
                 @Override
                 public void run() {
-                    double max = Math.max(rxSpeed,txSpeed);
+                    double max = Math.max(rxSpeed, txSpeed);
 
                     if (checkIfNeedUpdateYAxis(max)) {
                         mController.updateAxisY(mController.getMinY(), (mController.getMaxY() - mController.getMinY()) * 2, 0);
                     }
                     mController.appendPointAndInvalidate(mAxisXValue, rxSpeed);
-                    mController.appendPointAndInvalidate2(mAxisXValue,txSpeed);
+                    mController.appendPointAndInvalidate2(mAxisXValue, txSpeed);
                 }
             });
         }

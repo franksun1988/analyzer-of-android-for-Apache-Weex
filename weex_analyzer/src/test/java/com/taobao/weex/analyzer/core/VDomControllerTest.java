@@ -1,10 +1,10 @@
 package com.taobao.weex.analyzer.core;
 
-import com.taobao.weex.WXSDKInstance;
 import com.taobao.weex.analyzer.core.lint.PollingVDomMonitor;
 import com.taobao.weex.analyzer.core.lint.StandardVDomMonitor;
 import com.taobao.weex.analyzer.core.lint.VDomController;
 
+import org.apache.weex.WXSDKInstance;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +18,7 @@ import static org.mockito.Mockito.verify;
 
 /**
  * Description:
- *
+ * <p>
  * Created by rowandjj(chuyi)<br/>
  */
 @RunWith(RobolectricTestRunner.class)
@@ -41,7 +41,7 @@ public class VDomControllerTest {
 
     @Test
     public void monitor() throws Exception {
-        VDomController controller = new VDomController(mPollingVDomMonitor,mStandardVDomMonitor);
+        VDomController controller = new VDomController(mPollingVDomMonitor, mStandardVDomMonitor);
         WXSDKInstance instance = mock(WXSDKInstance.class);
         VDomController.isPollingMode = true;
 
@@ -57,7 +57,7 @@ public class VDomControllerTest {
 
     @Test
     public void destroy() throws Exception {
-        VDomController controller = new VDomController(mPollingVDomMonitor,mStandardVDomMonitor);
+        VDomController controller = new VDomController(mPollingVDomMonitor, mStandardVDomMonitor);
         controller.destroy();
         verify(mPollingVDomMonitor).destroy();
         verify(mStandardVDomMonitor).destroy();

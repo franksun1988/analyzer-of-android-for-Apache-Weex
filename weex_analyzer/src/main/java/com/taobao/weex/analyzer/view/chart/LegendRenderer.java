@@ -139,7 +139,7 @@ public class LegendRenderer {
 
         mPaint.setTextSize(mStyles.textSize);
 
-        int shapeSize = (int) (mStyles.textSize*0.8d);
+        int shapeSize = (int) (mStyles.textSize * 0.8d);
 
         List<Series> allSeries = new ArrayList<Series>();
         allSeries.addAll(mGraphView.getSeries());
@@ -164,13 +164,13 @@ public class LegendRenderer {
                 if (legendWidth == 0) legendWidth = 1;
 
                 // add shape size
-                legendWidth += shapeSize+mStyles.padding*2 + mStyles.spacing;
+                legendWidth += shapeSize + mStyles.padding * 2 + mStyles.spacing;
                 cachedLegendWidth = legendWidth;
             }
         }
 
         // rect
-        float legendHeight = (mStyles.textSize+mStyles.spacing)*allSeries.size() -mStyles.spacing;
+        float legendHeight = (mStyles.textSize + mStyles.spacing) * allSeries.size() - mStyles.spacing;
         float lLeft;
         float lTop;
         if (mStyles.fixedPosition != null) {
@@ -187,21 +187,21 @@ public class LegendRenderer {
                     lTop = mGraphView.getHeight() / 2 - legendHeight / 2;
                     break;
                 default:
-                    lTop = mGraphView.getGraphContentTop() + mGraphView.getGraphContentHeight() - mStyles.margin - legendHeight - 2*mStyles.padding;
+                    lTop = mGraphView.getGraphContentTop() + mGraphView.getGraphContentHeight() - mStyles.margin - legendHeight - 2 * mStyles.padding;
             }
         }
-        float lRight = lLeft+legendWidth;
-        float lBottom = lTop+legendHeight+2*mStyles.padding;
+        float lRight = lLeft + legendWidth;
+        float lBottom = lTop + legendHeight + 2 * mStyles.padding;
         mPaint.setColor(mStyles.backgroundColor);
         canvas.drawRoundRect(new RectF(lLeft, lTop, lRight, lBottom), 8, 8, mPaint);
 
-        int i=0;
+        int i = 0;
         for (Series series : allSeries) {
             mPaint.setColor(series.getColor());
-            canvas.drawRect(new RectF(lLeft+mStyles.padding, lTop+mStyles.padding+(i*(mStyles.textSize+mStyles.spacing)), lLeft+mStyles.padding+shapeSize, lTop+mStyles.padding+(i*(mStyles.textSize+mStyles.spacing))+shapeSize), mPaint);
+            canvas.drawRect(new RectF(lLeft + mStyles.padding, lTop + mStyles.padding + (i * (mStyles.textSize + mStyles.spacing)), lLeft + mStyles.padding + shapeSize, lTop + mStyles.padding + (i * (mStyles.textSize + mStyles.spacing)) + shapeSize), mPaint);
             if (series.getTitle() != null) {
                 mPaint.setColor(mStyles.textColor);
-                canvas.drawText(series.getTitle(), lLeft+mStyles.padding+shapeSize+mStyles.spacing, lTop+mStyles.padding+mStyles.textSize+(i*(mStyles.textSize+mStyles.spacing)), mPaint);
+                canvas.drawText(series.getTitle(), lLeft + mStyles.padding + shapeSize + mStyles.spacing, lTop + mStyles.padding + mStyles.textSize + (i * (mStyles.textSize + mStyles.spacing)), mPaint);
             }
             i++;
         }
@@ -280,8 +280,8 @@ public class LegendRenderer {
     /**
      * the width of the box exclusive padding
      *
-     * @return  the width of the box
-     *          0 => auto
+     * @return the width of the box
+     * 0 => auto
      */
     public int getWidth() {
         return mStyles.width;
@@ -289,42 +289,43 @@ public class LegendRenderer {
 
     /**
      * the width of the box exclusive padding
-     * @param width     the width of the box exclusive padding
-     *                  0 => auto
+     *
+     * @param width the width of the box exclusive padding
+     *              0 => auto
      */
     public void setWidth(int width) {
         mStyles.width = width;
     }
 
     /**
-     * @return  background color of the box
-     *          it is recommended to use semi-transparent
-     *          color.
+     * @return background color of the box
+     * it is recommended to use semi-transparent
+     * color.
      */
     public int getBackgroundColor() {
         return mStyles.backgroundColor;
     }
 
     /**
-     * @param backgroundColor   background color of the box
-     *                          it is recommended to use semi-transparent
-     *                          color.
+     * @param backgroundColor background color of the box
+     *                        it is recommended to use semi-transparent
+     *                        color.
      */
     public void setBackgroundColor(int backgroundColor) {
         mStyles.backgroundColor = backgroundColor;
     }
 
     /**
-     * @return  margin from the edge of the box
-     *          to the corner of the graphview
+     * @return margin from the edge of the box
+     * to the corner of the graphview
      */
     public int getMargin() {
         return mStyles.margin;
     }
 
     /**
-     * @param margin    margin from the edge of the box
-     *                  to the corner of the graphview
+     * @param margin margin from the edge of the box
+     *               to the corner of the graphview
      */
     public void setMargin(int margin) {
         mStyles.margin = margin;

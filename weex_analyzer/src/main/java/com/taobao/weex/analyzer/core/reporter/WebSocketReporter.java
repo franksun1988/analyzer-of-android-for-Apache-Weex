@@ -8,11 +8,12 @@ import com.taobao.weex.analyzer.core.Constants;
 import com.taobao.weex.analyzer.core.reporter.ws.IWebSocketBridge;
 import com.taobao.weex.analyzer.core.reporter.ws.WebSocketClient;
 import com.taobao.weex.analyzer.core.reporter.ws.WebSocketClientFactory;
-import com.taobao.weex.utils.WXLogUtils;
+
+import org.apache.weex.utils.WXLogUtils;
 
 /**
  * Description:
- *
+ * <p>
  * Created by rowandjj(chuyi)<br/>
  */
 
@@ -29,22 +30,22 @@ class WebSocketReporter implements IDataReporter {
 
     @Override
     public void report(@NonNull ProcessedData data) {
-        if(mSocketClient != null && mSocketClient.isOpen()) {
+        if (mSocketClient != null && mSocketClient.isOpen()) {
             mSocketClient.sendText(JSON.toJSONString(data));
         }
         //SHOULD REMOVED LATER
-        WXLogUtils.d(Constants.TAG,JSON.toJSONString(data));
+        WXLogUtils.d(Constants.TAG, JSON.toJSONString(data));
     }
 
     public void connect(String url, WebSocketClient.Callback callback) {
-        if(mSocketClient != null) {
+        if (mSocketClient != null) {
             mSocketClient.connect(url, callback);
         }
     }
 
     public void close(int closeReason, String reasonPhrase) {
-        if(mSocketClient != null && mSocketClient.isOpen()) {
-            mSocketClient.close(closeReason,reasonPhrase);
+        if (mSocketClient != null && mSocketClient.isOpen()) {
+            mSocketClient.close(closeReason, reasonPhrase);
         }
     }
 

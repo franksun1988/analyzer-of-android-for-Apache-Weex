@@ -1,15 +1,15 @@
 package com.taobao.weex.analyzer.core.inspector.view;
 
+import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.taobao.weex.dom.ImmutableDomObject;
-import com.taobao.weex.dom.flex.Spacing;
-import com.taobao.weex.ui.component.WXComponent;
-import com.taobao.weex.ui.view.WXTextView;
-import com.taobao.weex.ui.view.border.BorderDrawable;
+import org.apache.weex.dom.CSSShorthand;
+import org.apache.weex.ui.component.WXComponent;
+import org.apache.weex.ui.view.WXTextView;
+import org.apache.weex.ui.view.border.BorderDrawable;
 
 import java.lang.reflect.Method;
 import java.util.Collections;
@@ -19,32 +19,31 @@ import java.util.Map;
 
 /**
  * Description:
- *
+ * <p>
  * Created by rowandjj(chuyi)<br/>
  */
 
 class ViewPropertiesSupplier {
 
     @NonNull
-    Map<String,String> supplyPropertiesFromVirtualView(@NonNull WXComponent component) {
-        ImmutableDomObject domObject = component.getDomObject();
-        if(domObject == null ) {
+    Map<String, String> supplyPropertiesFromVirtualView(@NonNull WXComponent component) {
+        if (component.getAttrs() == null) {
             return Collections.emptyMap();
         }
-        Map<String,String> result = new LinkedHashMap<>();
+        Map<String, String> result = new LinkedHashMap<>();
 
-        if(domObject.getStyles() != null) {
-            for (Map.Entry<String, Object> entry : domObject.getStyles().entrySet()) {
+        if (component.getStyles() != null) {
+            for (Map.Entry<String, Object> entry : component.getStyles().entrySet()) {
                 if (entry.getValue() != null) {
                     result.put(entry.getKey(), entry.getValue().toString());
                 }
             }
         }
 
-        if(domObject.getAttrs() != null) {
-            for(Map.Entry<String,Object> entry : domObject.getAttrs().entrySet()) {
-                if(entry.getValue() != null) {
-                    result.put(entry.getKey(),entry.getValue().toString());
+        if (component.getAttrs() != null) {
+            for (Map.Entry<String, Object> entry : component.getAttrs().entrySet()) {
+                if (entry.getValue() != null) {
+                    result.put(entry.getKey(), entry.getValue().toString());
                 }
             }
         }
@@ -53,8 +52,8 @@ class ViewPropertiesSupplier {
     }
 
     @NonNull
-     Map<String,String> supplyPropertiesFromNativeView(@NonNull View view) {
-        Map<String,String> result = new LinkedHashMap<>();
+    Map<String, String> supplyPropertiesFromNativeView(@NonNull View view) {
+        Map<String, String> result = new LinkedHashMap<>();
         result.put(BoxModelConstants.LEFT, String.valueOf(view.getLeft()));
         result.put(BoxModelConstants.TOP, String.valueOf(view.getTop()));
         result.put(BoxModelConstants.RIGHT, String.valueOf(view.getRight()));
@@ -68,10 +67,10 @@ class ViewPropertiesSupplier {
         result.put(BoxModelConstants.PADDING_RIGHT, String.valueOf(view.getPaddingRight()));
         result.put(BoxModelConstants.PADDING_BOTTOM, String.valueOf(view.getPaddingBottom()));
 
-        result.put(BoxModelConstants.VISIBILITY, (view.getVisibility() == View.VISIBLE ? "visible":"invisible"));
+        result.put(BoxModelConstants.VISIBILITY, (view.getVisibility() == View.VISIBLE ? "visible" : "invisible"));
 
         ViewGroup.LayoutParams params = view.getLayoutParams();
-        if(params != null && params instanceof ViewGroup.MarginLayoutParams) {
+        if (params != null && params instanceof ViewGroup.MarginLayoutParams) {
             ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) params;
             result.put(BoxModelConstants.MARGIN_LEFT, String.valueOf(marginLayoutParams.leftMargin));
             result.put(BoxModelConstants.MARGIN_TOP, String.valueOf(marginLayoutParams.topMargin));
@@ -84,20 +83,20 @@ class ViewPropertiesSupplier {
         result.put(BoxModelConstants.BORDER_TOP_WIDTH, null);
         result.put(BoxModelConstants.BORDER_BOTTOM_WIDTH, null);
 
-        if(view instanceof WXTextView) {
+        if (view instanceof WXTextView) {
             WXTextView textView = (WXTextView) view;
-            if(textView.getText() != null) {
-                result.put("value",textView.getText().toString());
+            if (textView.getText() != null) {
+                result.put("value", textView.getText().toString());
             }
         }
 
-        if(view.getBackground() != null) {
+        if (view.getBackground() != null) {
             Drawable drawable = view.getBackground();
-            if(drawable instanceof BorderDrawable) {
+            if (drawable instanceof BorderDrawable) {
                 BorderDrawable borderDrawable = (BorderDrawable) drawable;
-                result.put(BoxModelConstants.BACKGROUND_COLOR,String.format(Locale.CHINA,"#%06X",0xFFFFFF & borderDrawable.getColor()));
-                if(borderDrawable.getOpacity() != -1) {
-                    result.put(BoxModelConstants.OPACITY,borderDrawable.getOpacity()+"");
+                result.put(BoxModelConstants.BACKGROUND_COLOR, String.format(Locale.CHINA, "#%06X", 0xFFFFFF & borderDrawable.getColor()));
+                if (borderDrawable.getOpacity() != PixelFormat.OPAQUE) {
+                    result.put(BoxModelConstants.OPACITY, borderDrawable.getOpacity() + "");
                 }
 
 //                float borderWidth = getBorderWidthNative(borderDrawable, Spacing.ALL);
@@ -125,24 +124,24 @@ class ViewPropertiesSupplier {
 //                    }
 //                }
 
-                int borderColor = getBorderColorNative(borderDrawable,Spacing.ALL);
-                if(borderColor != 0) {
-                    result.put(BoxModelConstants.BORDER_LEFT_COLOR,String.format(Locale.CHINA,"#%06X",0xFFFFFF & borderColor));
-                    result.put(BoxModelConstants.BORDER_TOP_COLOR,String.format(Locale.CHINA,"#%06X",0xFFFFFF & borderColor));
-                    result.put(BoxModelConstants.BORDER_RIGHT_COLOR,String.format(Locale.CHINA,"#%06X",0xFFFFFF & borderColor));
-                    result.put(BoxModelConstants.BORDER_BOTTOM_COLOR,String.format(Locale.CHINA,"#%06X",0xFFFFFF & borderColor));
-                }else {
-                    int borderLeftColor = getBorderColorNative(borderDrawable,Spacing.LEFT);
-                    result.put(BoxModelConstants.BORDER_LEFT_COLOR,String.format(Locale.CHINA,"#%06X",0xFFFFFF & borderLeftColor));
+                int borderColor = getBorderColorNative(borderDrawable, CSSShorthand.EDGE.ALL);
+                if (borderColor != 0) {
+                    result.put(BoxModelConstants.BORDER_LEFT_COLOR, String.format(Locale.CHINA, "#%06X", 0xFFFFFF & borderColor));
+                    result.put(BoxModelConstants.BORDER_TOP_COLOR, String.format(Locale.CHINA, "#%06X", 0xFFFFFF & borderColor));
+                    result.put(BoxModelConstants.BORDER_RIGHT_COLOR, String.format(Locale.CHINA, "#%06X", 0xFFFFFF & borderColor));
+                    result.put(BoxModelConstants.BORDER_BOTTOM_COLOR, String.format(Locale.CHINA, "#%06X", 0xFFFFFF & borderColor));
+                } else {
+                    int borderLeftColor = getBorderColorNative(borderDrawable, CSSShorthand.EDGE.LEFT);
+                    result.put(BoxModelConstants.BORDER_LEFT_COLOR, String.format(Locale.CHINA, "#%06X", 0xFFFFFF & borderLeftColor));
 
-                    int borderTopColor = getBorderColorNative(borderDrawable,Spacing.TOP);
-                    result.put(BoxModelConstants.BORDER_TOP_COLOR,String.format(Locale.CHINA,"#%06X",0xFFFFFF & borderTopColor));
+                    int borderTopColor = getBorderColorNative(borderDrawable, CSSShorthand.EDGE.TOP);
+                    result.put(BoxModelConstants.BORDER_TOP_COLOR, String.format(Locale.CHINA, "#%06X", 0xFFFFFF & borderTopColor));
 
-                    int borderRightColor = getBorderColorNative(borderDrawable,Spacing.RIGHT);
-                    result.put(BoxModelConstants.BORDER_RIGHT_COLOR,String.format(Locale.CHINA,"#%06X",0xFFFFFF & borderRightColor));
+                    int borderRightColor = getBorderColorNative(borderDrawable, CSSShorthand.EDGE.RIGHT);
+                    result.put(BoxModelConstants.BORDER_RIGHT_COLOR, String.format(Locale.CHINA, "#%06X", 0xFFFFFF & borderRightColor));
 
-                    int borderBottomColor = getBorderColorNative(borderDrawable,Spacing.BOTTOM);
-                    result.put(BoxModelConstants.BORDER_BOTTOM_COLOR,String.format(Locale.CHINA,"#%06X",0xFFFFFF & borderBottomColor));
+                    int borderBottomColor = getBorderColorNative(borderDrawable, CSSShorthand.EDGE.BOTTOM);
+                    result.put(BoxModelConstants.BORDER_BOTTOM_COLOR, String.format(Locale.CHINA, "#%06X", 0xFFFFFF & borderBottomColor));
                 }
             }
         }
@@ -153,20 +152,20 @@ class ViewPropertiesSupplier {
 
     private static float getBorderWidthNative(@NonNull BorderDrawable drawable, int position) {
         try {
-            Method method = drawable.getClass().getDeclaredMethod("getBorderWidth",int.class);
+            Method method = drawable.getClass().getDeclaredMethod("getBorderWidth", int.class);
             method.setAccessible(true);
-            return (float) method.invoke(drawable,position);
+            return (float) method.invoke(drawable, position);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return 0f;
     }
 
-    private static int getBorderColorNative(@NonNull BorderDrawable drawable, int position) {
+    private static int getBorderColorNative(@NonNull BorderDrawable drawable, CSSShorthand.EDGE position) {
         try {
-            Method method = drawable.getClass().getDeclaredMethod("getBorderColor",int.class);
+            Method method = drawable.getClass().getDeclaredMethod("getBorderColor", CSSShorthand.EDGE.class);
             method.setAccessible(true);
-            return (int) method.invoke(drawable,position);
+            return (int) method.invoke(drawable, position);
         } catch (Exception e) {
             e.printStackTrace();
         }

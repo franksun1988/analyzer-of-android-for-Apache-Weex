@@ -8,21 +8,22 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.taobao.weex.WXSDKInstance;
 import com.taobao.weex.analyzer.Config;
 import com.taobao.weex.analyzer.R;
 import com.taobao.weex.analyzer.core.AbstractLoopTask;
 import com.taobao.weex.analyzer.pojo.HealthReport;
-import com.taobao.weex.analyzer.view.overlay.PermissionOverlayView;
 import com.taobao.weex.analyzer.view.highlight.MutipleViewHighlighter;
-import com.taobao.weex.ui.component.WXComponent;
+import com.taobao.weex.analyzer.view.overlay.PermissionOverlayView;
+
+import org.apache.weex.WXSDKInstance;
+import org.apache.weex.ui.component.WXComponent;
 
 import static com.taobao.weex.analyzer.R.id.close;
 
 
 /**
  * Description:
- *
+ * <p>
  * Created by rowandjj(chuyi)<br/>
  */
 
@@ -30,8 +31,8 @@ public class ProfileDomView extends PermissionOverlayView {
     private SampleTask mTask;
     private OnCloseListener mOnCloseListener;
 
-    public ProfileDomView(Context application,Config config) {
-        super(application,true,config);
+    public ProfileDomView(Context application, Config config) {
+        super(application, true, config);
         mWidth = WindowManager.LayoutParams.MATCH_PARENT;
     }
 
@@ -64,7 +65,7 @@ public class ProfileDomView extends PermissionOverlayView {
 
     @Override
     protected void onShown() {
-        if(mTask != null){
+        if (mTask != null) {
             mTask.stop();
             mTask = null;
         }
@@ -81,13 +82,13 @@ public class ProfileDomView extends PermissionOverlayView {
     }
 
     public void bindInstance(WXSDKInstance instance) {
-        if(mTask != null) {
+        if (mTask != null) {
             mTask.setInstance(instance);
         }
     }
 
 
-    private static class SampleTask extends AbstractLoopTask implements DomTracker.OnTrackNodeListener{
+    private static class SampleTask extends AbstractLoopTask implements DomTracker.OnTrackNodeListener {
 
         WXSDKInstance instance;
         TextView resultTextView;
@@ -104,7 +105,7 @@ public class ProfileDomView extends PermissionOverlayView {
             mViewHighlighter.setColor(Color.parseColor("#420000ff"));
         }
 
-        void setInstance(WXSDKInstance instance){
+        void setInstance(WXSDKInstance instance) {
             this.instance = instance;
         }
 
@@ -114,19 +115,19 @@ public class ProfileDomView extends PermissionOverlayView {
 
         @Override
         protected void onRun() {
-            if(instance == null) {
+            if (instance == null) {
                 return;
             }
             DomTracker tracker = new DomTracker(instance);
             tracker.setOnTrackNodeListener(this);
             HealthReport report = tracker.traverse();
-            if(report == null) {
+            if (report == null) {
                 return;
             }
             final StringBuilder builder = new StringBuilder();
 
             //////
-            builder.append(convertResult(report.maxLayerOfRealDom<MAX_REAL_DOM_LAYER))
+            builder.append(convertResult(report.maxLayerOfRealDom < MAX_REAL_DOM_LAYER))
                     .append("检测到native最深嵌套层级为 ")
                     .append(report.maxLayerOfRealDom)
                     .append("(仅统计weex自身渲染出来的层级)")
@@ -138,13 +139,13 @@ public class ProfileDomView extends PermissionOverlayView {
             builder.append("检测到VDOM最深嵌套层级为 ")
                     .append(report.maxLayer)
                     .append(",建议<14");
-            if(deepLayer && mViewHighlighter != null && mViewHighlighter.isSupport()) {
+            if (deepLayer && mViewHighlighter != null && mViewHighlighter.isSupport()) {
                 builder.append(",深层嵌套已高亮透出");
             }
             builder.append("\n");
             //////
 
-            if(report.hasScroller) {
+            if (report.hasScroller) {
                 builder.append(convertResult(true));
                 builder.append("检测到该页面使用了纵向的Scroller,长列表建议使用ListView")
                         .append("\n");
@@ -152,7 +153,7 @@ public class ProfileDomView extends PermissionOverlayView {
 
 
             //////
-            if(report.hasList && report.listDescMap != null) {
+            if (report.hasList && report.listDescMap != null) {
                 int listNum = report.listDescMap.size();
 
                 builder.append(convertResult(true));
@@ -161,7 +162,7 @@ public class ProfileDomView extends PermissionOverlayView {
                         .append("个")
                         .append("\n");
 
-                for(HealthReport.ListDesc desc : report.listDescMap.values()) {
+                for (HealthReport.ListDesc desc : report.listDescMap.values()) {
                     builder.append(convertResult(true))
                             .append("检测到ref为'")
                             .append(desc.ref)
@@ -174,18 +175,18 @@ public class ProfileDomView extends PermissionOverlayView {
                 }
 
                 builder.append(convertResult(!report.hasBigCell));
-                if(report.hasBigCell) {
+                if (report.hasBigCell) {
                     builder.append("检测到页面可能存在大cell,最大的cell中包含")
                             .append(report.componentNumOfBigCell).append("个组件,建议按行合理拆分")
                             .append("\n");
-                }else {
+                } else {
                     builder.append("经检测，cell大小合理")
                             .append("\n");
                 }
             }
 
             //////
-            if(report.hasEmbed) {
+            if (report.hasEmbed) {
                 int embedNum = report.embedDescList.size();
 
                 builder.append(convertResult(true));
@@ -195,12 +196,12 @@ public class ProfileDomView extends PermissionOverlayView {
                         .append(embedNum)
                         .append("\n");
 
-                for(int i = 0 ; i < embedNum; i++) {
+                for (int i = 0; i < embedNum; i++) {
                     HealthReport.EmbedDesc desc = report.embedDescList.get(i);
-                    boolean isEmbedDeep = desc.actualMaxLayer>= MAX_VDOM_LAYER;
+                    boolean isEmbedDeep = desc.actualMaxLayer >= MAX_VDOM_LAYER;
                     builder.append(convertResult(!isEmbedDeep))
                             .append("第")
-                            .append(i+1)
+                            .append(i + 1)
                             .append("个embed标签地址为")
                             .append(desc.src)
                             .append(",内容最深嵌套层级为")
@@ -230,22 +231,22 @@ public class ProfileDomView extends PermissionOverlayView {
         @Override
         protected void onStop() {
             instance = null;
-            if(mViewHighlighter != null) {
+            if (mViewHighlighter != null) {
                 mViewHighlighter.clearHighlight();
             }
         }
 
         @Override
         public void onTrackNode(@NonNull WXComponent component, int layer) {
-            if(layer < MAX_VDOM_LAYER) {
+            if (layer < MAX_VDOM_LAYER) {
                 return;
             }
             View hostView = component.getHostView();
-            if(hostView == null) {
+            if (hostView == null) {
                 return;
             }
 
-            if(mViewHighlighter != null) {
+            if (mViewHighlighter != null) {
                 mViewHighlighter.addHighlightedView(hostView);
             }
         }

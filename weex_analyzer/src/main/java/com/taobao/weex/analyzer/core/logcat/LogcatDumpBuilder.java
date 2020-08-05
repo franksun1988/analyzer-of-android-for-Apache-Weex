@@ -43,12 +43,10 @@ class LogcatDumpBuilder {
         return this;
     }
 
-    LogcatDumpBuilder cacheLimit(int limit){
+    LogcatDumpBuilder cacheLimit(int limit) {
         cacheLimit = limit;
         return this;
     }
-
-
 
 
     public LogcatDumper build() {

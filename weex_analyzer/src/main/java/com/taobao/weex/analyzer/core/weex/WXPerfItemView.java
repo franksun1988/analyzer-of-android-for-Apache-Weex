@@ -16,7 +16,8 @@ import android.widget.TextView;
 import com.taobao.weex.analyzer.R;
 import com.taobao.weex.analyzer.utils.ViewUtils;
 import com.taobao.weex.analyzer.view.overlay.AbstractBizItemView;
-import com.taobao.weex.utils.WXViewUtils;
+
+import org.apache.weex.utils.WXViewUtils;
 
 import java.util.List;
 
@@ -29,7 +30,6 @@ import java.util.List;
  */
 
 public class WXPerfItemView extends AbstractBizItemView<Performance> {
-
 
 
     private RecyclerView mPerformanceList;
@@ -86,14 +86,14 @@ public class WXPerfItemView extends AbstractBizItemView<Performance> {
 
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new ViewHolder(createItemView(mContext,parent,viewType),viewType);
+            return new ViewHolder(createItemView(mContext, parent, viewType), viewType);
         }
 
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
             if (holder instanceof ViewHolder) {
-                if(holder.getItemViewType() == ViewType.TYPE_ITEM) {
-                    ((ViewHolder) holder).bind(mValues.get(position-1));
+                if (holder.getItemViewType() == ViewType.TYPE_ITEM) {
+                    ((ViewHolder) holder).bind(mValues.get(position - 1));
                 } else {
                     ((ViewHolder) holder).bindHeader(rawPerformance);
                 }
@@ -102,33 +102,33 @@ public class WXPerfItemView extends AbstractBizItemView<Performance> {
 
         @Override
         public int getItemCount() {
-            return mValues.size()+1;
+            return mValues.size() + 1;
         }
 
         @Override
         public int getItemViewType(int position) {
-            if(position == 0) {
+            if (position == 0) {
                 return ViewType.TYPE_HEADER;
             } else {
                 return ViewType.TYPE_ITEM;
             }
         }
 
-        View createItemView(Context context,ViewGroup parent, int viewType) {
+        View createItemView(Context context, ViewGroup parent, int viewType) {
             View itemView;
-            if(viewType == ViewType.TYPE_ITEM) {
+            if (viewType == ViewType.TYPE_ITEM) {
                 itemView = new TextView(context);
                 RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT);
 
                 int margin = WXViewUtils.dip2px(5);
                 params.topMargin = params.bottomMargin = margin;
-                ((TextView)itemView).setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
-                ((TextView)itemView).setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+                ((TextView) itemView).setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
+                ((TextView) itemView).setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
                 itemView.setLayoutParams(params);
-                itemView.setPadding((int) ViewUtils.dp2px(context,15),0,0,0);
-                ((TextView)itemView).setTextColor(Color.BLACK);
+                itemView.setPadding((int) ViewUtils.dp2px(context, 15), 0, 0, 0);
+                ((TextView) itemView).setTextColor(Color.BLACK);
             } else {
-                itemView = LayoutInflater.from(context).inflate(R.layout.wxt_cur_perf_header,parent,false);
+                itemView = LayoutInflater.from(context).inflate(R.layout.wxt_cur_perf_header, parent, false);
             }
 
             return itemView;
@@ -155,7 +155,7 @@ public class WXPerfItemView extends AbstractBizItemView<Performance> {
 
         ViewHolder(View itemView, int viewType) {
             super(itemView);
-            if(viewType == ViewType.TYPE_ITEM) {
+            if (viewType == ViewType.TYPE_ITEM) {
                 mValueText = (TextView) itemView;
             } else {
                 jsfmVersionView = (TextView) itemView.findViewById(R.id.text_jsfm_version);
@@ -176,9 +176,9 @@ public class WXPerfItemView extends AbstractBizItemView<Performance> {
             pageNameView.setText("页面名称: " + performance.pageName + "");
             sdkVersionView.setText("Weex Sdk版本: " + performance.WXSDKVersion + "");
             sdkInitTime.setText("Weex SDK初始化时间 : " + performance.sdkInitTime + "ms");
-            jsfmVersionView.setText("JSFramework版本 : " + performance.JSLibVersion+"");
+            jsfmVersionView.setText("JSFramework版本 : " + performance.JSLibVersion + "");
             renderTimeView.setText("首屏时间 : " + performance.screenRenderTime + "ms");
-            networkTime.setText("网络时间 : "+ performance.networkTime + "ms");
+            networkTime.setText("网络时间 : " + performance.networkTime + "ms");
             jsTemplateSizeView.setText("jsBundle大小 : " + performance.JSTemplateSize + "KB");
         }
     }

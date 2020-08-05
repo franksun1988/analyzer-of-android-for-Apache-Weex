@@ -2,11 +2,11 @@ package com.taobao.weex.analyzer.core.lint;
 
 import android.support.annotation.NonNull;
 
-import com.taobao.weex.WXSDKInstance;
+import org.apache.weex.WXSDKInstance;
 
 /**
  * Description:
- *
+ * <p>
  * Created by rowandjj(chuyi)<br/>
  */
 

@@ -4,7 +4,8 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.taobao.weex.analyzer.utils.ReflectionUtil;
-import com.taobao.weex.utils.WXLogUtils;
+
+import org.apache.weex.utils.WXLogUtils;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -153,8 +154,8 @@ class OkHttp3WebSocketClient extends WebSocketClient {
 
             ReflectionUtil.tryInvokeMethod(mWebSocket, closeMethod, 1000, "End of session");
             mWebSocket = null;
-            if(mConnectCallback != null) {
-                mConnectCallback.onClose(-1,"close");
+            if (mConnectCallback != null) {
+                mConnectCallback.onClose(-1, "close");
             }
         }
     }

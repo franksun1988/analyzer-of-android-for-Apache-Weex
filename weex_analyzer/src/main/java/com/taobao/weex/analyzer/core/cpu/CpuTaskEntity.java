@@ -7,7 +7,7 @@ import com.taobao.weex.analyzer.core.TaskEntity;
 
 /**
  * Description:
- *
+ * <p>
  * Created by rowandjj(chuyi)<br/>
  */
 
@@ -37,7 +37,7 @@ public class CpuTaskEntity implements TaskEntity<CpuTaskEntity.CpuInfo> {
         String pidCpuRate = CpuSampler.samplePidCpuRate();
         String totalCpuRate = CpuSampler.sampleCpuRate();
 
-        if(mCachedCpuInfo == null) {
+        if (mCachedCpuInfo == null) {
             mCachedCpuInfo = new CpuInfo();
         }
 
@@ -88,18 +88,18 @@ public class CpuTaskEntity implements TaskEntity<CpuTaskEntity.CpuInfo> {
             //we found that sometimes pidCpuUsage is over 100% if use below algorithm,
             //so we use pidCpuUsage = pidUserCpuUsage + pidKernelCpuUsage instead.
 //            pidCpuUsage = (pidCpuTime - mPidTotalCpuTimeLast) * 100L /(double) (cpuTime - mTotalCpuTimeLast);
-            pidUserCpuUsage = (pidUTime - mPidUserCpuTimeLast) * 100L /(double) (cpuTime - mTotalCpuTimeLast);
-            pidKernelCpuUsage = (pidSTime - mPidKernelCpuTimeLast) * 100L /(double) (cpuTime - mTotalCpuTimeLast);
+            pidUserCpuUsage = (pidUTime - mPidUserCpuTimeLast) * 100L / (double) (cpuTime - mTotalCpuTimeLast);
+            pidKernelCpuUsage = (pidSTime - mPidKernelCpuTimeLast) * 100L / (double) (cpuTime - mTotalCpuTimeLast);
             pidCpuUsage = pidUserCpuUsage + pidKernelCpuUsage;
-        }else{
+        } else {
             pidCpuUsage = 0L;
             pidUserCpuUsage = 0L;
             pidKernelCpuUsage = 0L;
         }
 
-        mCachedCpuInfo.pidCpuUsage = Math.max(0,pidCpuUsage);
-        mCachedCpuInfo.pidUserCpuUsage = Math.max(0,pidUserCpuUsage);
-        mCachedCpuInfo.pidKernelCpuUsage = Math.max(0,pidKernelCpuUsage);
+        mCachedCpuInfo.pidCpuUsage = Math.max(0, pidCpuUsage);
+        mCachedCpuInfo.pidUserCpuUsage = Math.max(0, pidUserCpuUsage);
+        mCachedCpuInfo.pidKernelCpuUsage = Math.max(0, pidKernelCpuUsage);
 
         mTotalCpuTimeLast = cpuTime;
         mPidTotalCpuTimeLast = pidCpuTime;

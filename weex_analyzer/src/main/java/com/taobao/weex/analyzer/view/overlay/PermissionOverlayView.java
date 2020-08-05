@@ -7,11 +7,11 @@ import com.taobao.weex.analyzer.IPermissionHandler;
 
 /**
  * Description:
- *
+ * <p>
  * Created by rowandjj(chuyi)<br/>
  */
 
-public abstract class PermissionOverlayView extends DragSupportOverlayView implements IPermissionHandler{
+public abstract class PermissionOverlayView extends DragSupportOverlayView implements IPermissionHandler {
     protected Config mConfig;
 
     public PermissionOverlayView(Context application) {
@@ -31,7 +31,7 @@ public abstract class PermissionOverlayView extends DragSupportOverlayView imple
 
     @Override
     public void show() {
-        if(mConfig != null && !isPermissionGranted(mConfig)) {
+        if (mConfig != null && !isPermissionGranted(mConfig)) {
             return;
         }
         super.show();

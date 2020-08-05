@@ -18,7 +18,7 @@ import static org.robolectric.Shadows.shadowOf;
 
 /**
  * Description:
- *
+ * <p>
  * Created by rowandjj(chuyi)<br/>
  */
 @RunWith(RobolectricTestRunner.class)
@@ -37,14 +37,14 @@ public class JSExceptionCatcherTest {
     public void catchException() throws Exception {
         String fakeErrCode = "fake_error_code";
         String fakeMsg = "fake_msg";
-        AlertDialog dialog = JSExceptionCatcher.catchException(RuntimeEnvironment.application,null,null,fakeErrCode,fakeMsg);
+        AlertDialog dialog = JSExceptionCatcher.catchException(RuntimeEnvironment.application, null, null, fakeErrCode, fakeMsg);
 
         assertNotNull(dialog);
         ShadowAlertDialog shadowAlertDialog = shadowOf(dialog);
-        assertEquals(dialog.isShowing(),true);
-        assertEquals(ShadowAlertDialog.getLatestAlertDialog(),dialog);
+        assertEquals(dialog.isShowing(), true);
+        assertEquals(ShadowAlertDialog.getLatestAlertDialog(), dialog);
 
-        assertEquals("WeexAnalyzer捕捉到异常",shadowAlertDialog.getTitle());
+        assertEquals("WeexAnalyzer捕捉到异常", shadowAlertDialog.getTitle());
     }
 
 }

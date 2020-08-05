@@ -17,20 +17,21 @@ import com.taobao.weex.analyzer.Config;
 import com.taobao.weex.analyzer.WeexDevOptions;
 import com.taobao.weex.analyzer.core.AbstractLoopTask;
 import com.taobao.weex.analyzer.core.Constants;
+import com.taobao.weex.analyzer.core.TaskEntity;
 import com.taobao.weex.analyzer.core.cpu.CpuTaskEntity;
 import com.taobao.weex.analyzer.core.fps.FPSSampler;
 import com.taobao.weex.analyzer.core.fps.FpsTaskEntity;
-import com.taobao.weex.analyzer.core.memory.MemoryTaskEntity;
 import com.taobao.weex.analyzer.core.inspector.network.NetworkEventInspector;
-import com.taobao.weex.analyzer.core.weex.Performance;
-import com.taobao.weex.analyzer.core.TaskEntity;
-import com.taobao.weex.analyzer.core.traffic.TrafficTaskEntity;
 import com.taobao.weex.analyzer.core.lint.RemoteVDomMonitor;
+import com.taobao.weex.analyzer.core.memory.MemoryTaskEntity;
 import com.taobao.weex.analyzer.core.reporter.ws.IWebSocketBridge;
 import com.taobao.weex.analyzer.core.reporter.ws.WebSocketClient;
+import com.taobao.weex.analyzer.core.traffic.TrafficTaskEntity;
+import com.taobao.weex.analyzer.core.weex.Performance;
 import com.taobao.weex.analyzer.pojo.HealthReport;
 import com.taobao.weex.analyzer.utils.SDKUtils;
-import com.taobao.weex.utils.WXLogUtils;
+
+import org.apache.weex.utils.WXLogUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Description:
- *
+ * <p>
  * Created by rowandjj(chuyi)<br/>
  */
 
@@ -73,7 +74,7 @@ public class AnalyzerService extends Service implements WebSocketClient.Callback
         super.onCreate();
         createTask();
         mDispatchReceiver = new DispatchReceiver();
-        LocalBroadcastManager.getInstance(this).registerReceiver(mDispatchReceiver,new IntentFilter(ACTION_DISPATCH));
+        LocalBroadcastManager.getInstance(this).registerReceiver(mDispatchReceiver, new IntentFilter(ACTION_DISPATCH));
     }
 
     @Override
@@ -91,29 +92,29 @@ public class AnalyzerService extends Service implements WebSocketClient.Callback
             String wsUrl = intent.getStringExtra(WeexDevOptions.EXTRA_WS_URL);
 
             if (!TextUtils.isEmpty(id) && !TextUtils.isEmpty(wsUrl)) {
-                reporter = DataReporterFactory.createWSReporter(MDS, id, wsUrl ,this, this);
+                reporter = DataReporterFactory.createWSReporter(MDS, id, wsUrl, this, this);
                 mTask.setDeviceId(id);
 
-                if(mDispatchReceiver != null) {
-                    mDispatchReceiver.setup((WebSocketReporter) reporter,id);
+                if (mDispatchReceiver != null) {
+                    mDispatchReceiver.setup((WebSocketReporter) reporter, id);
                 }
 
-                if(mInspector != null) {
+                if (mInspector != null) {
                     mInspector.destroy();
                 }
                 mInspector = NetworkEventInspector.createInstance(this, new NetworkEventInspector.OnMessageReceivedListener() {
                     @Override
                     public void onMessageReceived(NetworkEventInspector.MessageBean msg) {
-                        if(config == null || !config.isNetworkInspectorEnabled) {
+                        if (config == null || !config.isNetworkInspectorEnabled) {
                             return;
                         }
                         if (reporter != null && msg != null && reporter.isEnabled() && reporter instanceof WebSocketReporter) {
-                            ((WebSocketReporter)reporter).report(new IDataReporter.ProcessedDataBuilder<NetworkEventInspector.MessageBean>()
+                            ((WebSocketReporter) reporter).report(new IDataReporter.ProcessedDataBuilder<NetworkEventInspector.MessageBean>()
 //                                    .sequenceId(mCounter.getAndIncrement())
-                                    .data(msg)
-                                    .deviceId(id)
-                                    .type(Config.TYPE_MTOP_INSPECTOR)
-                                    .build()
+                                            .data(msg)
+                                            .deviceId(id)
+                                            .type(Config.TYPE_MTOP_INSPECTOR)
+                                            .build()
                             );
                         }
                     }
@@ -123,7 +124,7 @@ public class AnalyzerService extends Service implements WebSocketClient.Callback
         config = new WSConfig();
         mTask.setReporter(reporter);
         mTask.setConfig(config);
-        if(mDispatchReceiver != null) {
+        if (mDispatchReceiver != null) {
             mDispatchReceiver.setConfig(config);
         }
         mTask.start();
@@ -142,10 +143,10 @@ public class AnalyzerService extends Service implements WebSocketClient.Callback
             ((WebSocketReporter) reporter).close(-1, "close");
         }
         Log.d(Constants.TAG, "service is destroyed");
-        if(mDispatchReceiver != null) {
+        if (mDispatchReceiver != null) {
             LocalBroadcastManager.getInstance(this).unregisterReceiver(mDispatchReceiver);
         }
-        if(mInspector != null) {
+        if (mInspector != null) {
             mInspector.destroy();
         }
     }
@@ -156,12 +157,12 @@ public class AnalyzerService extends Service implements WebSocketClient.Callback
 
     @Override
     public void onOpen(String response) {
-        WXLogUtils.d(Constants.TAG,"onOpen:"+response);
+        WXLogUtils.d(Constants.TAG, "onOpen:" + response);
     }
 
     @Override
     public void onFailure(Throwable cause) {
-        Log.d(Constants.TAG, this + " service is stopped because of bad webSocket:"+cause.getMessage());
+        Log.d(Constants.TAG, this + " service is stopped because of bad webSocket:" + cause.getMessage());
     }
 
     @Override
@@ -180,7 +181,7 @@ public class AnalyzerService extends Service implements WebSocketClient.Callback
                 return;
             }
 
-            if("switcher".equals(wsMessage.type)) {
+            if ("switcher".equals(wsMessage.type)) {
                 List<String> switchers = wsMessage.switchers;
                 String action = wsMessage.action;
                 for (String switcher : switchers) {
@@ -193,7 +194,7 @@ public class AnalyzerService extends Service implements WebSocketClient.Callback
     }
 
     private void updateConfig(WSConfig config, String type, boolean status) {
-        WXLogUtils.d(Constants.TAG,"config>>>>type:"+type+",status:"+status);
+        WXLogUtils.d(Constants.TAG, "config>>>>type:" + type + ",status:" + status);
         if (Config.TYPE_MEMORY.equals(type)) {
             config.isMemoryEnabled = status;
         } else if (Config.TYPE_CPU.equals(type)) {
@@ -207,7 +208,7 @@ public class AnalyzerService extends Service implements WebSocketClient.Callback
         } else if (Config.TYPE_RENDER_ANALYSIS.equals(type)) {
             config.isRenderAnalysisEnabled = status;
             Intent intent = new Intent(RemoteVDomMonitor.ACTION_SHOULD_MONITOR);
-            intent.putExtra(RemoteVDomMonitor.EXTRA_MONITOR,config.isRenderAnalysisEnabled);
+            intent.putExtra(RemoteVDomMonitor.EXTRA_MONITOR, config.isRenderAnalysisEnabled);
             LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
 
         } else if (Config.TYPE_MTOP_INSPECTOR.equals(type)) {
@@ -225,6 +226,7 @@ public class AnalyzerService extends Service implements WebSocketClient.Callback
         public String type;//lifecycle
         public String status;
         public String pageName;
+
         public LifecycleEvent(String type, String status, String pageName) {
             this.type = type;
             this.status = status;
@@ -251,20 +253,20 @@ public class AnalyzerService extends Service implements WebSocketClient.Callback
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            if(!intent.getAction().equals(ACTION_DISPATCH)) {
+            if (!intent.getAction().equals(ACTION_DISPATCH)) {
                 return;
             }
 
-            if(reporter == null || !reporter.isEnabled() || config == null) {
+            if (reporter == null || !reporter.isEnabled() || config == null) {
                 return;
             }
 
             String type = intent.getStringExtra("type");
 
-            if(Config.TYPE_WEEX_PERFORMANCE_STATISTICS.equals(type)) {
+            if (Config.TYPE_WEEX_PERFORMANCE_STATISTICS.equals(type)) {
                 String weex_performance = intent.getStringExtra(Config.TYPE_WEEX_PERFORMANCE_STATISTICS);
-                if(!TextUtils.isEmpty(weex_performance) && config.isPerformanceEnabled) {
-                    Performance performance = JSON.parseObject(weex_performance,Performance.class);
+                if (!TextUtils.isEmpty(weex_performance) && config.isPerformanceEnabled) {
+                    Performance performance = JSON.parseObject(weex_performance, Performance.class);
                     reporter.report(new IDataReporter.ProcessedDataBuilder<Performance>()
                             .deviceId(deviceId)
                             .data(performance)
@@ -272,11 +274,11 @@ public class AnalyzerService extends Service implements WebSocketClient.Callback
                             .build()
                     );
                 }
-            } else if("lifecycle".equals(type)) {
+            } else if ("lifecycle".equals(type)) {
                 String status = intent.getStringExtra("status");
                 String pageName = intent.getStringExtra("pageName");//可能为null
-                if(!TextUtils.isEmpty(status)) {
-                    LifecycleEvent event = new LifecycleEvent(type,status,pageName);
+                if (!TextUtils.isEmpty(status)) {
+                    LifecycleEvent event = new LifecycleEvent(type, status, pageName);
                     reporter.report(new IDataReporter.ProcessedDataBuilder<LifecycleEvent>()
                             .deviceId(deviceId)
                             .data(event)
@@ -284,10 +286,10 @@ public class AnalyzerService extends Service implements WebSocketClient.Callback
                             .build()
                     );
                 }
-            } else if(Config.TYPE_RENDER_ANALYSIS.equals(type)) {
+            } else if (Config.TYPE_RENDER_ANALYSIS.equals(type)) {
                 String healthReport = intent.getStringExtra(Config.TYPE_RENDER_ANALYSIS);
-                if(!TextUtils.isEmpty(healthReport) && config.isRenderAnalysisEnabled) {
-                    HealthReport report = JSON.parseObject(healthReport,HealthReport.class);
+                if (!TextUtils.isEmpty(healthReport) && config.isRenderAnalysisEnabled) {
+                    HealthReport report = JSON.parseObject(healthReport, HealthReport.class);
                     reporter.report(new IDataReporter.ProcessedDataBuilder<HealthReport>()
                             .deviceId(deviceId)
                             .data(report)
@@ -376,10 +378,10 @@ public class AnalyzerService extends Service implements WebSocketClient.Callback
                 analyzeForATS((LogReporter) mReporter);
             } else if (mReporter instanceof WebSocketReporter) {
                 WebSocketReporter realReporter = (WebSocketReporter) mReporter;
-                if(mConfig != null) {
-                    analyzeForMDS(realReporter,mConfig);
+                if (mConfig != null) {
+                    analyzeForMDS(realReporter, mConfig);
                 } else {
-                    WXLogUtils.e(Constants.TAG,"config is null");
+                    WXLogUtils.e(Constants.TAG, "config is null");
                 }
 
             }
@@ -403,7 +405,7 @@ public class AnalyzerService extends Service implements WebSocketClient.Callback
                         reporter.report(new IDataReporter.ProcessedDataBuilder<Double>()
                                 .type(Config.TYPE_CPU)
                                 .deviceId(deviceId)
-                                .data((Math.round(cpuInfo.pidCpuUsage*100)/100.0))
+                                .data((Math.round(cpuInfo.pidCpuUsage * 100) / 100.0))
                                 .sequenceId(generateSequenceId())
                                 .build());
                     } else if (entity instanceof TrafficTaskEntity && config.isTrafficEnabled) {

@@ -3,9 +3,9 @@ package com.taobao.weex.analyzer.core.weex;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.taobao.weex.WXSDKInstance;
-import com.taobao.weex.common.WXPerformance;
-import com.taobao.weex.utils.WXLogUtils;
+import org.apache.weex.WXSDKInstance;
+import org.apache.weex.common.WXPerformance;
+import org.apache.weex.utils.WXLogUtils;
 
 import java.lang.reflect.Field;
 
@@ -24,8 +24,8 @@ import java.lang.reflect.Field;
 public class PerformanceMonitor {
 
     public static @Nullable
-    Performance monitor(@Nullable WXSDKInstance instance){
-        if(instance == null){
+    Performance monitor(@Nullable WXSDKInstance instance) {
+        if (instance == null) {
             return null;
         }
         WXPerformance rawPerformance = null;
@@ -38,8 +38,8 @@ public class PerformanceMonitor {
             WXLogUtils.e(e.getMessage());
         }
 
-        if(rawPerformance != null){
-             return filter(rawPerformance);
+        if (rawPerformance != null) {
+            return filter(rawPerformance);
         }
         return null;
     }
@@ -54,12 +54,12 @@ public class PerformanceMonitor {
         p.templateLoadTime = rawPerformance.templateLoadTime;
         p.communicateTime = rawPerformance.communicateTime;
         p.screenRenderTime = rawPerformance.screenRenderTime;
-        p.callNativeTime = rawPerformance.callNativeTime;
+//        p.callNativeTime = rawPerformance.callNativeTime;
         p.firstScreenJSFExecuteTime = rawPerformance.firstScreenJSFExecuteTime;
-        p.batchTime = rawPerformance.batchTime;
+//        p.batchTime = rawPerformance.batchTime;
         p.parseJsonTime = rawPerformance.parseJsonTime;
-        p.updateDomObjTime = rawPerformance.updateDomObjTime;
-        p.applyUpdateTime = rawPerformance.applyUpdateTime;
+//        p.updateDomObjTime = rawPerformance.updateDomObjTime;
+//        p.applyUpdateTime = rawPerformance.applyUpdateTime;
         p.cssLayoutTime = rawPerformance.cssLayoutTime;
         p.totalTime = rawPerformance.totalTime;
         p.networkTime = rawPerformance.networkTime;

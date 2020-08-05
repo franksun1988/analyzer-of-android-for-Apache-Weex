@@ -7,7 +7,7 @@ import com.taobao.weex.analyzer.core.Constants;
 
 /**
  * Description:
- *
+ * <p>
  * Created by rowandjj(chuyi)<br/>
  */
 
@@ -21,8 +21,8 @@ class LogReporter implements IDataReporter<String> {
 
     @Override
     public void report(@NonNull ProcessedData<String> data) {
-        if(data.getData() != null) {
-            Log.d(Constants.TAG,data.getData());
+        if (data.getData() != null) {
+            Log.d(Constants.TAG, data.getData());
         }
     }
 

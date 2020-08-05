@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * Description:
- *
+ * <p>
  * Created by rowandjj(chuyi)<br/>
  */
 @RunWith(PowerMockRunner.class)
@@ -24,6 +24,7 @@ import static org.junit.Assert.assertEquals;
 public class MemoryTaskEntityTest {
 
     private MemoryTaskEntity entity;
+
     @Before
     public void setUp() throws Exception {
         PowerMockito.mockStatic(MemorySampler.class);
@@ -39,7 +40,7 @@ public class MemoryTaskEntityTest {
     @Test
     public void onTaskRun() throws Exception {
         double result = entity.onTaskRun();
-        assertEquals(result,1.5,0);
+        assertEquals(result, 1.5, 0);
     }
 
 }

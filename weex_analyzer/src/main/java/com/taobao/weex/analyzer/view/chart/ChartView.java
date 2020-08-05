@@ -10,22 +10,19 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * https://github.com/jjoe64/GraphView
  * * @author jjoe64
- *
+ * <p>
  * modified: remove some unused code such as second scale/other chart type...
  */
 public class ChartView extends View {
     /**
      * Class to wrap style options that are general
      * to graphs.
-     *
      */
     private static final class Styles {
         /**
@@ -48,7 +45,6 @@ public class ChartView extends View {
     /**
      * Helper class to detect tap events on the
      * graph.
-     *
      */
     private class TapDetector {
         /**
@@ -87,7 +83,7 @@ public class ChartView extends View {
 
     /**
      * whether touch event can received or not
-     * */
+     */
     private boolean isTouchEnabled = true;
 
     private List<Series> mSeries;
@@ -135,6 +131,7 @@ public class ChartView extends View {
 
     /**
      * Initialize the GraphView view
+     *
      * @param context
      */
     public ChartView(Context context) {
@@ -207,6 +204,7 @@ public class ChartView extends View {
     /**
      * Add a new series to the graph. This will
      * automatically redraw the graph.
+     *
      * @param s the series to be added
      */
     public void addSeries(Series s) {
@@ -234,7 +232,7 @@ public class ChartView extends View {
      */
     protected void drawGraphElements(Canvas canvas) {
         if (android.os.Build.VERSION.SDK_INT >= 11 && !canvas.isHardwareAccelerated()) {
-            Log.d("ChartView","use android:hardwareAccelerated=\"true\" for better performance");
+            Log.d("ChartView", "use android:hardwareAccelerated=\"true\" for better performance");
         }
 
         try {
@@ -246,7 +244,7 @@ public class ChartView extends View {
             }
             mViewport.draw(canvas);
             mLegendRenderer.draw(canvas);
-        }catch (Exception e) {
+        } catch (Exception e) {
             Log.d("ChartView", e.getMessage());
         }
     }
@@ -260,7 +258,7 @@ public class ChartView extends View {
     protected void onDraw(Canvas canvas) {
         if (isInEditMode()) {
             canvas.drawColor(Color.rgb(200, 200, 200));
-            canvas.drawText("GraphView: No Preview available", canvas.getWidth()/2, canvas.getHeight()/2, mPreviewPaint);
+            canvas.drawText("GraphView: No Preview available", canvas.getWidth() / 2, canvas.getHeight() / 2, mPreviewPaint);
         } else {
             drawGraphElements(canvas);
         }
@@ -274,11 +272,11 @@ public class ChartView extends View {
      * @param canvas Canvas
      */
     protected void drawTitle(Canvas canvas) {
-        if (mTitle != null && mTitle.length()>0) {
+        if (mTitle != null && mTitle.length() > 0) {
             mPaintTitle.setColor(mStyles.titleColor);
             mPaintTitle.setTextSize(mStyles.titleTextSize);
             mPaintTitle.setTextAlign(Paint.Align.CENTER);
-            float x = canvas.getWidth()/2;
+            float x = canvas.getWidth() / 2;
             float y = mPaintTitle.getTextSize();
             canvas.drawText(mTitle, x, y, mPaintTitle);
         }
@@ -287,12 +285,12 @@ public class ChartView extends View {
     /**
      * Calculates the height of the title.
      *
-     * @return  the actual size of the title.
-     *          if there is no title, 0 will be
-     *          returned.
+     * @return the actual size of the title.
+     * if there is no title, 0 will be
+     * returned.
      */
     protected int getTitleHeight() {
-        if (mTitle != null && mTitle.length()>0) {
+        if (mTitle != null && mTitle.length() > 0) {
             return (int) mPaintTitle.getTextSize();
         } else {
             return 0;
@@ -324,9 +322,9 @@ public class ChartView extends View {
     }
 
     /**
-     * @return  the space on the left side of the
-     *          view from the left border to the
-     *          beginning of the graph viewport.
+     * @return the space on the left side of the
+     * view from the left border to the
+     * beginning of the graph viewport.
      */
     public int getGraphContentLeft() {
         int border = getGridLabelRenderer().getStyles().padding;
@@ -334,9 +332,9 @@ public class ChartView extends View {
     }
 
     /**
-     * @return  the space on the top of the
-     *          view from the top border to the
-     *          beginning of the graph viewport.
+     * @return the space on the top of the
+     * view from the top border to the
+     * beginning of the graph viewport.
      */
     public int getGraphContentTop() {
         int border = getGridLabelRenderer().getStyles().padding + getTitleHeight();
@@ -344,7 +342,7 @@ public class ChartView extends View {
     }
 
     /**
-     * @return  the height of the graph viewport.
+     * @return the height of the graph viewport.
      */
     public int getGraphContentHeight() {
         int border = getGridLabelRenderer().getStyles().padding;
@@ -354,7 +352,7 @@ public class ChartView extends View {
     }
 
     /**
-     * @return  the width of the graph viewport.
+     * @return the width of the graph viewport.
      */
     public int getGraphContentWidth() {
         int border = getGridLabelRenderer().getStyles().padding;
@@ -370,7 +368,7 @@ public class ChartView extends View {
      */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if(!isTouchEnabled){
+        if (!isTouchEnabled) {
             return false;
         }
 
@@ -387,11 +385,11 @@ public class ChartView extends View {
         return b || a;
     }
 
-    public void setTouchEnabled(boolean isTouchEnabled){
+    public void setTouchEnabled(boolean isTouchEnabled) {
         this.isTouchEnabled = isTouchEnabled;
     }
 
-    public boolean isTouchEnabled(){
+    public boolean isTouchEnabled() {
         return isTouchEnabled;
     }
 
@@ -415,8 +413,8 @@ public class ChartView extends View {
     }
 
     /**
-     * @return  the title that will be shown
-     *          above the graph.
+     * @return the title that will be shown
+     * above the graph.
      */
     public String getTitle() {
         return mTitle;
